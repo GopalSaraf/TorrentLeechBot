@@ -146,8 +146,8 @@ async def status_message_f(client, message):
 
         hr, mi, se = up_time(time.time() - BOT_START_TIME)
         total, used, free = shutil.disk_usage(".")
-        ram = psutil.virtual_memory().percent
-        cpu = psutil.cpu_percent()
+ #       ram = psutil.virtual_memory().percent
+ #       cpu = psutil.cpu_percent()
         total = humanbytes(total)
         used = humanbytes(used)
         free = humanbytes(free)
@@ -155,7 +155,7 @@ async def status_message_f(client, message):
         ms_g = (
             f"<b>Bot Uptime</b>: <code>{hr} : {mi} : {se}</code>\n"
             f"<b>T:</b> <code>{total}</code> <b>U:</b> <code>{used}</code> <b>F:</b> <code>{free}</code>\n"
-            f"<b>RAM:</b> <code>{ram}%</code> <b>CPU:</b> <code>{cpu}%</code>\n"
+#            f"<b>RAM:</b> <code>{ram}%</code> <b>CPU:</b> <code>{cpu}%</code>\n"
         )
         if msg == "":
             msg = "🤷‍♂️ No Active, Queued or Paused TORRENTs"
