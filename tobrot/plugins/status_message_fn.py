@@ -371,7 +371,7 @@ async def help_message_f(client, message):
 
 For further help contact **@GopalSaraf**
 **THANK YOU!**
-😊
+😊😊😊
 """)
    
     LOGGER.info(msg)
