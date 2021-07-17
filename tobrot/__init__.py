@@ -125,6 +125,7 @@ gDict = defaultdict(lambda: [])
 # user settings dict #ToDo
 user_settings = defaultdict(lambda: {})
 HELP_COMMAND = os.environ.get("HELP_COMMAND", "help@torrgsbot")
+gid_dict = defaultdict(lambda: [])
 
 
 def multi_rclone_init():
