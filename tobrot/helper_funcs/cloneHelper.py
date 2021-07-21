@@ -112,7 +112,7 @@ class CloneHelper:
             button.append(
                 [
                     pyrogram.InlineKeyboardButton(
-                        text="🔮 GDrive", url=f"{gau_link}"
+                        text="☁️ GDrive ☁️", url=f"{gau_link}"
                     )
                 ]
             )
@@ -126,13 +126,13 @@ class CloneHelper:
                 button.append(
                     [
                         pyrogram.InlineKeyboardButton(
-                            text="💡 𝐈𝐧𝐝𝐞𝐱 𝐋𝐢𝐧𝐤", url=f"{tam_link}"
+                            text="ℹ️ IndexUrl ℹ️", url=f"{tam_link}"
                         )
                     ]
                 )
             button_markup = pyrogram.InlineKeyboardMarkup(button)
             msg = await self.lsg.edit_text(
-                f"{_up} Cloned successfully in your Cloud <a href='tg://user?id={self.u_id}'>😊</a>\
+                f"{_up} Cloned successfully in GDrive <a href='tg://user?id={self.u_id}'>😊</a>\
                 \n💾 Info: Calculating...",
                 reply_markup=button_markup,
                 parse_mode="html",
@@ -153,7 +153,7 @@ class CloneHelper:
             LOGGER.info(am.decode("utf-8"))
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             await msg.edit_text(
-                f"{_up} Cloned successfully in your Cloud <a href='tg://user?id={self.u_id}'>😊</a>\
+                f"{_up} Cloned successfully in GDrive <a href='tg://user?id={self.u_id}'>😊</a>\
                 \n💾 Info:\n{g_autam}",
                 reply_markup=button_markup,
                 parse_mode="html",
