@@ -18,7 +18,7 @@ async def rclone_command_f(client, message):
     LOGGER.info(
         f"rclone command from chatid:{message.chat.id}, userid:{message.from_user.id}"
     )
-    if message.from_user.id == OWNER_ID and message.chat.type == "private":
+    if message.from_user.id == OWNER_ID:
         config = ConfigParser()
         config.read("rclone_bak.conf")
         sections = list(config.sections())
