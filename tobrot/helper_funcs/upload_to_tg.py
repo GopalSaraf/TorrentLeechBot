@@ -318,9 +318,9 @@ async def upload_single_file(
         message_for_progress_display = message
         if not edit_media:
             message_for_progress_display = await message.reply_text(
-                "<b>Trying to upload</b>\n\n📙<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
+                "<b>Trying to upload <code>{}</code>".format(os.path.basename(local_file_name))
             )
-            prog = Progress(from_user, client, message_for_progress_display)
+            prog = Progress(from_user, client, message_for_progress_display, os.path.basename(local_file_name))
         sent_message = await message.reply_document(
             document=local_file_name,
             thumb=thumb,
