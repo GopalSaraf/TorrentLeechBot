@@ -92,7 +92,7 @@ class Progress:
                 ),
             )
 
-            tmp = progress1 + progress2 + "**Speed:** {2}/sec\n**Status:** {0} / {1}  ({5}%) \n**ETA:** {3}\n".format(
+            tmp = progress1 + progress2 + "**Speed:** {2}/sec\n**Status:** {0} / {1}  ({4}%) \n**ETA:** {3}\n".format(
                 humanbytes(current),
                 humanbytes(total),
                 humanbytes(speed),
