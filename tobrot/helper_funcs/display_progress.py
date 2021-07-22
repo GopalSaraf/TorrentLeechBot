@@ -27,7 +27,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
 class Progress:
-    def __init__(self, from_user, client, mess: Message, filename_bygopal=''):
+    def __init__(self, from_user, client, mess: Message, filename_bygopal='Your File'):
         self._from_user = from_user
         self._client = client
         self._mess = mess
