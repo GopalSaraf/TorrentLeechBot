@@ -154,7 +154,7 @@ async def status_message_f(client, message):
 
         ms_g = (
             f"<b>Bot Uptime</b>: <code>{hr} : {mi} : {se}</code>\n"
-            f"<b>T:</b> <code>{total}</code> <b>U:</b> <code>{used}</code> <b>F:</b> <code>{free}</code>\n"
+            f"<b>Total :</b> <code>{total}</code> <b>Used :</b> <code>{used}</code> <b>Free :</b> <code>{free}</code>\n"
 #            f"<b>RAM:</b> <code>{ram}%</code> <b>CPU:</b> <code>{cpu}%</code>\n"
         )
         if msg == "":
