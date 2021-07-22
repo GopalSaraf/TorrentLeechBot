@@ -269,7 +269,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
         LOGGER.info(gjay)
         button = []
         button.append(
-            [pyrogram.InlineKeyboardButton(text="☁️ CloudUrl ☁️", url=f"{gautii}")]
+            [pyrogram.InlineKeyboardButton(text="☁️ GDrive ☁️", url=f"{gautii}")]
         )
         if INDEX_LINK:
             indexurl = f"{INDEX_LINK}/{os.path.basename(file_upload)}/"
