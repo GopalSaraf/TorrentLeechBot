@@ -8,7 +8,7 @@ import re
 import subprocess
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from tobrot import DESTINATION_FOLDER, EDIT_SLEEP_TIME_OUT, LOGGER, RCLONE_CONFIG
+from tobrot import DESTINATION_FOLDER, EDIT_SLEEP_TIME_OUT, LOGGER, RCLONE_CONFIG, OWNER_ID
 
 
 async def check_size_g(client, message):
