@@ -42,18 +42,21 @@ async def check_size_g(client, message):
 
 
 async def g_clearme(client, message):
-    inline_keyboard = []
-    ikeyboard = []
-    ikeyboard.append(
-        InlineKeyboardButton("Yes 🚫", callback_data=("fuckingdo").encode("UTF-8"))
-    )
-    ikeyboard.append(
-        InlineKeyboardButton("No 🤗", callback_data=("fuckoff").encode("UTF-8"))
-    )
-    inline_keyboard.append(ikeyboard)
-    reply_markup = InlineKeyboardMarkup(inline_keyboard)
-    await message.reply_text(
-        "Are you sure? 🚫 This will delete all your downloads locally 🚫",
-        reply_markup=reply_markup,
-        quote=True,
-    )
+    if message.from_user.id == OWNER_ID:
+        inline_keyboard = []
+        ikeyboard = []
+        ikeyboard.append(
+            InlineKeyboardButton("Yes 🚫", callback_data=("fuckingdo").encode("UTF-8"))
+        )
+        ikeyboard.append(
+            InlineKeyboardButton("No 🤗", callback_data=("fuckoff").encode("UTF-8"))
+        )
+        inline_keyboard.append(ikeyboard)
+        reply_markup = InlineKeyboardMarkup(inline_keyboard)
+        await message.reply_text(
+            "Are you sure? 🚫 This will delete all your downloads locally 🚫",
+            reply_markup=reply_markup,
+            quote=True,
+        )
+    else:
+        await message.reply_text("You have no permission!")
