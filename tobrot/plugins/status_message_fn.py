@@ -341,7 +341,7 @@ async def help_message_f(client, message):
 /help - to see this message
 /cancel - to cancel process (paste GID with it)
 
-**Following are the commands as reply to a magnetic link, a torrent link, or a direct link:**
+**Following are the commands as a reply to a magnetic link, a torrent link, or a direct link:**
 
 /leech - leech to telegram
 /gleech - leech to GDrive
@@ -350,24 +350,28 @@ async def help_message_f(client, message):
 /gleechunzip - unarchive to GDrive
 /gleechzip - archive to GDrive
 
-**Following are the commands as reply to a youtube link:**
+**Following are the commands as a reply to a youtube link:**
 /ytdl - youtube to telegram 
 /gytdl - youtube to GDrive
 /pytdl - youtube playlist to telegram 
 /gpytdl - youtube playlist to GDrive
 
-**Following are the commands as reply to a telegram file:**
+**Following are the commands as a reply to a telegram file:**
 /tleech - leech from telegram to GDrive
 /tleechunzip - unarchive from telegram to GDrive
 /rename - to rename telegram files
+
+**Following are commands as a reply to photo for putting custom thumbnails:**
+/savethumbnail - to save a photo as thumbnail for upload
+/clearthumbnail - to clear thumbnail
 
 **Some useless commands:**
 /gclone - to clone gdrive files or folder
 /rclone - to change upload location (for admin)
 /uploadvid - to upload files streamable
 /uploaddoc - to upload files as a document
-/renewme - to clear all downloads
-/log - to get log file of bot
+/renewme - to clear all downloads (for admin)
+/log - to get bot logs (for admin)
 
 For further help contact **@GopalSaraf**
 **THANK YOU!**
