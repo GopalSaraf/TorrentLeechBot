@@ -111,7 +111,7 @@
     },
     "RCLONE_CONFIG": {
       "description": "Enter your copied text from rclone config. Compulsory for /gleech as well as /tleech command ",
-      "value" : "aa\nbb"
+      "value": "aa\nbb",
       "required": false
     },
     "DESTINATION_FOLDER": {
