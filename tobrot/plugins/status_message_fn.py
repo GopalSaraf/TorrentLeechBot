@@ -328,9 +328,12 @@ def up_time(time_taken):
 
 
 async def upload_log_file(client, message):
-    g = await AdminCheck(client, message.chat.id, message.from_user.id)
-    if g:
-        await message.reply_document("TorrentLeech.txt")
+    if message.from_user.id == OWNER_ID:
+        g = await AdminCheck(client, message.chat.id, message.from_user.id)
+        if g:
+            await message.reply_document("TorrentLeech.txt")
+    else:
+        await message.reply_text("You have no permission!")
         
 async def help_message_f(client, message):
     aria_i_p = await aria_start()
