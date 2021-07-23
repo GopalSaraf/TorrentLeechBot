@@ -169,12 +169,12 @@ async def incoming_message_f(client, message):
             os.makedirs(new_download_location)
         aria_i_p = ''
         if not is_file:
-            await i_m_sefg.edit_text("extracting links")
+            await i_m_sefg.edit_text("Getting things ready..")
             # start the aria2c daemon
             aria_i_p = await aria_start()
             # LOGGER.info(aria_i_p)
 
-        await i_m_sefg.edit_text("Added to downloads. Send /status")
+        await i_m_sefg.edit_text("Added to downloads. Send /status for further info.")
         # try to download the "link"
         is_zip = False
         is_cloud = False
@@ -224,7 +224,7 @@ async def incoming_youtube_dl_f(client, message):
         #f"<b>⚙ Leeching For :</b> {u_men}",
         #parse_mode="html",
     #)
-    i_m_sefg = await message.reply_text("<code>Prrocessing...🔃</code>", quote=True)
+    i_m_sefg = await message.reply_text("<code>Processing...🔃</code>", quote=True)
     # LOGGER.info(message)
     # extract link from message
     if message.reply_to_message:
@@ -244,7 +244,7 @@ async def incoming_youtube_dl_f(client, message):
         await i_m_sefg.edit("No downloading source provided 🙄")
         return
     if dl_url is not None:
-        await i_m_sefg.edit_text("extracting links..")
+        await i_m_sefg.edit_text("Getting things ready..")
         # create an unique directory
         user_working_dir = os.path.join(DOWNLOAD_LOCATION, str(current_user_id))
         # create download directory, if not exist
