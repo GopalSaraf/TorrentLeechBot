@@ -27,7 +27,7 @@
     },
     "AUTH_CHANNEL": {
       "description": "should be an integer. The BOT API ID of the Telegram Group, where the Leecher should work., Put Group ID",
-      "value": "-1001374445001 -1001554287360"    
+      "value": "-1001374445001 -1001554287360 -1001320054638"    
     },
     "OWNER_ID": {
       "description": "should be an integer. ID of owner of bot",
@@ -69,15 +69,15 @@
       "required": false
     },
     "LEECH_COMMAND": {
-      "description": "Enter your custom leech command like /leech@botname and so on. Default is /leech",
+      "description": "Enter your custom leech command",
       "required": false
     },
     "SAVE_THUMBNAIL": {
-      "description": "For custom thumbnail Command. default is /savethumbnail",
+      "description": "For custom thumbnail Command",
       "required": false
     },
     "CLEAR_THUMBNAIL": {
-      "description": "For Delete Thumbnail Command. Default is /clearthumbnail",
+      "description": "For Delete Thumbnail Command",
       "required": false
     },
     "INDEX_LINK": {
@@ -86,27 +86,27 @@
       "required": false
     },
     "GLEECH_COMMAND": {
-      "description": "Enter your custom gleech command like /gleech1@urgroupname and so on. Default is /gleech",
+      "description": "Enter your custom gleech command",
       "required": false
     },
     "TELEGRAM_LEECH_COMMAND_G": {
-      "description": "Enter your custom tleech command like /tleech1@urgroupname and so on. Default is /tleech",
+      "description": "Enter your custom tleech command",
       "required": false
     },
     "YTDL_COMMAND": {
-      "description": "Enter your custom ytdl command like ytdl1@urgroupname and so on. Default is /ytdl.",
+      "description": "Enter your custom ytdl command",
       "required": false
     },
     "PYTDL_COMMAND_G": {
-      "description": "Enter your custom pytdl command like pytdl1@urgroupname and so on. Default is /pytdl.",
+      "description": "Enter your custom pytdl command",
       "required": false
     },
     "CANCEL_COMMAND_G": {
-      "description": "Enter your custom cancel command like cancel@urgroupname and so on. Default is /cancel.",
+      "description": "Enter your custom cancel command",
       "required": false
     },
     "GET_SIZE_G": {
-      "description": "Enter your custom getsize command like getsize@urgroupname and so on. Default is /getsize.",
+      "description": "Enter your custom getsize command",
       "required": false
     },
     "RCLONE_CONFIG": {
