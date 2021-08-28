@@ -395,7 +395,7 @@ async def call_apropriate_function(
     if com_g:
         if is_cloud:
             await upload_to_gdrive(
-                to_upload_file, sent_message_to_update_tg_p, user_message, user_id
+                to_upload_file, sent_message_to_update_tg_p, user_message, user_id, credit
             )
         else:
             final_response = await upload_to_tg(
