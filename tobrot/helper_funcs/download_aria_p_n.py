@@ -427,7 +427,7 @@ async def call_apropriate_function(
                 msg = await user_message.reply_text(
                     text=message_to_send, quote=True, disable_web_page_preview=True
                 )
-                await credit.edit_text(f"🧲 Leeched successfully [here](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
+                await credit.edit_text(f"🧲 Leeched successfully 😊\n[click here to get it.](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
             except Exception as go:
                 LOGGER.error(go)
     return True, None
