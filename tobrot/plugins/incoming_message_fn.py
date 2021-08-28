@@ -214,6 +214,7 @@ async def incoming_message_f(client, message):
             "**FCUK**! wat have you entered. \nPlease read /help \n"
             f"<b>API Error</b>: {cf_name}"
         )
+    await credit.edit_text(f"🧲 Leeched successfully <a href='tg://user?id={g_id}'>👍</a>", parse_mode="html")
 
 
 async def incoming_youtube_dl_f(client, message):
