@@ -149,6 +149,7 @@ async def incoming_message_f(client, message):
         else:
             if user_command == LEECH_COMMAND.lower():
                 await i_m_sefg.edit("No downloading source provided 🙄")
+                await credit.delete()
                 return
             is_file = True
             dl_url = rep_mess
@@ -157,6 +158,7 @@ async def incoming_message_f(client, message):
         LOGGER.info(dl_url)
     else:
         await i_m_sefg.edit("No downloading source provided 🙄")
+        await credit.delete()
         return
     if dl_url is not None:
         current_user_id = message.from_user.id
