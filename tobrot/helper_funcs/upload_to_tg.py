@@ -141,7 +141,7 @@ async def upload_to_tg(
 # © gautamajay52 thanks to Rclone team for this wonderful tool.🧘
  
  
-async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
+async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     del_it = await message.edit_text(
         f"<a href='tg://user?id={g_id}'>🔊</a> Now Uploading to GDrive!!!"
@@ -216,10 +216,12 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
             )
         button_markup = pyrogram.InlineKeyboardMarkup(button)
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-        await messa_ge.reply_text(
+        msg = await messa_ge.reply_text(
             f"Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\n💾 Size: {gjay}",
             reply_markup=button_markup,
         )
+        channel_id = str(message.chat.id)[4:]
+        await credit.edit_text(f"🧲 Leeched successfully [here](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
         os.remove(file_upload)
         await del_it.delete()
     else:
@@ -284,10 +286,12 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
             )
         button_markup = pyrogram.InlineKeyboardMarkup(button)
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-        await messa_ge.reply_text(
+        msg = await messa_ge.reply_text(
             f"Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\n💾 Size: {gjay}",
             reply_markup=button_markup,
         )
+        channel_id = str(message.chat.id)[4:]
+        await credit.edit_text(f"🧲 Leeched successfully [here](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
         shutil.rmtree(file_upload)
         await del_it.delete()
  
