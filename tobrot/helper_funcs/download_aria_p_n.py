@@ -424,7 +424,7 @@ async def call_apropriate_function(
                     message_to_send = message_to_send + "\n\n" + "#uploads"
                 else:
                     message_to_send = "<i>FAILED</i> to upload files. 😞😞"
-                await msg = user_message.reply_text(
+                msg = await user_message.reply_text(
                     text=message_to_send, quote=True, disable_web_page_preview=True
                 )
                 await credit.edit_text(f"🧲 Leeched successfully [here](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
