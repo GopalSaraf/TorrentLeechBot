@@ -110,6 +110,7 @@ async def status_message_f(client, message):
     aria_i_p = await aria_start()
     # Show All Downloads
     to_edit = await message.reply(".......")
+    await message.delete()
     chat_id = int(message.chat.id)
     mess_id = int(to_edit.message_id)
     if len(gid_dict[chat_id]) == 0:
@@ -185,7 +186,7 @@ async def status_message_f(client, message):
                     time.sleep(e.x)
                 await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
                 prev_mess = msg
-    await message.delete()
+    
 
 async def cancel_message_f(client, message):
     if len(message.command) > 1:
