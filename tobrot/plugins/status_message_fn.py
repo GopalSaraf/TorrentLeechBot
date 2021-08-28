@@ -185,6 +185,7 @@ async def status_message_f(client, message):
                     time.sleep(e.x)
                 await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
                 prev_mess = msg
+    await message.delete()
 
 async def cancel_message_f(client, message):
     if len(message.command) > 1:
@@ -336,7 +337,6 @@ async def upload_log_file(client, message):
         await message.reply_text("You have no permission!")
         
 async def help_message_f(client, message):
-    aria_i_p = await aria_start()
     
     msg = ("""📖 Help
     
@@ -380,7 +380,6 @@ For further help contact **@GopalSaraf**
 **THANK YOU!**
 😊😊😊
 """)
-   
-    LOGGER.info(msg)
+  
     await message.reply_text(msg, quote=True)
 
