@@ -222,7 +222,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal')
         )
         if credit != 'gopal':
             channel_id = str(message.chat.id)[4:]
-            await credit.edit_text(f"🧲 Leeched successfully [here](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
+            await credit.edit_text(f"🧲 Leeched successfully 😊\n[click here to get it.](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
         os.remove(file_upload)
         await del_it.delete()
     else:
@@ -293,7 +293,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal')
         )
         if credit != 'gopal':
             channel_id = str(message.chat.id)[4:]
-            await credit.edit_text(f"🧲 Leeched successfully [here](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
+            await credit.edit_text(f"🧲 Leeched successfully 😊\n[click here to get it.](https://t.me/c/{channel_id}/{msg.message_id})", disable_web_page_preview=True)
         shutil.rmtree(file_upload)
         await del_it.delete()
  
