@@ -399,7 +399,7 @@ async def call_apropriate_function(
             )
         else:
             final_response = await upload_to_tg(
-                sent_message_to_update_tg_p, to_upload_file, user_id, response, client
+                sent_message_to_update_tg_p, to_upload_file, user_id, response, client, False, None, True
             )
             if not final_response:
                 return True, None
