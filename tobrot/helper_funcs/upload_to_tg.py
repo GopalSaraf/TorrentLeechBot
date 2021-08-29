@@ -57,6 +57,7 @@ async def upload_to_tg(
     client,
     edit_media=False,
     yt_thumb=None,
+    gopal=False
 ):
     base_file_name = os.path.basename(local_file_name)
     caption_str = ""
@@ -134,7 +135,8 @@ async def upload_to_tg(
                 ] = sent_message.message_id
             else:
                 return
-    await message.delete()
+    if gopal:
+        await message.delete()
     return dict_contatining_uploaded_files
  
  
