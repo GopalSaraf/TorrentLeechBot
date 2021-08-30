@@ -203,20 +203,18 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal')
         gjay = size(os.path.getsize(file_upload))
         button = []
         button.append(
-            [pyrogram.InlineKeyboardButton(text="☁️ GDrive ☁️", url=f"{gauti}")]
+            pyrogram.InlineKeyboardButton(text="☁️ GDrive ☁️", url=f"{gauti}")
         )
         if INDEX_LINK:
             indexurl = f"{INDEX_LINK}/{os.path.basename(file_upload)}"
             tam_link = requests.utils.requote_uri(indexurl)
             LOGGER.info(tam_link)
             button.append(
-                [
                     pyrogram.InlineKeyboardButton(
                         text="ℹ️ IndexUrl ℹ️", url=f"{tam_link}"
                     )
-                ]
             )
-        button_markup = pyrogram.InlineKeyboardMarkup(button)
+        button_markup = pyrogram.InlineKeyboardMarkup([button])
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
         msg = await messa_ge.reply_text(
             f"Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\n💾 Size: {gjay}",
@@ -274,20 +272,18 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal')
         LOGGER.info(gjay)
         button = []
         button.append(
-            [pyrogram.InlineKeyboardButton(text="☁️ GDrive ☁️", url=f"{gautii}")]
+            pyrogram.InlineKeyboardButton(text="☁️ GDrive ☁️", url=f"{gautii}")
         )
         if INDEX_LINK:
             indexurl = f"{INDEX_LINK}/{os.path.basename(file_upload)}/"
             tam_link = requests.utils.requote_uri(indexurl)
             LOGGER.info(tam_link)
             button.append(
-                [
                     pyrogram.InlineKeyboardButton(
                         text="ℹ️ IndexUrl ℹ️", url=f"{tam_link}"
                     )
-                ]
             )
-        button_markup = pyrogram.InlineKeyboardMarkup(button)
+        button_markup = pyrogram.InlineKeyboardMarkup([button])
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
         msg = await messa_ge.reply_text(
             f"Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\n💾 Size: {gjay}",
