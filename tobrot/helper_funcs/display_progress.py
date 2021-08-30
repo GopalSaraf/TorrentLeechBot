@@ -27,7 +27,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
 class Progress:
-    def __init__(self, from_user, client, mess: Message, filename_bygopal='Your File'):
+    def __init__(self, from_user, client, mess: Message, filename_bygopal='File'):
         self._from_user = from_user
         self._client = client
         self._mess = mess
@@ -79,7 +79,7 @@ class Progress:
             elapsed_time = TimeFormatter(milliseconds=elapsed_time)
             estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
-            progress1 = f"**Uploading:**\n<code>{filename_bygopal}</code>\n"
+            progress1 = f"**Uploading:** {filename_bygopal}\n"
             progress2 = "[{0}{1}] \n".format(
                 "".join(
                     [FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 10))]
