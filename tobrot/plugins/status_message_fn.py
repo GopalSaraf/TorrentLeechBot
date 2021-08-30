@@ -9,7 +9,8 @@ import os
 import shutil
 import sys
 import time
-import traceback
+import traceback 
+import psutil
 
 from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, EDIT_SLEEP_TIME_OUT, OWNER_ID
 from tobrot.helper_funcs.admin_check import AdminCheck
@@ -147,8 +148,8 @@ async def status_message_f(client, message):
 
         hr, mi, se = up_time(time.time() - BOT_START_TIME)
         total, used, free = shutil.disk_usage(".")
- #       ram = psutil.virtual_memory().percent
- #       cpu = psutil.cpu_percent()
+        ram = psutil.virtual_memory().percent
+        cpu = psutil.cpu_percent()
         total = humanbytes(total)
         used = humanbytes(used)
         free = humanbytes(free)
@@ -156,7 +157,7 @@ async def status_message_f(client, message):
         ms_g = (
             f"<b>Bot Uptime</b>: <code>{hr} : {mi} : {se}</code>\n"
             f"<b>Total :</b> <code>{total}</code> <b>Used :</b> <code>{used}</code> <b>Free :</b> <code>{free}</code>\n"
-#            f"<b>RAM:</b> <code>{ram}%</code> <b>CPU:</b> <code>{cpu}%</code>\n"
+            f"<b>RAM:</b> <code>{ram}%</code> <b>CPU:</b> <code>{cpu}%</code>\n"
         )
         if msg == "":
             msg = "🤷‍♂️ No Active, Queued or Paused TORRENTs"
