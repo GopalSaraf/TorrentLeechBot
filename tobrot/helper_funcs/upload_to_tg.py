@@ -142,7 +142,7 @@ async def upload_to_tg(
  
 # © gautamajay52 thanks to Rclone team for this wonderful tool.🧘
  
- """
+"""
 async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal'):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     del_it = await message.edit_text(
