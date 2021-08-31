@@ -83,15 +83,21 @@ async def down_load_media_f(client, message):
             await message.reply("😔 No downloading source provided 🙄", quote=True)
             return
         if len(message.command) > 1:
+            msg_list = message.text.strip().split(" ")
+            if msg_list[-1].lower() == 'anu':
+                is_anu = True
+                msg_list.pop(-1)
+            else:
+                is_anu = False
             file, mess_age = await download_tg(client, message)
             try:
                 file_ext = str(file).split('.')[-1]
                 new_name = (
-                        str(Path().resolve()) + "/" + message.text.split(" ", maxsplit=1)[1].strip() + '.' + file_ext
+                        str(Path().resolve()) + "/" + ' '.join(msg_list[1:]) + '.' + file_ext
                             )
             except:
                 new_name = (
-                    str(Path().resolve()) + "/" + message.text.split(" ", maxsplit=1)[1].strip() 
+                    str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
                 )
             try:
                 if file:
@@ -101,7 +107,7 @@ async def down_load_media_f(client, message):
             except Exception as g_g:
                 LOGGER.error(g_g)
                 await message.reply_text("g_g")
-            await upload_to_gdrive(new_name, mess_age, message, usr_id)
+            await upload_to_gdrive(new_name, mess_age, message, usr_id, is_anu=is_anu)
  
 async def download_tg(client, message):
     user_id = message.from_user.id
