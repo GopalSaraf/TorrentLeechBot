@@ -27,11 +27,12 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
 class Progress:
-    def __init__(self, from_user, client, mess: Message, filename_bygopal='File'):
+    def __init__(self, from_user, client, mess: Message, filename_bygopal='', is_downloading=False):
         self._from_user = from_user
         self._client = client
         self._mess = mess
         self._filename_bygopal = filename_bygopal
+        self._is_downloading = is_downloading
         self._cancelled = False
 
     @property
@@ -47,6 +48,7 @@ class Progress:
         mes_id = self._mess.message_id
         from_user = self._from_user
         filename_bygopal = self._filename_bygopal
+        is_downloading = self._is_downloading
         now = time.time()
         diff = now - start
         reply_markup = InlineKeyboardMarkup(
@@ -78,8 +80,10 @@ class Progress:
 
             elapsed_time = TimeFormatter(milliseconds=elapsed_time)
             estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
-
-            progress1 = f"**Uploading:** {filename_bygopal}\n"
+            if is_downloading:
+                progress1 = f"**Downloading:** {filename_bygopal}\n"
+            else:
+                progress1 = f"**Uploading:** {filename_bygopal}\n"
             progress2 = "[{0}{1}] \n".format(
                 "".join(
                     [FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 10))]
@@ -92,7 +96,7 @@ class Progress:
                 ),
             )
 
-            tmp = progress1 + progress2 + "**Speed:** {2}/sec\n**Status:** {0} / {1}  ({4}%) \n**ETA:** {3}\n".format(
+            tmp = progress1 + progress2 + "{0} of {1}  ({4}%)\n**Speed:** {2}/sec\n**ETA:** {3}\n".format(
                 humanbytes(current),
                 humanbytes(total),
                 humanbytes(speed),
