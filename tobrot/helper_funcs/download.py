@@ -28,16 +28,22 @@ async def down_load_media_f(client, message):
         if not os.path.isdir(DOWNLOAD_LOCATION):
             os.makedirs(DOWNLOAD_LOCATION)
         if message.reply_to_message is not None:
+            try:
+                m = message.reply_to_message
+                media = m.document or m.video or m.audio or m.voice or m.video_note or m.animation
+                filename = media.file_name
+            except:
+                filename = ''
             start_t = datetime.now()
             download_location = str(Path().resolve()) + "/"
             c_time = time.time()
-            prog = Progress(user_id, client, mess_age)
+            prog = Progress(user_id, client, mess_age, filename, True)
             try:
                 the_real_download_location = await client.download_media(
                     message=message.reply_to_message,
                     file_name=download_location,
                     progress=prog.progress_for_pyrogram,
-                    progress_args=("Trying to download", c_time),
+                    progress_args=("", c_time),
                 )
             except Exception as g_e:
                 await mess_age.edit(str(g_e))
@@ -81,7 +87,7 @@ async def down_load_media_f(client, message):
             try:
                 file_ext = str(file).split('.')[-1]
                 new_name = (
-                        str(Path().resolve()) + "/" + message.text.split(" ", maxsplit=1)[1].strip() + file_ext
+                        str(Path().resolve()) + "/" + message.text.split(" ", maxsplit=1)[1].strip() + '.' + file_ext
                             )
             except:
                 new_name = (
@@ -104,16 +110,22 @@ async def download_tg(client, message):
     if not os.path.isdir(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
     if message.reply_to_message is not None:
+        try:
+            m = message.reply_to_message
+            media = m.document or m.video or m.audio or m.voice or m.video_note or m.animation
+            filename = media.file_name
+        except:
+            filename = ''        
         start_t = datetime.now()
         download_location = str(Path("./").resolve()) + "/"
         c_time = time.time()
-        prog = Progress(user_id, client, mess_age)
+        prog = Progress(user_id, client, mess_age, filename, True)
         try:
             the_real_download_location = await client.download_media(
                 message=message.reply_to_message,
                 file_name=download_location,
                 progress=prog.progress_for_pyrogram,
-                progress_args=("Trying to download", c_time),
+                progress_args=("", c_time),
             )
         except Exception as g_e:
             await mess_age.edit(str(g_e))
