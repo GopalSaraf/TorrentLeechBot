@@ -20,7 +20,7 @@ from tobrot.helper_funcs.upload_to_tg import upload_to_gdrive
  
  
 async def down_load_media_f(client, message):
-    if len(message.command) = 1:
+    if len(message.command) == 1:
         user_command = message.command[0]
         user_id = message.from_user.id
         LOGGER.info(user_id)
