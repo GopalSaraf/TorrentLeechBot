@@ -301,6 +301,9 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
     del_it = await message.edit_text(
         f"<a href='tg://user?id={g_id}'>🔊</a> Now Uploading to GDrive!!!"
     )
+    if not os.path.exists("rclone_backup.conf"):
+        with open("rclone_backup.conf", "w+", newline="\n", encoding="utf-8") as fiile:
+            fiile.write(f"{RCLONE_CONFIG}")
     if not os.path.exists("rclone.conf"):
         with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
             fole.write(f"{RCLONE_CONFIG}")
@@ -326,7 +329,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             g_au = [
                 "rclone",
                 "copy",
-                "--config=rclone.conf",
+                "--config=rclone_backup.conf",
                 f"{file_upload}",
                 f"anupama:{destination}",
                 "-v",
@@ -357,7 +360,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             t_a_m = [
                 "rclone",
                 "lsf",
-                "--config=rclone.conf",
+                "--config=rclone_backup.conf",
                 "-F",
                 "i",
                 "--filter-from=filter.txt",
@@ -416,7 +419,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             t_am = [
                 "rclone",
                 "copy",
-                "--config=rclone.conf",
+                "--config=rclone_backup.conf",
                 f"{file_upload}",
                 f"anupama:{tt}",
                 "-v",
@@ -447,7 +450,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             g_a_u = [
                 "rclone",
                 "lsf",
-                "--config=rclone.conf",
+                "--config=rclone_backup.conf",
                 "-F",
                 "i",
                 "--filter-from=filter1.txt",
