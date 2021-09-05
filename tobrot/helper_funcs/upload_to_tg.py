@@ -7,7 +7,7 @@ import logging
 import os
 import re
 import shutil
-import subprocess
+from subprocess import Popen, PIPE
 import time
 from functools import partial
 from pathlib import Path
@@ -144,6 +144,7 @@ async def upload_to_tg(
  
 async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_anu=False):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
+    start = time.time()
     file_upload = str(Path(file_upload).resolve())
     del_it = await message.reply_text(
         "Starting upload of {}".format(os.path.basename(file_upload))
