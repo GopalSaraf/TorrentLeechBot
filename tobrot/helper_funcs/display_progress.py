@@ -83,7 +83,7 @@ class Progress:
             if is_downloading:
                 progress1 = f"**Downloading:** {filename_bygopal}\n"
             else:
-                progress1 = f"**Uploading:** {filename_bygopal}\n"
+                progress1 = f"**TUploading:** {filename_bygopal}\n"
             progress2 = "[{0}{1}] \n".format(
                 "".join(
                     [FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 10))]
