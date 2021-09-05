@@ -144,8 +144,9 @@ async def upload_to_tg(
  
 async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_anu=False):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-    del_it = await message.edit_text(
-        f"<a href='tg://user?id={g_id}'>🔊</a> Now Uploading to GDrive!!!"
+    file_upload = str(Path(file_upload).resolve())
+    del_it = await message.reply_text(
+        "Starting upload of {}".format(os.path.basename(file_upload))
     )
     if not os.path.exists("rclone_backup.conf"):
         with open("rclone_backup.conf", "w+", newline="\n", encoding="utf-8") as fiile:
@@ -158,35 +159,41 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             con = file.read()
             gUP = re.findall("\[(.*)\]", con)[0]
             LOGGER.info(gUP)
-    destination = f"{DESTINATION_FOLDER}"
-    file_upload = str(Path(file_upload).resolve())
+    destination = f"{DESTINATION_FOLDER}"   
     LOGGER.info(file_upload)
     if os.path.isfile(file_upload):
-        if not is_anu:
-            g_au = [
-                "rclone",
-                "copy",
-                "--config=rclone.conf",
-                f"{file_upload}",
-                f"{gUP}:{destination}",
-                "-v",
-            ]
         if is_anu:
-            g_au = [
-                "rclone",
-                "copy",
-                "--config=rclone_backup.conf",
-                f"{file_upload}",
-                f"anupama:{destination}",
-                "-v",
-            ]
-        LOGGER.info(g_au)
-        tmp = await asyncio.create_subprocess_exec(
-            *g_au, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-        )
-        pro, cess = await tmp.communicate()
-        LOGGER.info(pro.decode("utf-8"))
-        LOGGER.info(cess.decode("utf-8"))
+            command = f"""rclone copy "{file_upload}" "anupama:/" --config=rclone_backup.conf -P"""
+        else:
+            command = f"""rclone copy "{file_upload}" "{gUP}:{destination}" --config=rclone.conf -P"""
+        LOGGER.info(command)
+        with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as p:
+            for b in p.stdout:
+                now = time.time()
+                diff = now - start
+                if round(diff % float(EDIT_SLEEP_TIME_OUT)) == 0:
+                    try:
+                        txt = re.findall("Transferred(.*?)\n", b)[0].strip()
+                        if txt:
+                            current = re.search(":(.*?)/", txt).group(1).strip()
+                            total = re.search("/(.*?)yte,", txt).group(1).strip()
+                            percent = re.search(",(.*?)%", txt).group(1).strip()
+                            if percent == '-':
+                                percent = 0
+                            finished_str = "".join(
+                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 10))])
+                            unfinished_str = "".join(
+                                [UN_FINISHED_PROGRESS_STR for i in range(10 - math.floor(int(percent) / 10))])
+                            speed = re.search("%,(.*?)yte/s", txt).group(1)
+                            eta = re.findall('ETA .*', txt)[0].split(' ')[1]
+                            await del_it.edit_text("**GUploading:**{}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
+                                                   "/sec\n**ETA:** {}".format(os.path.basename(file_upload), finished_str, unfinished_str, current,
+                                                                              total, percent, speed, eta))
+                    except:
+                        continue
+
+        await del_it.edit_text('Successfully uploaded {}. Generating links now..'.format(os.path.basename(file_upload)))
+      
         gk_file = re.escape(os.path.basename(file_upload))
         LOGGER.info(gk_file)
         with open("filter.txt", "w+", encoding="utf-8") as filter:
@@ -211,7 +218,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                 "i",
                 "--filter-from=filter.txt",
                 "--files-only",
-                f"anupama:{destination}",
+                f"anupama:/",
             ]
         gau_tam = await asyncio.create_subprocess_exec(
             *t_a_m, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
@@ -252,31 +259,37 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
     else:
         tt = os.path.join(destination, os.path.basename(file_upload))
         LOGGER.info(tt)
-        if not is_anu:
-            t_am = [
-                "rclone",
-                "copy",
-                "--config=rclone.conf",
-                f"{file_upload}",
-                f"{gUP}:{tt}",
-                "-v",
-            ]
         if is_anu:
-            t_am = [
-                "rclone",
-                "copy",
-                "--config=rclone_backup.conf",
-                f"{file_upload}",
-                f"anupama:{tt}",
-                "-v",
-            ]
-        LOGGER.info(t_am)
-        tmp = await asyncio.create_subprocess_exec(
-            *t_am, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-        )
-        pro, cess = await tmp.communicate()
-        LOGGER.info(pro.decode("utf-8"))
-        LOGGER.info(cess.decode("utf-8"))
+            command = f"""rclone copy "{file_upload}" "anupama:/" --config=rclone_backup.conf -P"""
+        else:
+            command = f"""rclone copy "{file_upload}" "{gUP}:{tt}" --config=rclone.conf -P"""
+        LOGGER.info(command)
+        with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as p:
+            for b in p.stdout:
+                now = time.time()
+                diff = now - start
+                if round(diff % float(EDIT_SLEEP_TIME_OUT)) == 0:
+                    try:
+                        txt = re.findall("Transferred(.*?)\n", b)[0].strip()
+                        if txt:
+                            current = re.search(":(.*?)/", txt).group(1).strip()
+                            total = re.search("/(.*?)yte,", txt).group(1).strip()
+                            percent = re.search(",(.*?)%", txt).group(1).strip()
+                            if percent == '-':
+                                percent = 0
+                            finished_str = "".join(
+                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 10))])
+                            unfinished_str = "".join(
+                                [UN_FINISHED_PROGRESS_STR for i in range(10 - math.floor(int(percent) / 10))])
+                            speed = re.search("%,(.*?)yte/s", txt).group(1)
+                            eta = re.findall('ETA .*', txt)[0].split(' ')[1]
+                            await del_it.edit_text("**GUploading:**{}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
+                                                   "/sec\n**ETA:** {}".format(os.path.basename(file_upload), finished_str, unfinished_str, current,
+                                                                              total, percent, speed, eta))
+                    except:
+                        continue
+
+        await del_it.edit_text('Successfully uploaded {}. Generating links now..'.format(os.path.basename(file_upload)))  
         g_file = re.escape(os.path.basename(file_upload))
         LOGGER.info(g_file)
         with open("filter1.txt", "w+", encoding="utf-8") as filter1:
@@ -340,6 +353,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                                    disable_web_page_preview=True)
         shutil.rmtree(file_upload)
         await del_it.delete()
+        await message.delete()
  
  
 async def upload_single_file(
