@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K | gautamajay52
- 
+
 import asyncio
 import logging
+import math
 import os
 import re
 import shutil
@@ -11,7 +12,7 @@ from subprocess import Popen, PIPE
 import time
 from functools import partial
 from pathlib import Path
- 
+
 import pyrogram.types as pyrogram
 import requests
 from hachoir.metadata import extractMetadata
@@ -32,12 +33,15 @@ from tobrot import (
     TG_MAX_FILE_SIZE,
     UPLOAD_AS_DOC,
     gDict,
+    FINISHED_PROGRESS_STR,
+    UN_FINISHED_PROGRESS_STR,
 )
 from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
 from tobrot.helper_funcs.help_Nekmo_ffmpeg import take_screen_shot
 from tobrot.helper_funcs.split_large_files import split_large_files
- 
+
+
 # stackoverflow🤐
 def getFolderSize(p):
     prepend = partial(os.path.join, p)
@@ -47,17 +51,17 @@ def getFolderSize(p):
             for f in map(prepend, os.listdir(p))
         ]
     )
- 
- 
+
+
 async def upload_to_tg(
-    message,
-    local_file_name,
-    from_user,
-    dict_contatining_uploaded_files,
-    client,
-    edit_media=False,
-    yt_thumb=None,
-    gopal=False
+        message,
+        local_file_name,
+        from_user,
+        dict_contatining_uploaded_files,
+        client,
+        edit_media=False,
+        yt_thumb=None,
+        gopal=False
 ):
     base_file_name = os.path.basename(local_file_name)
     caption_str = ""
@@ -138,17 +142,22 @@ async def upload_to_tg(
     if gopal:
         await message.delete()
     return dict_contatining_uploaded_files
- 
- 
+
+
 # © gautamajay52 thanks to Rclone team for this wonderful tool.🧘
- 
-async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_anu=False):
+
+async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_anu=False, is_gytdl=False):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     start = time.time()
     file_upload = str(Path(file_upload).resolve())
-    del_it = await message.reply_text(
-        "Starting upload of {}".format(os.path.basename(file_upload))
-    )
+    if is_gytdl:
+        del_it = await message.edit_text(
+            "Starting upload of {}".format(os.path.basename(file_upload))
+        )
+    else:
+        del_it = await message.reply_text(
+            "Starting upload of {}".format(os.path.basename(file_upload))
+        )
     if not os.path.exists("rclone_backup.conf"):
         with open("rclone_backup.conf", "w+", newline="\n", encoding="utf-8") as fiile:
             fiile.write(f"{RCLONE_CONFIG}")
@@ -160,7 +169,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             con = file.read()
             gUP = re.findall("\[(.*)\]", con)[0]
             LOGGER.info(gUP)
-    destination = f"{DESTINATION_FOLDER}"   
+    destination = f"{DESTINATION_FOLDER}"
     LOGGER.info(file_upload)
     if os.path.isfile(file_upload):
         if is_anu:
@@ -188,13 +197,14 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                             speed = re.search("%,(.*?)yte/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
                             await del_it.edit_text("**GUploading:**{}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
-                                                   "/sec\n**ETA:** {}".format(os.path.basename(file_upload), finished_str, unfinished_str, current,
+                                                   "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
+                                                                              finished_str, unfinished_str, current,
                                                                               total, percent, speed, eta))
                     except:
                         continue
 
         await del_it.edit_text('Successfully uploaded {}. Generating links now..'.format(os.path.basename(file_upload)))
-      
+
         gk_file = re.escape(os.path.basename(file_upload))
         LOGGER.info(gk_file)
         with open("filter.txt", "w+", encoding="utf-8") as filter:
@@ -257,6 +267,8 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                                    disable_web_page_preview=True)
         os.remove(file_upload)
         await del_it.delete()
+        if not is_gytdl:
+            await message.delete()
     else:
         tt = os.path.join(destination, os.path.basename(file_upload))
         LOGGER.info(tt)
@@ -285,12 +297,13 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                             speed = re.search("%,(.*?)yte/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
                             await del_it.edit_text("**GUploading:**{}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
-                                                   "/sec\n**ETA:** {}".format(os.path.basename(file_upload), finished_str, unfinished_str, current,
+                                                   "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
+                                                                              finished_str, unfinished_str, current,
                                                                               total, percent, speed, eta))
                     except:
                         continue
 
-        await del_it.edit_text('Successfully uploaded {}. Generating links now..'.format(os.path.basename(file_upload)))  
+        await del_it.edit_text('Successfully uploaded {}. Generating links now..'.format(os.path.basename(file_upload)))
         g_file = re.escape(os.path.basename(file_upload))
         LOGGER.info(g_file)
         with open("filter1.txt", "w+", encoding="utf-8") as filter1:
@@ -354,11 +367,12 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                                    disable_web_page_preview=True)
         shutil.rmtree(file_upload)
         await del_it.delete()
-        await message.delete()
- 
- 
+        if not is_gytdl:
+            await message.delete()
+
+
 async def upload_single_file(
-    message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb
+        message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb
 ):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     local_file_name = str(Path(local_file_name).resolve())
@@ -592,7 +606,7 @@ async def upload_single_file(
                     )
                 if thumb is not None:
                     os.remove(thumb)
- 
+
         except MessageNotModified as oY:
             LOGGER.info(oY)
         except FloodWait as g:
