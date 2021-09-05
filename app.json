@@ -111,7 +111,7 @@
     },
     "RCLONE_CONFIG": {
       "description": "Enter your copied text from rclone config. Compulsory for /gleech as well as /tleech command ",
-      "value": "[torrgsbot]\r\ntype = drive\r\nscope = drive\r\nroot_folder_id = 1FdiXKYkFKDW3yHqwdIa1MWPTycXwqYrV\r\ntoken = {\"access_token\":\"ya29.a0ARrdaM9t11etcckgRlVuQlofOd_zRkcGIBkRKF4SGoVT3_hYzgPV13amRqyCCVtjLHPnFfML2fk5lCp5Og_zj4JBjRJ7yqC8Ywx3Bnork_IOSw_sbCPpro1Mc0IsKdLwLSNJvzaEO-1a7Wd4TaYFwU4REBEm\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0g-Ms0tWIsucdCgYIARAAGBASNwF-L9IrXnbZX1iVZUc9-B3bHx2k4QWzNmMVJ4IgCKQTDI0G-53dvCP8chJdys5XCU4kbx3XsZU\",\"expiry\":\"2021-07-12T10:54:58.8451394+05:30\"}",
+      "value": "[torrgsbot]\ntype = drive\nscope = drive\nroot_folder_id = 1UZVUrsh51NKZNlTJmq6KDEn4AffrG1CP\ntoken = {\"access_token\":\"ya29.a0ARrdaM-8p80cj6MUrU3HqlNUSVQezwh86bN03UVYaN1J_5XNvWn0kieXkvtpH07GEE3B1yCpjAaiUJbfHaTVTMHkjJTwZPZz6fric3KYdb8CU0dHouSo6Ste5p3obQCd7NOTo4drgaSYSFJLWOyTgXr7Sm9A\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0gfxJTqVX5hHiCgYIARAAGBASNwF-L9IrLO7v2RNQI-4BUILGiIzh2bpb-k26tcHx2M2EFqo9fZbLgSqnT3uUTMbwMfz23TxPt8A\",\"expiry\":\"2021-08-30T23:55:19.9092879+05:30\"}\nteam_drive = \n\n[anupama]\ntype = drive\nscope = drive\nroot_folder_id = 1XbcGtCPRfuPyDoMxawPEpRGOi-Zwrt4I\ntoken = {\"access_token\":\"ya29.a0ARrdaM_hVHYRHv0oUivlNSLcSeAcb27fiXKrC8ivOTVzgoM9N_73jQrReS8iAe1pvEvO-zobOAkg26BStW--Mb6LvFWyJ_NKCJ3tzF6G798CReDyCDi0Gey3on8O5vh9o6xhwy08IzVEvdFIckz83f1SmvXp\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0gi0vvIAMS8iNCgYIARAAGBASNwF-L9IrykL9V3oy9XYMlKzqwFdEsjw3AriNsPzHkT4V2Y0EROpIZhr6JOp3eue2JX-aIlIaJpo\",\"expiry\":\"2021-08-30T23:56:40.9681301+05:30\"}\nteam_drive = ",
       "required": false
     },
     "DESTINATION_FOLDER": {
