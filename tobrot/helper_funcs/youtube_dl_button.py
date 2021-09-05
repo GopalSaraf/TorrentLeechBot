@@ -179,7 +179,7 @@ async def youtube_dl_call_back(bot, update):
         if is_cloud:
             shutil.move(fi_le, "./")
             final_response = await upload_to_gdrive(
-                gaut_am, update.message, update.message.reply_to_message, user_id
+                gaut_am, update.message, update.message.reply_to_message, user_id, is_gytdl=True
             )
         else:
             final_response = await upload_to_tg(
