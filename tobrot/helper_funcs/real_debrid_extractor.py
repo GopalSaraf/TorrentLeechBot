@@ -1,14 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K
-
-import asyncio
-import logging
-import os
-
 import aiohttp
 from tobrot import REAL_DEBRID_KEY, LOGGER
-
 
 BASE_URL = "https://api.real-debrid.com/rest/1.0"
 

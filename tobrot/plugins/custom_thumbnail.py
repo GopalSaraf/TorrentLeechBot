@@ -1,6 +1,3 @@
-"""ThumbNail utilities, © @AnyDLBot"""
-
-
 import os
 
 from hachoir.metadata import extractMetadata

@@ -1,11 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | MaxxRider
-
 import asyncio
 import json
-import logging
-import os
 
 import pyrogram.types as pyrogram
 from tobrot import DEF_THUMB_NAIL_VID_S, LOGGER
@@ -13,7 +7,7 @@ from tobrot.helper_funcs.display_progress import humanbytes
 
 
 async def extract_youtube_dl_formats(
-    url, cf_name, yt_dl_user_name, yt_dl_pass_word, user_working_dir
+        url, cf_name, yt_dl_user_name, yt_dl_pass_word, user_working_dir
 ):
     command_to_exec = [
         "youtube-dl",
@@ -92,13 +86,13 @@ async def extract_youtube_dl_formats(
                     if "filesize" in formats:
                         approx_file_size = humanbytes(formats["filesize"])
                     dipslay_str_uon = (
-                        " "
-                        + format_string
-                        + " ("
-                        + format_ext.upper()
-                        + ") "
-                        + approx_file_size
-                        + " "
+                            " "
+                            + format_string
+                            + " ("
+                            + format_ext.upper()
+                            + ") "
+                            + approx_file_size
+                            + " "
                     )
                     cb_string_video = "{}|{}|{}".format("video", format_id, format_ext)
                     ikeyboard = []
@@ -112,8 +106,8 @@ async def extract_youtube_dl_formats(
                             ]
                     else:
                         if (
-                            format_string is not None
-                            and not "audio only" in format_string
+                                format_string is not None
+                                and not "audio only" in format_string
                         ):
                             ikeyboard = [
                                 pyrogram.InlineKeyboardButton(

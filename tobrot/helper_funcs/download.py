@@ -1,18 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) gautamajay52 | Shrimadhav U K
-
 import asyncio
-import logging
-import math
 import os
-import re
-import subprocess
 import time
 from datetime import datetime
 from pathlib import Path
 
-from pyrogram import Client, filters
 from tobrot import DOWNLOAD_LOCATION, LOGGER, TELEGRAM_LEECH_UNZIP_COMMAND
 from tobrot.helper_funcs.create_compressed_archive import unzip_me, get_base_name
 from tobrot.helper_funcs.display_progress import Progress
@@ -97,10 +88,10 @@ async def down_load_media_f(client, message):
                     file_ext = str(file).split('.')[-1]
                     new_name = (
                             str(Path().resolve()) + "/" + ' '.join(msg_list[1:]) + '.' + file_ext
-                                )
+                    )
                 except:
                     new_name = (
-                        str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
+                            str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
                     )
                 try:
                     if file:
@@ -112,7 +103,7 @@ async def down_load_media_f(client, message):
                     await message.reply_text("g_g")
                 await upload_to_gdrive(new_name, mess_age, message, usr_id, is_anu=is_anu)
 
- 
+
 async def download_tg(client, message):
     user_id = message.from_user.id
     LOGGER.info(user_id)

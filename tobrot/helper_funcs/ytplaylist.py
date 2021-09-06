@@ -1,13 +1,7 @@
-# (c) gautamajay52 | MaxxRider
-#
-
-
 import asyncio
 import os
 import shutil
-import subprocess
 
-import requests
 from tobrot import DOWNLOAD_LOCATION, LOGGER
 from tobrot.helper_funcs.upload_to_tg import upload_to_gdrive, upload_to_tg
 

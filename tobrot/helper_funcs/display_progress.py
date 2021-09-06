@@ -1,10 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52 | MaxxRider
-
 import logging
 import math
-import os
 import time
 
 from pyrogram.errors.exceptions import FloodWait
@@ -15,7 +10,6 @@ from tobrot import (
     gDict,
     LOGGER,
 )
-from pyrogram import Client
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -23,7 +17,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-
 
 
 class Progress:
@@ -140,10 +133,10 @@ def TimeFormatter(milliseconds: int) -> str:
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     tmp = (
-        ((str(days) + "d, ") if days else "")
-        + ((str(hours) + "h, ") if hours else "")
-        + ((str(minutes) + "m, ") if minutes else "")
-        + ((str(seconds) + "s, ") if seconds else "")
-        + ((str(milliseconds) + "ms, ") if milliseconds else "")
+            ((str(days) + "d, ") if days else "")
+            + ((str(hours) + "h, ") if hours else "")
+            + ((str(minutes) + "m, ") if minutes else "")
+            + ((str(seconds) + "s, ") if seconds else "")
+            + ((str(milliseconds) + "ms, ") if milliseconds else "")
     )
     return tmp[:-2]

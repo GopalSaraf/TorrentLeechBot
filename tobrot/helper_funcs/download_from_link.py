@@ -1,13 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | MaxxRider
-
 import asyncio
-import logging
 import os
 import time
 
-from tobrot import DOWNLOAD_LOCATION, LOGGER
+from tobrot import DOWNLOAD_LOCATION
 
 
 async def request_download(url, file_name, r_user_id):

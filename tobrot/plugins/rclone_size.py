@@ -1,18 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) gautamajay52
 import asyncio
-import logging
 import os
 import re
-import subprocess
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from tobrot import DESTINATION_FOLDER, EDIT_SLEEP_TIME_OUT, LOGGER, RCLONE_CONFIG, OWNER_ID
 
 
 async def check_size_g(client, message):
-    # await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     del_it = await message.reply_text("🔊 Checking size...wait!!!")
     if not os.path.exists("rclone.conf"):
         with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
@@ -36,9 +30,6 @@ async def check_size_g(client, message):
     await asyncio.sleep(5)
     await message.reply_text(f"🔊CloudInfo:\n\n{gautam}")
     await del_it.delete()
-
-
-# gautamajay52
 
 
 async def g_clearme(client, message):

@@ -1,113 +1,35 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52
-
 import asyncio
 import io
-import logging
 import os
 import shutil
 import sys
 import time
-import traceback 
+import traceback
 import psutil
 
-from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, EDIT_SLEEP_TIME_OUT, OWNER_ID
+from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, \
+    EDIT_SLEEP_TIME_OUT, OWNER_ID
 from tobrot.helper_funcs.admin_check import AdminCheck
 
 # the logging things
-from tobrot.helper_funcs.display_progress import TimeFormatter, humanbytes
-from tobrot.helper_funcs.download_aria_p_n import aria_start, call_apropriate_function
+from tobrot.helper_funcs.display_progress import humanbytes
+from tobrot.helper_funcs.download_aria_p_n import aria_start
 from tobrot.helper_funcs.upload_to_tg import upload_to_tg
 from tobrot.UserDynaConfig import UserDynaConfig
 from pyrogram.errors import FloodWait, MessageNotModified, MessageIdInvalid
 
 
 async def upload_as_doc(client, message):
-    user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
+    user_specific_config[message.from_user.id] = UserDynaConfig(message.from_user.id, True)
     await message.reply_text("**🗞 Your Files Will Be Uploaded As Document 📁**")
 
 
 async def upload_as_video(client, message):
-    user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
+    user_specific_config[message.from_user.id] = UserDynaConfig(message.from_user.id, False)
     await message.reply_text("**🗞 Your Files Will Be Uploaded As Streamable 🎞**")
-    
-    
-'''async def status_message_f(client, message):
-    aria_i_p = await aria_start()
-    # Show All Downloads
-    downloads = aria_i_p.get_downloads()
-    #
-    DOWNLOAD_ICON = "📥"
-    UPLOAD_ICON = "📤"
-    #
-    msg = ""
-    for download in downloads:
-        downloading_dir_name = "NA"
-        try:
-            downloading_dir_name = str(download.name)
-        except:
-            pass
-        if download.status == "active":
-            total_length_size = str(download.total_length_string())
-            progress_percent_string = str(download.progress_string())
-            down_speed_string = str(download.download_speed_string())
-            up_speed_string = str(download.upload_speed_string())
-            download_current_status = str(download.status)
-            e_t_a = str(download.eta_string())
-            current_gid = str(download.gid)
-            #
-            msg += f"<u>{downloading_dir_name}</u>"
-            msg += " | "
-            msg += f"{total_length_size}"
-            msg += " | "
-            msg += f"{progress_percent_string}"
-            msg += " | "
-            msg += f"{DOWNLOAD_ICON} {down_speed_string}"
-            msg += " | "
-            msg += f"{UPLOAD_ICON} {up_speed_string}"
-            msg += " | "
-            msg += f"{e_t_a}"
-            msg += " | "
-            msg += f"{download_current_status}"
-            msg += " | "
-            msg += f"<code>/cancel {current_gid}</code>"
-            msg += " | "
-            msg += "\n\n"
-        # LOGGER.info(msg)
 
-        if msg == "":
-            msg = "🤷‍♂️ No Active, Queued or Paused TORRENTs"
 
-    hr, mi, se = up_time(time.time() - BOT_START_TIME)
-    total, used, free = shutil.disk_usage(".")
-    total = humanbytes(total)
-    used = humanbytes(used)
-    free = humanbytes(free)
-
-    ms_g = (
-        f"<b>Bot Uptime</b>: <code>{hr} : {mi} : {se}</code>\n"
-        f"<b>Total disk space</b>: <code>{total}</code>\n"
-        f"<b>Used</b>: <code>{used}</code>\n"
-        f"<b>Free</b>: <code>{free}</code>\n"
-    )
-    # LOGGER.info(ms_g)
-
-    msg = ms_g + "\n" + msg
-    LOGGER.info(msg)
-    if len(msg) > MAX_MESSAGE_LENGTH:
-        with io.BytesIO(str.encode(msg)) as out_file:
-            out_file.name = "status.text"
-            await client.send_document(
-                chat_id=message.chat.id,
-                document=out_file,
-            )
-    else:
-        await message.reply_text(msg, quote=True)
-
-'''
-
-async def status_message_f(client, message):   
+async def status_message_f(client, message):
     aria_i_p = await aria_start()
     # Show All Downloads
     to_edit = await message.reply(".......")
@@ -187,7 +109,7 @@ async def status_message_f(client, message):
                     time.sleep(e.x)
                 await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
                 prev_mess = msg
-    
+
 
 async def cancel_message_f(client, message):
     if len(message.command) > 1:
@@ -337,9 +259,9 @@ async def upload_log_file(client, message):
             await message.reply_document("TorrentLeech.txt")
     else:
         await message.reply_text("You have no permission!")
-        
+
+
 async def help_message_f(client, message):
-    
     msg = ("""📖 Help
     
 /status - to see current status and processing files
@@ -382,6 +304,5 @@ For further help contact **@GopalSaraf**
 **THANK YOU!**
 😊😊😊
 """)
-  
-    await message.reply_text(msg, quote=True)
 
+    await message.reply_text(msg, quote=True)

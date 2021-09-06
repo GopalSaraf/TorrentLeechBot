@@ -1,26 +1,17 @@
 # This is code to clone the gdrive link using the gclone, all credit goes to the developer who has developed the rclone/glclone
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) gautamajay52
-# (c) MaxxRider
-
+# !/usr/bin/env python3
 import asyncio
-import logging
 import os
 import re
-import subprocess
 
 import pyrogram.types as pyrogram
 import requests
 from tobrot import (
     DESTINATION_FOLDER,
-    DOWNLOAD_LOCATION,
     EDIT_SLEEP_TIME_OUT,
     INDEX_LINK,
     LOGGER,
     RCLONE_CONFIG,
-    TG_MAX_FILE_SIZE,
-    UPLOAD_AS_DOC,
 )
 
 
@@ -110,9 +101,9 @@ class CloneHelper:
             LOGGER.info(gau_link)
             button = []
             button.append(
-                    pyrogram.InlineKeyboardButton(
-                        text="☁️ GDrive ☁️", url=f"{gau_link}"
-                    )
+                pyrogram.InlineKeyboardButton(
+                    text="☁️ GDrive ☁️", url=f"{gau_link}"
+                )
             )
             if INDEX_LINK:
                 if _flag == "--files-only":
@@ -122,9 +113,9 @@ class CloneHelper:
                 tam_link = requests.utils.requote_uri(indexurl)
                 LOGGER.info(tam_link)
                 button.append(
-                        pyrogram.InlineKeyboardButton(
-                            text="ℹ️ IndexUrl ℹ️", url=f"{tam_link}"
-                        )
+                    pyrogram.InlineKeyboardButton(
+                        text="ℹ️ IndexUrl ℹ️", url=f"{tam_link}"
+                    )
                 )
             button_markup = pyrogram.InlineKeyboardMarkup([button])
             msg = await self.lsg.edit_text(

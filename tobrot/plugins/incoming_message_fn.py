@@ -1,13 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52 | MaxxRider
-
-import asyncio
-import logging
 import os
 import time
 from pathlib import Path
-import aria2p
 import requests
 from tobrot import (
     DOWNLOAD_LOCATION,
@@ -18,9 +11,7 @@ from tobrot import (
     LEECH_UNZIP_COMMAND,
     LEECH_ZIP_COMMAND,
     LOGGER,
-    YTDL_COMMAND,
     GPYTDL_COMMAND,
-    PYTDL_COMMAND,
 )
 from tobrot.helper_funcs.admin_check import AdminCheck
 from tobrot.helper_funcs.cloneHelper import CloneHelper
@@ -29,7 +20,6 @@ from tobrot.helper_funcs.download_aria_p_n import (
     aria_start,
     call_apropriate_function,
 )
-from tobrot.helper_funcs.download_from_link import request_download
 from tobrot.helper_funcs.extract_link_from_message import extract_link
 from tobrot.helper_funcs.upload_to_tg import upload_to_tg
 from tobrot.helper_funcs.youtube_dl_extractor import extract_youtube_dl_formats
@@ -38,7 +28,6 @@ from tobrot.helper_funcs.ytplaylist import yt_playlist_downg
 
 async def incoming_purge_message_f(client, message):
     """/purge command"""
-    print(message.client)
     i_m_sefg2 = await message.reply_text("Purging...", quote=True)
     if await AdminCheck(client, message.chat.id, message.from_user.id):
         aria_i_p = await aria_start()
@@ -48,81 +37,6 @@ async def incoming_purge_message_f(client, message):
             LOGGER.info(download.remove(force=True))
     await i_m_sefg2.delete()
 
-'''
-async def incoming_message_f(client, message):
-    """/leech command or /gleech command"""
-    user_command = message.command[0]
-    #g_id = message.from_user.id
-   # u_men = message.from_user.mention
-    #credit = await message.reply_text(
-        #f"<b>⚙ Leeching For :</b> {u_men}", parse_mode="html"
-    #)
-    i_m_sefg = await message.reply_text("`Processing...`", quote=True)
-    # get link from the incoming message
-    if message.reply_to_message:
-        dl_url, cf_name, _, _ = await extract_link(message.reply_to_message, "LEECH")
-        LOGGER.info(dl_url)
-        LOGGER.info(cf_name)
-    elif len(message.command) == 2:
-        dl_url = message.command[1]
-        LOGGER.info(dl_url)
-        cf_name = None
-    else:
-        await i_m_sefg.edit("No downloading source provided 🙄")
-        return
-    if dl_url is not None:
-        await i_m_sefg.edit_text("<b>Extracting Link..🤐</b>")
-        # start the aria2c daemon
-        aria_i_p = await aria_start()
-        # LOGGER.info(aria_i_p)
-        current_user_id = message.from_user.id
-        # create an unique directory
-        new_download_location = os.path.join(
-            DOWNLOAD_LOCATION, str(current_user_id), str(time.time())
-        )
-        # create download directory, if not exist
-        if not os.path.isdir(new_download_location):
-            os.makedirs(new_download_location)
-        await i_m_sefg.edit_text("<b>Trying To Download....📥</b>")
-        # try to download the "link"
-        is_zip = False
-        is_cloud = False
-        is_unzip = False
-
-        if user_command == LEECH_UNZIP_COMMAND.lower():
-            is_unzip = True
-        elif user_command == LEECH_ZIP_COMMAND.lower():
-            is_zip = True
-
-        if user_command == GLEECH_COMMAND.lower():
-            is_cloud = True
-        if user_command == GLEECH_UNZIP_COMMAND.lower():
-            is_cloud = True
-            is_unzip = True
-        elif user_command == GLEECH_ZIP_COMMAND.lower():
-            is_cloud = True
-            is_zip = True
-        sagtus, err_message = await call_apropriate_function(
-            aria_i_p,
-            dl_url,
-            new_download_location,
-            i_m_sefg,
-            is_zip,
-            cf_name,
-            is_cloud,
-            is_unzip,
-            message,
-            client,
-        )
-        if not sagtus:
-            # if FAILED, display the error message
-            await i_m_sefg.edit_text(err_message)
-    else:
-        await i_m_sefg.edit_text(
-            "**FCUK**! wat have you entered. \n"
-            f"<b>API Error</b>: {cf_name}"
-        )
-'''
 
 async def incoming_message_f(client, message):
     """/leech command or /gleech command"""
@@ -223,11 +137,11 @@ async def incoming_message_f(client, message):
 async def incoming_youtube_dl_f(client, message):
     """ /ytdl command """
     current_user_id = message.from_user.id
-    #u_men = message.from_user.mention
-    #credit = await message.reply_text(
-        #f"<b>⚙ Leeching For :</b> {u_men}",
-        #parse_mode="html",
-    #)
+    # u_men = message.from_user.mention
+    # credit = await message.reply_text(
+    # f"<b>⚙ Leeching For :</b> {u_men}",
+    # parse_mode="html",
+    # )
     i_m_sefg = await message.reply_text("<code>Processing...🔃</code>", quote=True)
     # LOGGER.info(message)
     # extract link from message
@@ -309,7 +223,8 @@ async def g_yt_playlist(client, message):
     else:
         await message.reply_text("<b>YouTube playlist link only 🙄</b>", quote=True)
 
- #
+
+#
 async def g_clonee(client, message):
     """ /gclone command """
     g_id = message.from_user.id
@@ -324,8 +239,10 @@ async def g_clonee(client, message):
         await gclone.link_gen_size()
     else:
         await message.reply_text(
-            "You should reply to a message, which format should be [ID of the file or folder][one space][name of your folder only(If the id is of file, don't put anything)]"
+            "You should reply to a message, which format should be [ID of the file or folder][one space][name of your "
+            "folder only(If the id is of file, don't put anything)] "
         )
+
 
 async def rename_tg_file(client, message):
     usr_id = message.from_user.id
@@ -334,7 +251,7 @@ async def rename_tg_file(client, message):
         return
     if len(message.command) > 1:
         new_name = (
-            str(Path().resolve()) + "/" + message.text.split(" ", maxsplit=1)[1].strip()
+                str(Path().resolve()) + "/" + message.text.split(" ", maxsplit=1)[1].strip()
         )
         file, mess_age = await download_tg(client, message)
         try:
@@ -381,5 +298,7 @@ async def rename_tg_file(client, message):
 
     else:
         await message.reply_text(
-            "<b> Oops 😬</b>\n\nProvide Name with extension\n\n➩<b>Example</b>: <code> /rename Avengers Endgame.mkv</code>", quote=True
+            "<b> Oops 😬</b>\n\nProvide Name with extension\n\n➩<b>Example</b>: <code> /rename Avengers "
+            "Endgame.mkv</code>",
+            quote=True
         )

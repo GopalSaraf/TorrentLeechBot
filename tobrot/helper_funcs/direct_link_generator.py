@@ -8,10 +8,8 @@ from https://github.com/AvinashReddy3108/PaperplaneExtended . I hereby take no c
 than the modifications. See https://github.com/AvinashReddy3108/PaperplaneExtended/commits/master/userbot/modules/direct_links.py
 for original authorship. """
 
-import json
 import re
 import urllib.parse
-from os import popen
 from random import choice
 from js2py import EvalJs
 import requests
@@ -29,13 +27,13 @@ def direct_link_generator(text_url: str):
     elif 'yadi.sk' in text_url:
         return yandex_disk(text_url)
     # elif 'cloud.mail.ru' in text_url:
-        # return cm_ru(text_url)
+    # return cm_ru(text_url)
     elif 'mediafire.com' in text_url:
         return mediafire(text_url)
     elif 'osdn.net' in text_url:
         return osdn(text_url)
     # elif 'github.com' in text_url:
-        # return github(text_url)
+    # return github(text_url)
     elif 'racaty.net' in text_url:
         return racaty(text_url)
     else:
@@ -48,11 +46,11 @@ def zippy_share(url: str) -> str:
     bs_obj = BeautifulSoup(response_content, "lxml")
 
     try:
-        js_script = bs_obj.find("div", {"class": "center",}).find_all(
+        js_script = bs_obj.find("div", {"class": "center", }).find_all(
             "script"
         )[1]
     except:
-        js_script = bs_obj.find("div", {"class": "right",}).find_all(
+        js_script = bs_obj.find("div", {"class": "right", }).find_all(
             "script"
         )[0]
 
@@ -82,25 +80,7 @@ def yandex_disk(url: str) -> str:
     except KeyError:
         raise DirectDownloadLinkException("`Error: File not found / Download limit reached`\n")
 
-'''
-def cm_ru(url: str) -> str:
-    """ cloud.mail.ru direct links generator
-    Using https://github.com/JrMasterModelBuilder/cmrudl.py"""
-    reply = ''
-    try:
-        text_url = re.findall(r'\bhttps?://.*cloud\.mail\.ru\S+', url)[0]
-    except IndexError:
-        raise DirectDownloadLinkException("`No cloud.mail.ru links found`\n")
-    command = f'vendor/cmrudl.py/cmrudl -s {text_url}'
-    result = popen(command).read()
-    result = result.splitlines()[-1]
-    try:
-        data = json.loads(result)
-    except json.decoder.JSONDecodeError:
-        raise DirectDownloadLinkException("`Error: Can't extract the link`\n")
-    dl_url = data['download']
-    return dl_url
-'''
+
 
 def mediafire(url: str) -> str:
     """ MediaFire direct links generator """
@@ -132,20 +112,6 @@ def osdn(url: str) -> str:
         urls.append(re.sub(r'm=(.*)&f', f'm={mirror}&f', text_url))
     return urls[0]
 
-'''
-def github(url: str) -> str:
-    """ GitHub direct links generator """
-    try:
-        text_url = re.findall(r'\bhttps?://.*github\.com.*releases\S+', url)[0]
-    except IndexError:
-        raise DirectDownloadLinkException("`No GitHub Releases links found`\n")
-    download = requests.get(text_url, stream=True, allow_redirects=False)
-    try:
-        dl_url = download.headers["location"]
-        return dl_url
-    except KeyError:
-        raise DirectDownloadLinkException("`Error: Can't extract the link`\n")
-'''
 
 def useragent():
     """
@@ -159,17 +125,18 @@ def useragent():
     user_agent = choice(useragents)
     return user_agent.text
 
+
 def racaty(url: str) -> str:
     dl_url = ''
     try:
         text_url = re.findall(r'\bhttps?://.*racaty\.net\S+', url)[0]
     except IndexError:
         raise DirectDownloadLinkException("`No Racaty links found`\n")
-    reqs=requests.get(text_url)
-    bss=BeautifulSoup(reqs.text,'html.parser')
-    op=bss.find('input',{'name':'op'})['value']
-    id=bss.find('input',{'name':'id'})['value']
-    rep=requests.post(text_url,data={'op':op,'id':id})
-    bss2=BeautifulSoup(rep.text,'html.parser')
-    dl_url=bss2.find('a',{'id':'uniqueExpirylink'})['href']
+    reqs = requests.get(text_url)
+    bss = BeautifulSoup(reqs.text, 'html.parser')
+    op = bss.find('input', {'name': 'op'})['value']
+    id = bss.find('input', {'name': 'id'})['value']
+    rep = requests.post(text_url, data={'op': op, 'id': id})
+    bss2 = BeautifulSoup(rep.text, 'html.parser')
+    dl_url = bss2.find('a', {'id': 'uniqueExpirylink'})['href']
     return dl_url

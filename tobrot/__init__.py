@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52 | MaxxRider
-
 import logging
 import os
 import time
@@ -33,7 +29,7 @@ logging.getLogger("PIL").setLevel(logging.WARNING)
 
 LOGGER = logging.getLogger(__name__)
 
-user_specific_config=dict()
+user_specific_config = dict()
 
 dotenv.load_dotenv("config.env")
 
@@ -97,13 +93,12 @@ GLEECH_UNZIP_COMMAND = os.environ.get("GLEECH_UNZIP_COMMAND", "gleechunzip@torrg
 GLEECH_ZIP_COMMAND = os.environ.get("GLEECH_ZIP_COMMAND", "gleechzip@torrgsbot")
 YTDL_COMMAND = os.environ.get("YTDL_COMMAND", "ytdl@torrgsbot")
 GYTDL_COMMAND = os.environ.get("GYTDL_COMMAND", "gytdl@torrgsbot")
-RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "[torrgsbot]\ntype = drive\nscope = drive\nroot_folder_id = 1UZVUrsh51NKZNlTJmq6KDEn4AffrG1CP\ntoken = {\"access_token\":\"ya29.a0ARrdaM-8p80cj6MUrU3HqlNUSVQezwh86bN03UVYaN1J_5XNvWn0kieXkvtpH07GEE3B1yCpjAaiUJbfHaTVTMHkjJTwZPZz6fric3KYdb8CU0dHouSo6Ste5p3obQCd7NOTo4drgaSYSFJLWOyTgXr7Sm9A\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0gfxJTqVX5hHiCgYIARAAGBASNwF-L9IrLO7v2RNQI-4BUILGiIzh2bpb-k26tcHx2M2EFqo9fZbLgSqnT3uUTMbwMfz23TxPt8A\",\"expiry\":\"2021-08-30T23:55:19.9092879+05:30\"}\nteam_drive = \n\n[anupama]\ntype = drive\nscope = drive\nroot_folder_id = 1XbcGtCPRfuPyDoMxawPEpRGOi-Zwrt4I\ntoken = {\"access_token\":\"ya29.a0ARrdaM_hVHYRHv0oUivlNSLcSeAcb27fiXKrC8ivOTVzgoM9N_73jQrReS8iAe1pvEvO-zobOAkg26BStW--Mb6LvFWyJ_NKCJ3tzF6G798CReDyCDi0Gey3on8O5vh9o6xhwy08IzVEvdFIckz83f1SmvXp\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0gi0vvIAMS8iNCgYIARAAGBASNwF-L9IrykL9V3oy9XYMlKzqwFdEsjw3AriNsPzHkT4V2Y0EROpIZhr6JOp3eue2JX-aIlIaJpo\",\"expiry\":\"2021-08-30T23:56:40.9681301+05:30\"}\nteam_drive = ")
+RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG",
+                               "[torrgsbot]\ntype = drive\nscope = drive\nroot_folder_id = 1UZVUrsh51NKZNlTJmq6KDEn4AffrG1CP\ntoken = {\"access_token\":\"ya29.a0ARrdaM-8p80cj6MUrU3HqlNUSVQezwh86bN03UVYaN1J_5XNvWn0kieXkvtpH07GEE3B1yCpjAaiUJbfHaTVTMHkjJTwZPZz6fric3KYdb8CU0dHouSo6Ste5p3obQCd7NOTo4drgaSYSFJLWOyTgXr7Sm9A\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0gfxJTqVX5hHiCgYIARAAGBASNwF-L9IrLO7v2RNQI-4BUILGiIzh2bpb-k26tcHx2M2EFqo9fZbLgSqnT3uUTMbwMfz23TxPt8A\",\"expiry\":\"2021-08-30T23:55:19.9092879+05:30\"}\nteam_drive = \n\n[anupama]\ntype = drive\nscope = drive\nroot_folder_id = 1XbcGtCPRfuPyDoMxawPEpRGOi-Zwrt4I\ntoken = {\"access_token\":\"ya29.a0ARrdaM_hVHYRHv0oUivlNSLcSeAcb27fiXKrC8ivOTVzgoM9N_73jQrReS8iAe1pvEvO-zobOAkg26BStW--Mb6LvFWyJ_NKCJ3tzF6G798CReDyCDi0Gey3on8O5vh9o6xhwy08IzVEvdFIckz83f1SmvXp\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0gi0vvIAMS8iNCgYIARAAGBASNwF-L9IrykL9V3oy9XYMlKzqwFdEsjw3AriNsPzHkT4V2Y0EROpIZhr6JOp3eue2JX-aIlIaJpo\",\"expiry\":\"2021-08-30T23:56:40.9681301+05:30\"}\nteam_drive = ")
 DESTINATION_FOLDER = os.environ.get("DESTINATION_FOLDER", "/")
 INDEX_LINK = os.environ.get("INDEX_LINK", "https://torrgs.bmcgee.workers.dev")
 TELEGRAM_LEECH_COMMAND = os.environ.get("TELEGRAM_LEECH_COMMAND", "tleech@torrgsbot")
-TELEGRAM_LEECH_UNZIP_COMMAND = os.environ.get(
-    "TELEGRAM_LEECH_UNZIP_COMMAND", "tleechunzip@torrgsbot"
-)
+TELEGRAM_LEECH_UNZIP_COMMAND = os.environ.get("TELEGRAM_LEECH_UNZIP_COMMAND", "tleechunzip@torrgsbot")
 CANCEL_COMMAND_G = os.environ.get("CANCEL_COMMAND_G", "cancel")
 GET_SIZE_G = os.environ.get("GET_SIZE_G", "getsize@torrgsbot")
 STATUS_COMMAND = os.environ.get("STATUS_COMMAND", "status@torrgsbot")

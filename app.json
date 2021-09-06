@@ -7,7 +7,6 @@
   ],
   "repository": "https://github.com/GopalSaraf/Leech-Pro",
   "success_url": "https://t.me/torrentgs",
- 
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable webhooks when in env mode",
@@ -19,19 +18,19 @@
     },
     "API_HASH": {
       "description": "Get this value from https://my.telegram.org",
-      "value": "51b58a93d88a55565ff048c7a143eb4e"     
+      "value": "51b58a93d88a55565ff048c7a143eb4e"
     },
     "TG_BOT_TOKEN": {
       "description": "get this value from @BotFather",
-      "value": "1855947262:AAEnLpZIwkexN51ACZcHGEP5h_p2bF-z26g"     
+      "value": "1855947262:AAEnLpZIwkexN51ACZcHGEP5h_p2bF-z26g"
     },
     "AUTH_CHANNEL": {
       "description": "should be an integer. The BOT API ID of the Telegram Group, where the Leecher should work., Put Group ID",
-      "value": "-1001374445001 -1001554287360 -1001320054638"    
+      "value": "-1001374445001 -1001554287360 -1001320054638"
     },
     "OWNER_ID": {
       "description": "should be an integer. ID of owner of bot",
-      "value": "821190684"    
+      "value": "821190684"
     },
     "UPLOAD_AS_DOC": {
       "description": "True/False. If true all files will be uploaded as documents. Default is False.",
@@ -111,7 +110,6 @@
     },
     "RCLONE_CONFIG": {
       "description": "Enter your copied text from rclone config. Compulsory for /gleech as well as /tleech command ",
-      "value": "[torrgsbot]\ntype = drive\nscope = drive\nroot_folder_id = 1UZVUrsh51NKZNlTJmq6KDEn4AffrG1CP\ntoken = {\"access_token\":\"ya29.a0ARrdaM-8p80cj6MUrU3HqlNUSVQezwh86bN03UVYaN1J_5XNvWn0kieXkvtpH07GEE3B1yCpjAaiUJbfHaTVTMHkjJTwZPZz6fric3KYdb8CU0dHouSo6Ste5p3obQCd7NOTo4drgaSYSFJLWOyTgXr7Sm9A\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0gfxJTqVX5hHiCgYIARAAGBASNwF-L9IrLO7v2RNQI-4BUILGiIzh2bpb-k26tcHx2M2EFqo9fZbLgSqnT3uUTMbwMfz23TxPt8A\",\"expiry\":\"2021-08-30T23:55:19.9092879+05:30\"}\nteam_drive = \n\n[anupama]\ntype = drive\nscope = drive\nroot_folder_id = 1XbcGtCPRfuPyDoMxawPEpRGOi-Zwrt4I\ntoken = {\"access_token\":\"ya29.a0ARrdaM_hVHYRHv0oUivlNSLcSeAcb27fiXKrC8ivOTVzgoM9N_73jQrReS8iAe1pvEvO-zobOAkg26BStW--Mb6LvFWyJ_NKCJ3tzF6G798CReDyCDi0Gey3on8O5vh9o6xhwy08IzVEvdFIckz83f1SmvXp\",\"token_type\":\"Bearer\",\"refresh_token\":\"1//0gi0vvIAMS8iNCgYIARAAGBASNwF-L9IrykL9V3oy9XYMlKzqwFdEsjw3AriNsPzHkT4V2Y0EROpIZhr6JOp3eue2JX-aIlIaJpo\",\"expiry\":\"2021-08-30T23:56:40.9681301+05:30\"}\nteam_drive = ",
       "required": false
     },
     "DESTINATION_FOLDER": {

@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Akshay C / Shrimadhav U K / YK
-
 import asyncio
-import logging
 import os
 import time
 
