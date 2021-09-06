@@ -196,7 +196,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                                 [UN_FINISHED_PROGRESS_STR for i in range(10 - math.floor(int(percent) / 10))])
                             speed = re.search("%,(.*?)yte/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
-                            await del_it.edit_text("**GUploading:**{}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
+                            await del_it.edit_text("**GUploading:** {}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
                                                    "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
                                                                               finished_str, unfinished_str, current,
                                                                               total, percent, speed, eta))
@@ -263,7 +263,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         )
         if credit != 'gopal':
             channel_id = str(message.chat.id)[4:]
-            await credit.edit_text(f"🧲 Leeched successfully😊 👉[here](https://t.me/c/{channel_id}/{msg.message_id})",
+            await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id})",
                                    disable_web_page_preview=True)
         os.remove(file_upload)
         await del_it.delete()
@@ -296,7 +296,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                                 [UN_FINISHED_PROGRESS_STR for i in range(10 - math.floor(int(percent) / 10))])
                             speed = re.search("%,(.*?)yte/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
-                            await del_it.edit_text("**GUploading:**{}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
+                            await del_it.edit_text("**GUploading:** {}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
                                                    "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
                                                                               finished_str, unfinished_str, current,
                                                                               total, percent, speed, eta))
@@ -363,7 +363,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         )
         if credit != 'gopal':
             channel_id = str(message.chat.id)[4:]
-            await credit.edit_text(f"🧲 Leeched successfully😊 👉[here](https://t.me/c/{channel_id}/{msg.message_id})",
+            await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id})",
                                    disable_web_page_preview=True)
         shutil.rmtree(file_upload)
         await del_it.delete()
