@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # (c) gautamajay52 | Shrimadhav U K
- 
+
 import asyncio
 import logging
 import math
@@ -11,14 +11,14 @@ import subprocess
 import time
 from datetime import datetime
 from pathlib import Path
- 
+
 from pyrogram import Client, filters
 from tobrot import DOWNLOAD_LOCATION, LOGGER, TELEGRAM_LEECH_UNZIP_COMMAND
 from tobrot.helper_funcs.create_compressed_archive import unzip_me, get_base_name
 from tobrot.helper_funcs.display_progress import Progress
 from tobrot.helper_funcs.upload_to_tg import upload_to_gdrive
- 
- 
+
+
 async def down_load_media_f(client, message):
     if len(message.command) == 1:
         user_command = message.command[0]
@@ -90,24 +90,28 @@ async def down_load_media_f(client, message):
             else:
                 is_anu = False
             file, mess_age = await download_tg(client, message)
-            try:
-                file_ext = str(file).split('.')[-1]
-                new_name = (
-                        str(Path().resolve()) + "/" + ' '.join(msg_list[1:]) + '.' + file_ext
-                            )
-            except:
-                new_name = (
-                    str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
-                )
-            try:
-                if file:
-                    os.rename(file, new_name)
-                else:
-                    return
-            except Exception as g_g:
-                LOGGER.error(g_g)
-                await message.reply_text("g_g")
-            await upload_to_gdrive(new_name, mess_age, message, usr_id, is_anu=is_anu)
+            if is_anu and len(message.command) == 2:
+                await upload_to_gdrive(file, mess_age, message, usr_id, is_anu=True)
+            else:
+                try:
+                    file_ext = str(file).split('.')[-1]
+                    new_name = (
+                            str(Path().resolve()) + "/" + ' '.join(msg_list[1:]) + '.' + file_ext
+                                )
+                except:
+                    new_name = (
+                        str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
+                    )
+                try:
+                    if file:
+                        os.rename(file, new_name)
+                    else:
+                        return
+                except Exception as g_g:
+                    LOGGER.error(g_g)
+                    await message.reply_text("g_g")
+                await upload_to_gdrive(new_name, mess_age, message, usr_id, is_anu=is_anu)
+
  
 async def download_tg(client, message):
     user_id = message.from_user.id
@@ -121,7 +125,7 @@ async def download_tg(client, message):
             media = m.document or m.video or m.audio or m.voice or m.video_note or m.animation
             filename = media.file_name
         except:
-            filename = ''        
+            filename = ''
         start_t = datetime.now()
         download_location = str(Path("./").resolve()) + "/"
         c_time = time.time()
