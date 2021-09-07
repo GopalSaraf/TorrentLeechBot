@@ -84,15 +84,20 @@ async def down_load_media_f(client, message):
             if is_anu and len(message.command) == 2:
                 await upload_to_gdrive(file, mess_age, message, usr_id, is_anu=True)
             else:
-                try:
-                    file_ext = str(file).split('.')[-1]
-                    new_name = (
-                            str(Path().resolve()) + "/" + ' '.join(msg_list[1:]) + '.' + file_ext
-                    )
-                except:
+                if msg_list[-1].upper().endswith(("MKV", "MP4", "WEBM", "MP3", "M4A", "FLAC", "WAV")):
                     new_name = (
                             str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
                     )
+                else:
+                    try:
+                        file_ext = str(file).split('.')[-1]
+                        new_name = (
+                                str(Path().resolve()) + "/" + ' '.join(msg_list[1:]) + '.' + file_ext
+                        )
+                    except:
+                        new_name = (
+                                str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
+                        )
                 try:
                     if file:
                         os.rename(file, new_name)
