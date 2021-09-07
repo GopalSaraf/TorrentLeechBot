@@ -78,7 +78,7 @@ EDIT_SLEEP_TIME_OUT = int(os.environ.get("EDIT_SLEEP_TIME_OUT", "5"))
 MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START = int(
     os.environ.get("MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START", 300)
 )
-MAX_TG_SPLIT_FILE_SIZE = int(os.environ.get("MAX_TG_SPLIT_FILE_SIZE", "2097152000"))
+MAX_TG_SPLIT_FILE_SIZE = int(os.environ.get("MAX_TG_SPLIT_FILE_SIZE", "2000000000"))
 # add config vars for the display progress
 FINISHED_PROGRESS_STR = os.environ.get("FINISHED_PROGRESS_STR", "▪️")
 UN_FINISHED_PROGRESS_STR = os.environ.get("UN_FINISHED_PROGRESS_STR", "▫️")
