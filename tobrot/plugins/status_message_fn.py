@@ -48,10 +48,7 @@ async def status_message_f(client, message):
     prev_mess = "By GopalSaraf"
     while True:
         downloads = aria_i_p.get_downloads()
-        if len(downloads) >= 5:
-            msg = "<b>Top 5 Downloads here 👇</b>\n"
-        else:
-            msg = ""
+        msg = ""
         for file in downloads:
             downloading_dir_name = "NA"
             try:
