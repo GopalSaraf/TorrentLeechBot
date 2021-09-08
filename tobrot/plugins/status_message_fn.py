@@ -48,7 +48,10 @@ async def status_message_f(client, message):
     prev_mess = "By GopalSaraf"
     while True:
         downloads = aria_i_p.get_downloads()
-        msg = ""
+        if len(downloads) >= 5:
+            msg = "<b>Top 5 Downloads here 👇</b>\n"
+        else:
+            msg = ""
         for file in downloads:
             downloading_dir_name = "NA"
             try:
@@ -93,11 +96,7 @@ async def status_message_f(client, message):
             await to_edit.edit(msg)
             break
 
-        if len(downloads) >= 5:
-            int_msg = "<b>Top 5 Downloads here 👇:</b>\n\n"
-        else:
-            int_msg = ""
-        msg = int_msg + msg + "\n" + ms_g
+        msg = msg + "\n" + ms_g
         if len(msg) > MAX_MESSAGE_LENGTH:  # todo - will catch later
             with io.BytesIO(str.encode(msg)) as out_file:
                 out_file.name = "status.text"
