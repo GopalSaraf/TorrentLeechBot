@@ -62,9 +62,10 @@ async def status_message_f(client, message):
                 else:
                     msgg = f"<b>Peers:</b> {file.connections} | <b>Seeders:</b> {file.num_seeders}"
                 msg += f"\n<b>{downloading_dir_name}</b>"
-                msg += "\n**[{}{}]**".format(
+                msg += "\n<b>[{}{}]</b>".format(
                     "".join([FINISHED_PROGRESS_STR for i in range(math.floor(float(file.progress_string()[:-1]) / 2))]),
-                    "".join([UN_FINISHED_PROGRESS_STR for i in range(50 - math.floor(float(file.progress_string()[:-1]) / 2))])
+                    "".join([UN_FINISHED_PROGRESS_STR for i in
+                             range(50 - math.floor(float(file.progress_string()[:-1]) / 2))])
                 )
                 msg += f"\n<b>Status</b>: {file.progress_string()} <b>of</b> {file.total_length_string()}"
                 msg += f"\n<b>Speed</b>: {file.download_speed_string()}"
@@ -91,7 +92,12 @@ async def status_message_f(client, message):
             msg = ms_g + "\n" + msg
             await to_edit.edit(msg)
             break
-        msg = msg + "\n" + ms_g
+
+        if len(downloads) >= 5:
+            int_msg = "<b>Top 5 Downloads here 👇:</b>\n\n"
+        else:
+            int_msg = ""
+        msg = int_msg + msg + "\n" + ms_g
         if len(msg) > MAX_MESSAGE_LENGTH:  # todo - will catch later
             with io.BytesIO(str.encode(msg)) as out_file:
                 out_file.name = "status.text"
