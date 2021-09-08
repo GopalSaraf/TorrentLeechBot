@@ -77,14 +77,14 @@ class Progress:
                 progress1 = f"**Downloading:** {filename_bygopal}\n"
             else:
                 progress1 = f"**TUploading:** {filename_bygopal}\n"
-            progress2 = "[{0}{1}] \n".format(
+            progress2 = "**[{0}{1}]** \n".format(
                 "".join(
-                    [FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 10))]
+                    [FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 2))]
                 ),
                 "".join(
                     [
                         UN_FINISHED_PROGRESS_STR
-                        for i in range(10 - math.floor(percentage / 10))
+                        for i in range(50 - math.floor(percentage / 2))
                     ]
                 ),
             )

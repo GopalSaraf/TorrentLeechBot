@@ -187,12 +187,12 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                             if percent == '-':
                                 percent = 0
                             finished_str = "".join(
-                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 10))])
+                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 2))])
                             unfinished_str = "".join(
-                                [UN_FINISHED_PROGRESS_STR for i in range(10 - math.floor(int(percent) / 10))])
+                                [UN_FINISHED_PROGRESS_STR for i in range(50 - math.floor(int(percent) / 2))])
                             speed = re.search("%,(.*?)yte/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
-                            await del_it.edit_text("**GUploading:** {}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
+                            await del_it.edit_text("**GUploading:** {}\n**[{}{}]**\n{}B of {} ({}%)\n**Speed:** {}"
                                                    "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
                                                                               finished_str, unfinished_str, current,
                                                                               total, percent, speed, eta))
@@ -287,12 +287,12 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                             if percent == '-':
                                 percent = 0
                             finished_str = "".join(
-                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 10))])
+                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 2))])
                             unfinished_str = "".join(
-                                [UN_FINISHED_PROGRESS_STR for i in range(10 - math.floor(int(percent) / 10))])
+                                [UN_FINISHED_PROGRESS_STR for i in range(50 - math.floor(int(percent) / 2))])
                             speed = re.search("%,(.*?)yte/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
-                            await del_it.edit_text("**GUploading:** {}\n[{}{}]\n{}B of {} ({}%)\n**Speed:** {}"
+                            await del_it.edit_text("**GUploading:** {}\n**[{}{}]**\n{}B of {} ({}%)\n**Speed:** {}"
                                                    "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
                                                                               finished_str, unfinished_str, current,
                                                                               total, percent, speed, eta))

@@ -1,5 +1,6 @@
 import asyncio
 import io
+import math
 import os
 import shutil
 import sys
@@ -8,7 +9,7 @@ import traceback
 import psutil
 
 from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, \
-    EDIT_SLEEP_TIME_OUT, OWNER_ID
+    EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR
 from tobrot.helper_funcs.admin_check import AdminCheck
 
 # the logging things
@@ -61,8 +62,12 @@ async def status_message_f(client, message):
                 else:
                     msgg = f"<b>Peers:</b> {file.connections} | <b>Seeders:</b> {file.num_seeders}"
                 msg += f"\n<b>{downloading_dir_name}</b>"
-                msg += f"\n<b>Speed</b>: {file.download_speed_string()}"
+                msg += "\n**[{}{}]**".format(
+                    "".join([FINISHED_PROGRESS_STR for i in range(math.floor(float(file.progress_string()[:-1]) / 2))]),
+                    "".join([UN_FINISHED_PROGRESS_STR for i in range(50 - math.floor(float(file.progress_string()[:-1]) / 2))])
+                )
                 msg += f"\n<b>Status</b>: {file.progress_string()} <b>of</b> {file.total_length_string()}"
+                msg += f"\n<b>Speed</b>: {file.download_speed_string()}"
                 msg += f"\n<b>ETA:</b> {file.eta_string()}"
                 msg += f"\n{msgg}"
                 msg += f"\n<b>To Cancel:</b> <code>/cancel {file.gid}</code>"
@@ -263,7 +268,7 @@ async def upload_log_file(client, message):
 
 async def help_message_f(client, message):
     msg = ("""📖 Help
-    
+
 /status - to see current status and processing files
 /help - to see this message
 /cancel - to cancel process (paste GID with it)
@@ -278,9 +283,9 @@ async def help_message_f(client, message):
 /gleechzip - archive to GDrive
 
 **Following are the commands as a reply to a youtube link:**
-/ytdl - youtube to telegram 
+/ytdl - youtube to telegram
 /gytdl - youtube to GDrive
-/pytdl - youtube playlist to telegram 
+/pytdl - youtube playlist to telegram
 /gpytdl - youtube playlist to GDrive
 
 **Following are the commands as a reply to a telegram file:**
