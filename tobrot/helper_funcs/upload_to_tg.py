@@ -1,5 +1,4 @@
 import asyncio
-import logging
 import math
 import os
 import re
@@ -13,10 +12,8 @@ import pyrogram.types as pyrogram
 import requests
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
-from hurry.filesize import size
 from PIL import Image
 from pyrogram.errors import FloodWait, MessageNotModified
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram.types import InputMediaAudio, InputMediaDocument, InputMediaVideo
 from requests.utils import requote_uri
 from tobrot import (
@@ -94,7 +91,7 @@ async def upload_to_tg(
             i_m_s_g = await message.reply_text(
                 "Telegram does not support uploading this file.\n"
                 f"Detected File Size: {d_f_s} 😡\n"
-                "\ntrying to split the files 🌝🌝🌚"
+                "\nTrying to split the files 🌝🌝🌚"
             )
             splitted_dir = await split_large_files(local_file_name)
             totlaa_sleif = os.listdir(splitted_dir)
@@ -105,7 +102,7 @@ async def upload_to_tg(
             await i_m_s_g.edit_text(
                 f"Detected File Size: {d_f_s} 😡\n"
                 f"<code>{ba_se_file_name}</code> splitted into {number_of_files} files.\n"
-                "trying to upload to Telegram, now ..."
+                "Trying to upload to Telegram, now ..."
             )
             for le_file in totlaa_sleif:
                 # recursion: will this FAIL somewhere?
@@ -192,10 +189,11 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                                 [UN_FINISHED_PROGRESS_STR for i in range(50 - math.floor(int(percent) / 2))])
                             speed = re.search("%,(.*?)yte/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
-                            await del_it.edit_text("**GUploading:** {}\n**[{}{}]**\n{}B of {} ({}%)\n**Speed:** {}"
-                                                   "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
-                                                                              finished_str, unfinished_str, current,
-                                                                              total, percent, speed, eta))
+                            await del_it.edit_text(
+                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{}B **of** {}\n**Speed:** {}"
+                                "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
+                                                           finished_str, unfinished_str, percent, current,
+                                                           total, speed, eta))
                     except:
                         continue
 
@@ -237,7 +235,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         LOGGER.info(tam.decode())
         # os.remove("filter.txt")
         gauti = f"https://drive.google.com/file/d/{gautam}/view?usp=drivesdk"
-        gjay = size(os.path.getsize(file_upload))
+        gjay = humanbytes(os.path.getsize(file_upload))
         button = []
         button.append(
             pyrogram.InlineKeyboardButton(text="☁️ GDrive ☁️", url=f"{gauti}")
@@ -254,7 +252,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         button_markup = pyrogram.InlineKeyboardMarkup([button])
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
         msg = await messa_ge.reply_text(
-            f"Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\n💾 Size: {gjay}",
+            f"Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\nSize: {gjay}",
             reply_markup=button_markup,
         )
         if credit != 'gopal':
@@ -292,10 +290,11 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                                 [UN_FINISHED_PROGRESS_STR for i in range(50 - math.floor(int(percent) / 2))])
                             speed = re.search("%,(.*?)yte/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
-                            await del_it.edit_text("**GUploading:** {}\n**[{}{}]**\n{}B of {} ({}%)\n**Speed:** {}"
-                                                   "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
-                                                                              finished_str, unfinished_str, current,
-                                                                              total, percent, speed, eta))
+                            await del_it.edit_text(
+                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{}B **of** {}\n**Speed:** {}"
+                                "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
+                                                           finished_str, unfinished_str, percent, current,
+                                                           total, speed, eta))
                     except:
                         continue
 
@@ -336,7 +335,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         LOGGER.info(tam.decode("utf-8"))
         # os.remove("filter1.txt")
         gautii = f"https://drive.google.com/folderview?id={gautam}"
-        gjay = size(getFolderSize(file_upload))
+        gjay = humanbytes(getFolderSize(file_upload))
         LOGGER.info(gjay)
         button = []
         button.append(
@@ -359,7 +358,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         )
         if credit != 'gopal':
             channel_id = str(message.chat.id)[4:]
-            await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id})",
+            await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
                                    disable_web_page_preview=True)
         shutil.rmtree(file_upload)
         await del_it.delete()

@@ -62,7 +62,7 @@ async def status_message_f(client, message):
                 else:
                     msgg = f"<b>Peers:</b> {file.connections} | <b>Seeders:</b> {file.num_seeders}"
                 msg += f"\n<b>{downloading_dir_name}</b>"
-                msg += "\n<b>[{}{}]</b> (<b>{}</b>)".format(
+                msg += "\n<b>[{}{}]</b> <b>{}</b>".format(
                     "".join([FINISHED_PROGRESS_STR for i in range(math.floor(float(file.progress_string()[:-1]) / 2))]),
                     "".join([UN_FINISHED_PROGRESS_STR for i in
                              range(50 - math.floor(float(file.progress_string()[:-1]) / 2))]),

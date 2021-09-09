@@ -77,7 +77,7 @@ class Progress:
                 progress1 = f"**Downloading:** {filename_bygopal}\n"
             else:
                 progress1 = f"**TUploading:** {filename_bygopal}\n"
-            progress2 = "**[{0}{1}]** \n".format(
+            progress2 = "**[{0}{1}]** **{2}%**\n".format(
                 "".join(
                     [FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 2))]
                 ),
@@ -87,15 +87,15 @@ class Progress:
                         for i in range(50 - math.floor(percentage / 2))
                     ]
                 ),
+                round(percentage, 2),
             )
 
-            tmp = progress1 + progress2 + "{0} of {1}  ({4}%)\n**Speed:** {2}/sec\n**ETA:** {3}\n".format(
+            tmp = progress1 + progress2 + "{0} **of** {1}\n**Speed:** {2}/sec\n**ETA:** {3}\n".format(
                 humanbytes(current),
                 humanbytes(total),
                 humanbytes(speed),
                 # elapsed_time if elapsed_time != '' else "0 s",
                 estimated_total_time if estimated_total_time != "" else "0 s",
-                round(percentage, 2),
             )
             try:
                 if not self._mess.photo:
