@@ -67,7 +67,7 @@ async def status_message_f(client, message):
                     "".join([UN_FINISHED_PROGRESS_STR for i in
                              range(50 - math.floor(float(file.progress_string()[:-1]) / 2))])
                 )
-                msg += f"\n<b>Status</b>: {file.progress_string()} <b>of</b> {file.total_length_string()}"
+                msg += f"\n<b>Status</b>: {file.completed_length_string()} <b>of</b> {file.total_length_string()}"
                 msg += f"\n<b>Speed</b>: {file.download_speed_string()}"
                 msg += f"\n<b>ETA:</b> {file.eta_string()}"
                 msg += f"\n{msgg}"
