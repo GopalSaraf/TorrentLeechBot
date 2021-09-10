@@ -2,7 +2,6 @@
 # !/usr/bin/env python3
 import asyncio
 import os
-import re
 
 import pyrogram.types as pyrogram
 import requests
@@ -13,6 +12,22 @@ from tobrot import (
     LOGGER,
     RCLONE_CONFIG,
 )
+
+import re
+import urllib.parse as urlparse
+from urllib.parse import parse_qs
+
+
+def getIdFromUrl(link: str):
+    if "folders" in link or "file" in link:
+        regex = r"https://drive\.google\.com/(drive)?/?u?/?\d?/?(mobile)?/?(file)?(folders)?/?d?/([-\w]+)[?+]?/?(w+)?"
+        res = re.search(regex, link)
+        if res is None:
+            raise IndexError("GDrive ID not found.")
+        return res.group(5)
+    parsed = urlparse.urlparse(link)
+    return parse_qs(parsed.query)['id'][0]
+
 
 
 class CloneHelper:
@@ -42,12 +57,18 @@ class CloneHelper:
         LOGGER.info(txt)
         mess = txt.split(" ", maxsplit=1)
         if len(mess) == 2:
-            self.g_id = mess[0]
+            if '//' in mess[0]:
+                self.g_id = getIdFromUrl(mess[0])
+            else:
+                self.g_id = mess[0]
             LOGGER.info(self.g_id)
             self.name = mess[1]
             LOGGER.info(self.name)
         else:
-            self.g_id = mess[0]
+            if '//' in mess[0]:
+                self.g_id = getIdFromUrl(mess[0])
+            else:
+                self.g_id = mess[0]
             LOGGER.info(self.g_id)
             self.name = ""
         return self.g_id, self.name
