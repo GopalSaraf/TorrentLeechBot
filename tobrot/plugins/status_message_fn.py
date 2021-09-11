@@ -322,11 +322,14 @@ For further help contact **@GopalSaraf**
     await message.reply_text(msg, quote=True)
 
 
+maxcount = 20
+
+
 async def list_fn(client, message):
     if len(message.command) == 1:
         await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
     else:
-        to_edit = await message.reply('Searching...')
+        to_del = await message.reply('Searching...')
         to_srch = message.text.split(' ', maxsplit=1)[1]
         if not os.path.exists("rclone.conf"):
             with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
@@ -337,28 +340,38 @@ async def list_fn(client, message):
                 gUP = re.findall("\[(.*)\]", con)[0]
                 LOGGER.info(gUP)
         destination = f"{DESTINATION_FOLDER}"
-        command = f"rclone lsjson --config=./rclone.conf {gUP}:{destination}"
+        command = f"rclone lsjson --config=./rclone.conf {gUP}:{destination} -R"
         pro = Popen(command, stdout=PIPE, shell=True)
         json_str = pro.stdout.read().decode('utf-8')
         json_list = json.loads(json_str)
+        json_srch_list = []
         msg = ''
         for item in json_list:
             if to_srch.lower() in item['Name'].lower():
-                if item['IsDir']:
-                    msg += f"\n**{item['Name']}** (Folder)\n"
-                    gdrive_link = f"https://drive.google.com/folderview?id={item['ID']}"
-                    index = f"{INDEX_LINK}/{item['Name']}/"
-                    inder_link = requests.utils.requote_uri(index)
-                    msg += f"[Drive Link]({gdrive_link}) | [Index Link]({inder_link})\n"
-                else:
-                    size = humanbytes(item['Size'])
-                    msg += f"\n**{item['Name']}** ({size})\n"
-                    gdrive_link = f"https://drive.google.com/file/d/{item['ID']}/view?usp=drivesdk"
-                    index = f"{INDEX_LINK}/{item['Name']}"
-                    inder_link = requests.utils.requote_uri(index)
-                    msg += f"[Drive Link]({gdrive_link}) | [Index Link]({inder_link})\n"
-        await to_edit.edit(msg)
+                json_srch_list.append(item)
+        for count, item in enumerate(json_srch_list):
+            if count % maxcount == 0:
+                msg += "\n\n\n\n\n"
+            if item['IsDir']:
+                msg += f"\n**{count + 1}.** "
+                msg += f"**{item['Name']}** (Folder)\n"
+                gdrive_link = f"https://drive.google.com/folderview?id={item['ID']}"
+                index = f"{INDEX_LINK}/{item['Path']}/"
+                index_link = requests.utils.requote_uri(index)
+                msg += f"<a href='{gdrive_link}'>Drive Link</a> | <a href='{index_link}'>Index Link</a>\n"
+            else:
+                msg += f"\n**{count + 1}.** "
+                size = humanbytes(item['Size'])
+                msg += f"**{item['Name']}** ({size})\n"
+                gdrive_link = f"https://drive.google.com/file/d/{item['ID']}/view?usp=drivesdk"
+                index = f"{INDEX_LINK}/{item['Path']}"
+                index_link = requests.utils.requote_uri(index)
+                msg += f"<a href='{gdrive_link}'>Drive Link</a> | <a href='{index_link}'>Index Link</a>\n"
 
+        msg_list = msg.strip().split('\n\n\n\n\n')
+        page_count = len(msg_list)
 
+        await to_del.delete()
 
-
+        for i in range(page_count):
+            await message.reply(msg_list[i])

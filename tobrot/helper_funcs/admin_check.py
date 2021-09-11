@@ -12,8 +12,3 @@ async def AdminCheck(client, chat_id, user_id):
         return False
     else:
         return True
-
-
- 
-
-         
