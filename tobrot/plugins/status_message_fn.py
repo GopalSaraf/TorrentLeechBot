@@ -337,7 +337,7 @@ async def list_fn(client, message):
                 gUP = re.findall("\[(.*)\]", con)[0]
                 LOGGER.info(gUP)
         destination = f"{DESTINATION_FOLDER}"
-        command = f"rclone lsjson {gUP}:{destination}"
+        command = f"rclone lsjson --config=./rclone.conf {gUP}:{destination}"
         pro = Popen(command, stdout=PIPE, shell=True)
         json_str = pro.stdout.read().decode('utf-8')
         json_list = json.loads(json_str)
