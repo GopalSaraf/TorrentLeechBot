@@ -257,7 +257,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         )
         if credit != 'gopal':
             channel_id = str(message.chat.id)[4:]
-            await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id})",
+            await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
                                    disable_web_page_preview=True)
         os.remove(file_upload)
         await del_it.delete()

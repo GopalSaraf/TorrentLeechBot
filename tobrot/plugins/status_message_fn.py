@@ -12,10 +12,12 @@ from subprocess import Popen, PIPE
 
 import psutil
 import requests
+from pyrogram import filters, Client
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, \
     EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR, RCLONE_CONFIG, DESTINATION_FOLDER, \
-    INDEX_LINK
+    INDEX_LINK, TG_BOT_TOKEN, APP_ID, API_HASH
 from tobrot.helper_funcs.admin_check import AdminCheck
 
 # the logging things
@@ -358,7 +360,7 @@ async def list_fn(client, message):
                 gdrive_link = f"https://drive.google.com/folderview?id={item['ID']}"
                 index = f"{INDEX_LINK}/{item['Path']}/"
                 index_link = requests.utils.requote_uri(index)
-                msg += f"<a href='{gdrive_link}'>Drive Link</a> | <a href='{index_link}'>Index Link</a>\n"
+                msg += f"[Drive Link]({gdrive_link}) | <a href='{index_link}'>Index Link</a>\n"
             else:
                 msg += f"\n**{count + 1}.** "
                 size = humanbytes(item['Size'])
@@ -366,12 +368,36 @@ async def list_fn(client, message):
                 gdrive_link = f"https://drive.google.com/file/d/{item['ID']}/view?usp=drivesdk"
                 index = f"{INDEX_LINK}/{item['Path']}"
                 index_link = requests.utils.requote_uri(index)
-                msg += f"<a href='{gdrive_link}'>Drive Link</a> | <a href='{index_link}'>Index Link</a>\n"
+                msg += f"[Drive Link]({gdrive_link}) | <a href='{index_link}'>Index Link</a>\n"
 
-        msg_list = msg.strip().split('\n\n\n\n\n')
-        page_count = len(msg_list)
+        if msg:
+            msg_list = msg.strip().split('\n\n\n\n\n')
+            page_count = len(msg_list)
+            await to_del.delete()
 
-        await to_del.delete()
+            if page_count == 1:
+                await message.reply(msg_list[0], disable_web_page_preview=True, quote=True)
+            else:
+                buttons = []
+                for i in range(page_count):
+                    button = InlineKeyboardButton(f'{i + 1}', callback_data=f"page_no_:{i + 1}")
+                    buttons.append(button)
+                await message.reply(msg_list[0], disable_web_page_preview=True, quote=True,
+                                    reply_markup=InlineKeyboardMarkup([buttons]))
 
-        for i in range(page_count):
-            await message.reply(msg_list[i])
+                app = Client(
+                    "LeechBot",
+                    bot_token=TG_BOT_TOKEN,
+                    api_id=APP_ID,
+                    api_hash=API_HASH,
+                    workers=343,
+                )
+
+                @app.on_callback_query(filters.create(lambda _, __, query: query.data.startswith('page_no')))
+                async def edit_page(bot, message):
+                    page_no = int(message.data.split(':')[-1])
+                    await message.message.edit(text=msg_list[page_no - 1], reply_markup=InlineKeyboardMarkup([buttons]),
+                                               disable_web_page_preview=True)
+
+        else:
+            await to_del.edit(f"No results found for {to_srch}.")

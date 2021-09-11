@@ -20,6 +20,7 @@ from tobrot.helper_funcs.create_compressed_archive import (
     get_base_name,
     unzip_me,
 )
+from tobrot.helper_funcs.download import download_tg
 from tobrot.helper_funcs.upload_to_tg import upload_to_gdrive, upload_to_tg
 from tobrot.helper_funcs.direct_link_generator import direct_link_generator
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
@@ -308,7 +309,7 @@ async def call_apropriate_function(
                 msg = await user_message.reply_text(
                     text=message_to_send, quote=True, disable_web_page_preview=True
                 )
-                await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id})",
+                await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
                                        disable_web_page_preview=True)
             except Exception as go:
                 LOGGER.error(go)
