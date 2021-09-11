@@ -1,15 +1,21 @@
 import asyncio
 import io
+import json
 import math
 import os
+import re
 import shutil
 import sys
 import time
 import traceback
+from subprocess import Popen, PIPE
+
 import psutil
+import requests
 
 from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, \
-    EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR
+    EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR, RCLONE_CONFIG, DESTINATION_FOLDER, \
+    INDEX_LINK
 from tobrot.helper_funcs.admin_check import AdminCheck
 
 # the logging things
@@ -314,3 +320,45 @@ For further help contact **@GopalSaraf**
 """)
 
     await message.reply_text(msg, quote=True)
+
+
+async def list_fn(client, message):
+    if len(message.command) == 1:
+        await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
+    else:
+        to_edit = await message.reply('Searching...')
+        to_srch = message.text.split(' ', maxsplit=1)[1]
+        if not os.path.exists("rclone.conf"):
+            with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
+                fole.write(f"{RCLONE_CONFIG}")
+        if os.path.exists("rclone.conf"):
+            with open("rclone.conf", "r+") as file:
+                con = file.read()
+                gUP = re.findall("\[(.*)\]", con)[0]
+                LOGGER.info(gUP)
+        destination = f"{DESTINATION_FOLDER}"
+        command = f"rclone lsjson {gUP}:{destination}"
+        pro = Popen(command, stdout=PIPE, shell=True)
+        json_str = pro.stdout.read().decode('utf-8')
+        json_list = json.loads(json_str)
+        msg = ''
+        for item in json_list:
+            if to_srch.lower() in item['Name'].lower():
+                if item['IsDir']:
+                    msg += f"\n**{item['Name']}** (Folder)\n"
+                    gdrive_link = f"https://drive.google.com/folderview?id={item['ID']}"
+                    index = f"{INDEX_LINK}/{item['Name']}/"
+                    inder_link = requests.utils.requote_uri(index)
+                    msg += f"[Drive Link]({gdrive_link}) | [Index Link]({inder_link})\n"
+                else:
+                    size = humanbytes(item['Size'])
+                    msg += f"\n**{item['Name']}** ({size})\n"
+                    gdrive_link = f"https://drive.google.com/file/d/{item['ID']}/view?usp=drivesdk"
+                    index = f"{INDEX_LINK}/{item['Name']}"
+                    inder_link = requests.utils.requote_uri(index)
+                    msg += f"[Drive Link]({gdrive_link}) | [Index Link]({inder_link})\n"
+        await to_edit.edit(msg)
+
+
+
+

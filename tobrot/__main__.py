@@ -34,6 +34,7 @@ from tobrot import (
     TOGGLE_VID,
     TOGGLE_DOC,
     HELP_COMMAND,
+    LIST_COMMAND
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
@@ -61,6 +62,7 @@ from tobrot.plugins.status_message_fn import (
     upload_as_doc,
     upload_as_video,
     help_message_f,
+    list_fn
 )
 
 if __name__ == "__main__":
@@ -229,5 +231,12 @@ if __name__ == "__main__":
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(help_message_handler)
+    #
+    list_message_handler = MessageHandler(
+        list_fn,
+        filters=filters.command([f"{LIST_COMMAND}"])
+                & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(list_message_handler)
     #
     app.run()
