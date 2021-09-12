@@ -12,8 +12,7 @@ from subprocess import Popen, PIPE
 
 import psutil
 import requests
-from pyrogram import filters, Client
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, \
     EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR, RCLONE_CONFIG, DESTINATION_FOLDER, \
@@ -385,19 +384,13 @@ async def list_fn(client, message):
                 await message.reply(msg_list[0], disable_web_page_preview=True, quote=True,
                                     reply_markup=InlineKeyboardMarkup([buttons]))
 
-                app = Client(
-                    "LeechBot",
-                    bot_token=TG_BOT_TOKEN,
-                    api_id=APP_ID,
-                    api_hash=API_HASH,
-                    workers=343,
-                )
-
-                @app.on_callback_query(filters.create(lambda _, __, query: query.data.startswith('page_no')))
-                async def edit_page(bot, message):
+                # @app.on_callback_query(filters.create(lambda _, __, query: query.data.startswith('page_no')))
+                async def edit_page(bot, message: CallbackQuery):
                     page_no = int(message.data.split(':')[-1])
                     await message.message.edit(text=msg_list[page_no - 1], reply_markup=InlineKeyboardMarkup([buttons]),
                                                disable_web_page_preview=True)
+
+                await edit_page(client, message)
 
         else:
             await to_del.edit(f"No results found for {to_srch}.")

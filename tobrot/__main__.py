@@ -62,7 +62,7 @@ from tobrot.plugins.status_message_fn import (
     upload_as_doc,
     upload_as_video,
     help_message_f,
-    list_fn
+    list_fn,
 )
 
 if __name__ == "__main__":
