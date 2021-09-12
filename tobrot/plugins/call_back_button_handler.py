@@ -83,8 +83,9 @@ async def button(bot, update: CallbackQuery):
             )
     if cb_data.startswith("page_no"):
         page_no = cb_data.split(':')[-1]
-        listing = listHelper()
-        await listing.edit_page(page_no)
+        to_edit = update.message
+        listing = listHelper(to_edit.reply_to_message)
+        await listing.edit_page(page_no, to_edit)
 
     elif cb_data == "fuckingdo":
         if (update.from_user.id in AUTH_CHANNEL) or g:

@@ -78,11 +78,10 @@ class listHelper():
             buttons.append(button)
         self.buttons = buttons
         await message.reply(msg_list[0], disable_web_page_preview=True, quote=True,
-                            reply_markup=InlineKeyboardMarkup([buttons]))
+                                      reply_markup=InlineKeyboardMarkup([buttons]))
 
-    async def edit_page(self, page_no):
-        message = self.message
+    async def edit_page(self, page_no, to_edit):
         msg_list = self.msg_list
         buttons = self.buttons
-        await message.message.edit(text=msg_list[page_no - 1], reply_markup=InlineKeyboardMarkup([buttons]),
-                                   disable_web_page_preview=True)
+        await to_edit.edit(text=msg_list[page_no - 1], reply_markup=InlineKeyboardMarkup([buttons]),
+                           disable_web_page_preview=True)
