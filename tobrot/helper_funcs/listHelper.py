@@ -2,7 +2,7 @@ import json
 import os
 import re
 from subprocess import Popen, PIPE
-
+from functools import cached_property
 import requests
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -19,6 +19,7 @@ class listHelper():
         self.msg_list = []
         self.buttons = []
 
+    @cached_property
     async def list_fn(self):
         message = self.message
         to_srch = message.text.split(' ', maxsplit=1)[1]
