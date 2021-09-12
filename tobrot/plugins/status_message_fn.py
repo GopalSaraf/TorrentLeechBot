@@ -324,75 +324,6 @@ For further help contact **@GopalSaraf**
     await message.reply_text(msg, quote=True)
 
 
-# async def list_fn(client, message):
-#     if len(message.command) == 1:
-#         await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
-#     else:
-#         to_del = await message.reply('Searching...')
-#         to_srch = message.text.split(' ', maxsplit=1)[1]
-#         if not os.path.exists("rclone.conf"):
-#             with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
-#                 fole.write(f"{RCLONE_CONFIG}")
-#         if os.path.exists("rclone.conf"):
-#             with open("rclone.conf", "r+") as file:
-#                 con = file.read()
-#                 gUP = re.findall("\[(.*)\]", con)[0]
-#                 LOGGER.info(gUP)
-#         destination = f"{DESTINATION_FOLDER}"
-#         command = f"rclone lsjson --config=./rclone.conf {gUP}:{destination} -R"
-#         pro = Popen(command, stdout=PIPE, shell=True)
-#         json_str = pro.stdout.read().decode('utf-8')
-#         json_list = json.loads(json_str)
-#         json_srch_list = []
-#         msg = ''
-#         for item in json_list:
-#             if to_srch.lower() in item['Name'].lower():
-#                 json_srch_list.append(item)
-#         for count, item in enumerate(json_srch_list):
-#             if count % maxcount == 0:
-#                 msg += "\n\n\n\n\n"
-#             if item['IsDir']:
-#                 msg += f"\n**{count + 1}.** "
-#                 msg += f"**{item['Name']}** (Folder)\n"
-#                 gdrive_link = f"https://drive.google.com/folderview?id={item['ID']}"
-#                 index = f"{INDEX_LINK}/{item['Path']}/"
-#                 index_link = requests.utils.requote_uri(index)
-#                 msg += f"[Drive Link]({gdrive_link}) | <a href='{index_link}'>Index Link</a>\n"
-#             else:
-#                 msg += f"\n**{count + 1}.** "
-#                 size = humanbytes(item['Size'])
-#                 msg += f"**{item['Name']}** ({size})\n"
-#                 gdrive_link = f"https://drive.google.com/file/d/{item['ID']}/view?usp=drivesdk"
-#                 index = f"{INDEX_LINK}/{item['Path']}"
-#                 index_link = requests.utils.requote_uri(index)
-#                 msg += f"[Drive Link]({gdrive_link}) | <a href='{index_link}'>Index Link</a>\n"
-#
-#         if msg:
-#             msg_list = msg.strip().split('\n\n\n\n\n')
-#             page_count = len(msg_list)
-#             await to_del.delete()
-#
-#             if page_count == 1:
-#                 await message.reply(msg_list[0], disable_web_page_preview=True, quote=True)
-#             else:
-#                 buttons = []
-#                 for i in range(page_count):
-#                     button = InlineKeyboardButton(f'{i + 1}', callback_data=f"page_no_:{i + 1}")
-#                     buttons.append(button)
-#                 await message.reply(msg_list[0], disable_web_page_preview=True, quote=True,
-#                                     reply_markup=InlineKeyboardMarkup([buttons]))
-#
-#                 # @app.on_callback_query(filters.create(lambda _, __, query: query.data.startswith('page_no')))
-#                 async def edit_page(bot, message: CallbackQuery):
-#                     page_no = int(message.data.split(':')[-1])
-#                     await message.message.edit(text=msg_list[page_no - 1], reply_markup=InlineKeyboardMarkup([buttons]),
-#                                                disable_web_page_preview=True)
-#
-#                 await edit_page(client, message)
-#
-#         else:
-#             await to_del.edit(f"No results found for {to_srch}.")
-
 async def list_fn(client, message):
     if len(message.command) == 1:
         await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
@@ -400,9 +331,7 @@ async def list_fn(client, message):
         to_del = await message.reply('Searching...')
         listing = listHelper(message)
         message_list = await listing.list_fn()
-        if len(message_list) == 0:
-            await to_del.edit(f"No results found for {listing.to_srch}.")
-        elif len(message_list) == 1:
+        if len(message_list) == 1:
             await to_del.delete()
             await listing.one_page_msg_fn()
         else:

@@ -86,6 +86,7 @@ async def button(bot, update: CallbackQuery):
         page_no = int(page_no)
         to_edit = update.message
         listing = listHelper(to_edit.reply_to_message)
+        await listing.list_fn()
         await listing.edit_page(page_no, to_edit)
 
     elif cb_data == "fuckingdo":

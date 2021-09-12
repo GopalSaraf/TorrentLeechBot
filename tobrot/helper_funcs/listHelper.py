@@ -62,21 +62,26 @@ class listHelper():
 
         msg_list = msg.strip().split('\n\n\n\n\n')
         self.msg_list = msg_list
-        return msg_list
-
-    async def one_page_msg_fn(self):
-        message = self.message
-        msg_list = self.msg_list
-        await message.reply(msg_list[0], disable_web_page_preview=True, quote=True)
-
-    async def more_page_msg_fn(self):
-        message = self.message
-        msg_list = self.msg_list
         buttons = []
         for i in range(len(msg_list)):
             button = InlineKeyboardButton(f'{i + 1}', callback_data=f"page_no_:{i + 1}")
             buttons.append(button)
         self.buttons = buttons
+        return msg_list
+
+    async def one_page_msg_fn(self):
+        message = self.message
+        msg_list = self.msg_list
+        to_srch = self.to_srch
+        if msg_list[0] == '':
+            await message.reply(f"No Results found for {to_srch}.")
+        else:
+            await message.reply(msg_list[0], disable_web_page_preview=True, quote=True)
+
+    async def more_page_msg_fn(self):
+        message = self.message
+        msg_list = self.msg_list
+        buttons = self.buttons
         await message.reply(msg_list[0], disable_web_page_preview=True, quote=True,
                                       reply_markup=InlineKeyboardMarkup([buttons]))
 
