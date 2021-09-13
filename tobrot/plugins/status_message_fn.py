@@ -283,6 +283,7 @@ async def help_message_f(client, message):
 /status - to see current status and processing files
 /help - to see this message
 /cancel - to cancel process (paste GID with it)
+/list - to search in GDrive (Like <code>/list avengers</code>)
 
 **Following are the commands as a reply to a magnetic link, a torrent link, or a direct link:**
 
@@ -300,7 +301,7 @@ async def help_message_f(client, message):
 /gpytdl - youtube playlist to GDrive
 
 **Following are the commands as a reply to a telegram file:**
-/tleech - leech from telegram to GDrive
+/tleech - leech from telegram to GDrive (If want to rename file.. Give name after command)
 /tleechunzip - unarchive from telegram to GDrive
 /rename - to rename telegram files
 
@@ -308,15 +309,12 @@ async def help_message_f(client, message):
 /savethumbnail - to save a photo as thumbnail for upload
 /clearthumbnail - to clear thumbnail
 
-**Some useless commands:**
+**Some other commands:**
 /gclone - to clone gdrive files or folder
-/rclone - to change upload location (for admin)
 /uploadvid - to upload files streamable
 /uploaddoc - to upload files as a document
-/renewme - to clear all downloads (for admin)
-/log - to get bot logs (for admin)
 
-For further help contact **@GopalSaraf**
+For anything else.. DM **@GopalSaraf**
 **THANK YOU!**
 😊😊😊
 """)
