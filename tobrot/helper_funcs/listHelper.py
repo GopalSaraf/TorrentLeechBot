@@ -19,7 +19,7 @@ class listHelper():
         self.msg_list = []
         self.buttons = []
 
-    def to_srch(self):
+    def to_search(self):
         message = self.message
         to_srch = message.text.split(' ', maxsplit=1)[1]
         self.to_srch = to_srch

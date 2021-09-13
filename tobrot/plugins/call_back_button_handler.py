@@ -86,7 +86,7 @@ async def button(bot, update: CallbackQuery):
         page_no = int(page_no)
         to_edit = update.message
         listing = listHelper(to_edit.reply_to_message)
-        to_srch = listing.to_srch()
+        to_srch = listing.to_search()
         await listing.list_fn(to_srch)
         await listing.edit_page(page_no, to_edit)
 
