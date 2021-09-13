@@ -324,17 +324,34 @@ For further help contact **@GopalSaraf**
     await message.reply_text(msg, quote=True)
 
 
+# async def list_fn(client, message):
+#     if len(message.command) == 1:
+#         await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
+#     else:
+#         to_del = await message.reply('Searching...')
+#         listing = listHelper(message)
+#         to_srch = listing.to_search()
+#         message_list = await listing.list_fn(to_srch)
+#         if len(message_list) == 1:
+#             await to_del.delete()
+#             await listing.one_page_msg_fn()
+#         else:
+#             await to_del.delete()
+#             await listing.more_page_msg_fn()
+
 async def list_fn(client, message):
-    if len(message.command) == 1:
-        await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
-    else:
+    try:
+        to_srch = message.text.split(' ', maxsplit=1)[1]
         to_del = await message.reply('Searching...')
         listing = listHelper(message)
-        to_srch = listing.to_search()
-        message_list = await listing.list_fn(to_srch)
-        if len(message_list) == 1:
-            await to_del.delete()
-            await listing.one_page_msg_fn()
+        msg, button = await listing.drive_list(to_srch)
+        if button:
+            await to_del.edit(msg, reply_markup=button)
         else:
-            await to_del.delete()
-            await listing.more_page_msg_fn()
+            await to_del.edit(f"No result found for <code>{to_srch}</code>.")
+
+    except IndexError:
+        await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
+
+
+

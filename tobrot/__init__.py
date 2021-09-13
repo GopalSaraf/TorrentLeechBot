@@ -1,10 +1,12 @@
 import logging
 import os
+import random
+import string
 import time
 from logging.handlers import RotatingFileHandler
 from collections import defaultdict
 from sys import exit
-
+from telegraph import Telegraph
 import dotenv
 
 if os.path.exists("TorrentLeech.txt"):
@@ -122,6 +124,12 @@ gDict = defaultdict(lambda: [])
 user_settings = defaultdict(lambda: {})
 HELP_COMMAND = os.environ.get("HELP_COMMAND", "help@torrgsbot")
 gid_dict = defaultdict(lambda: [])
+
+# Telegraph token things
+sname = ''.join(random.SystemRandom().choices(string.ascii_letters, k=8))
+telegraph = Telegraph()
+telegraph.create_account(short_name=sname)
+telegraph_token = telegraph.get_access_token()
 
 
 def multi_rclone_init():

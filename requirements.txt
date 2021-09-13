@@ -14,3 +14,4 @@ messages
 js2py
 psutil
 asyncstdlib
+telegraph
