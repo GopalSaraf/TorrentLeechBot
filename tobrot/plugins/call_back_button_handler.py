@@ -2,10 +2,9 @@ import os
 import shutil
 
 from pyrogram.types import CallbackQuery
-from tobrot import AUTH_CHANNEL, MAX_MESSAGE_LENGTH, LOGGER, gDict
+from tobrot import AUTH_CHANNEL, LOGGER, gDict
 from tobrot.helper_funcs.admin_check import AdminCheck
 from tobrot.helper_funcs.download_aria_p_n import aria_start
-from tobrot.helper_funcs.listHelper import listHelper
 from tobrot.helper_funcs.youtube_dl_button import youtube_dl_call_back
 from tobrot.plugins.choose_rclone_config import rclone_button_callback
 
@@ -81,14 +80,6 @@ async def button(bot, update: CallbackQuery):
                 show_alert=True,
                 cache_time=0,
             )
-    # if cb_data.startswith("page_no"):
-    #     page_no = cb_data.split(':')[-1]
-    #     page_no = int(page_no)
-    #     to_edit = update.message
-    #     listing = listHelper(to_edit.reply_to_message)
-    #     to_srch = listing.to_search()
-    #     await listing.list_fn(to_srch)
-    #     await listing.edit_page(page_no, to_edit)
 
     elif cb_data == "fuckingdo":
         if (update.from_user.id in AUTH_CHANNEL) or g:

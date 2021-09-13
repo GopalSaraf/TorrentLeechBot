@@ -1,22 +1,16 @@
 import asyncio
 import io
-import json
 import math
 import os
-import re
 import shutil
 import sys
 import time
 import traceback
-from subprocess import Popen, PIPE
 
 import psutil
-import requests
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, \
-    EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR, RCLONE_CONFIG, DESTINATION_FOLDER, \
-    INDEX_LINK, TG_BOT_TOKEN, APP_ID, API_HASH
+    EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR
 from tobrot.helper_funcs.admin_check import AdminCheck
 
 # the logging things
@@ -322,21 +316,6 @@ For anything else.. DM **@GopalSaraf**
     await message.reply_text(msg, quote=True)
 
 
-# async def list_fn(client, message):
-#     if len(message.command) == 1:
-#         await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
-#     else:
-#         to_del = await message.reply('Searching...')
-#         listing = listHelper(message)
-#         to_srch = listing.to_search()
-#         message_list = await listing.list_fn(to_srch)
-#         if len(message_list) == 1:
-#             await to_del.delete()
-#             await listing.one_page_msg_fn()
-#         else:
-#             await to_del.delete()
-#             await listing.more_page_msg_fn()
-
 async def list_fn(client, message):
     try:
         to_srch = message.text.split(' ', maxsplit=1)[1]
@@ -350,6 +329,3 @@ async def list_fn(client, message):
 
     except IndexError:
         await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
-
-
-
