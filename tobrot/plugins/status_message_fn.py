@@ -330,7 +330,8 @@ async def list_fn(client, message):
     else:
         to_del = await message.reply('Searching...')
         listing = listHelper(message)
-        message_list = await listing.list_fn()
+        to_srch = listing.to_srch()
+        message_list = await listing.list_fn(to_srch)
         if len(message_list) == 1:
             await to_del.delete()
             await listing.one_page_msg_fn()

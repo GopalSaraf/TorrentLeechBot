@@ -1,11 +1,11 @@
+import asyncio
 import json
 import os
 import re
 from subprocess import Popen, PIPE
-from functools import cached_property
 import requests
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
+from asyncstdlib.functools import lru_cache
 from tobrot import RCLONE_CONFIG, LOGGER, DESTINATION_FOLDER, INDEX_LINK
 from tobrot.helper_funcs.display_progress import humanbytes
 
@@ -19,11 +19,14 @@ class listHelper():
         self.msg_list = []
         self.buttons = []
 
-    @cached_property
-    async def list_fn(self):
+    def to_srch(self):
         message = self.message
         to_srch = message.text.split(' ', maxsplit=1)[1]
         self.to_srch = to_srch
+        return to_srch
+
+    @lru_cache
+    async def list_fn(self, to_srch):
         if not os.path.exists("rclone.conf"):
             with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
                 fole.write(f"{RCLONE_CONFIG}")
@@ -33,9 +36,24 @@ class listHelper():
                 gUP = re.findall("\[(.*)\]", con)[0]
                 LOGGER.info(gUP)
         destination = f"{DESTINATION_FOLDER}"
-        command = f"rclone lsjson --config=./rclone.conf {gUP}:{destination} -R"
-        pro = Popen(command, stdout=PIPE, shell=True)
-        json_str = pro.stdout.read().decode('utf-8')
+        # command = f"rclone lsjson --config=./rclone.conf {gUP}:{destination} -R --no-modtime --no-mimetype"
+        command = [
+            "rclone",
+            "lsjson",
+            "--config=./rclone.conf",
+            "-R",
+            "--no-modtime",
+            "--no-mimetype",
+            f"{gUP}:{destination}",
+        ]
+        LOGGER.info(command)
+        gau_tam = await asyncio.create_subprocess_exec(
+            *command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )
+        gau, tam = await gau_tam.communicate()
+        json_str = gau.decode("utf-8")
+        # pro = Popen(command, stdout=PIPE, shell=True)
+        # json_str = pro.stdout.read().decode('utf-8')
         json_list = json.loads(json_str)
         json_srch_list = []
         msg = ''
@@ -84,7 +102,7 @@ class listHelper():
         msg_list = self.msg_list
         buttons = self.buttons
         await message.reply(msg_list[0], disable_web_page_preview=True, quote=True,
-                                      reply_markup=InlineKeyboardMarkup([buttons]))
+                            reply_markup=InlineKeyboardMarkup([buttons]))
 
     async def edit_page(self, page_no, to_edit):
         msg_list = self.msg_list
