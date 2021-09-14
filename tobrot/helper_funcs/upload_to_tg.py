@@ -139,7 +139,8 @@ async def upload_to_tg(
 
 # © gautamajay52 thanks to Rclone team for this wonderful tool.🧘
 
-async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_anu=False, is_gytdl=False):
+async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_anu=False, is_gytdl=False,
+                           is_shubh_laabh=False):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     start = time.time()
     file_upload = str(Path(file_upload).resolve())
@@ -167,6 +168,8 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
     if os.path.isfile(file_upload):
         if is_anu:
             command = f"""rclone copy "{file_upload}" "anupama:/" --config=rclone_backup.conf -P"""
+        elif is_shubh_laabh:
+            command = f"""rclone copy "{file_upload}" "shubhlaabh:/" --config=rclone_backup.conf -P"""
         else:
             command = f"""rclone copy "{file_upload}" "{gUP}:{destination}" --config=rclone.conf -P"""
         LOGGER.info(command)
@@ -225,6 +228,17 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                 "--files-only",
                 f"anupama:/",
             ]
+        if is_shubh_laabh:
+            t_a_m = [
+                "rclone",
+                "lsf",
+                "--config=rclone_backup.conf",
+                "-F",
+                "i",
+                "--filter-from=filter.txt",
+                "--files-only",
+                f"shubhlaabh:/",
+            ]
         gau_tam = await asyncio.create_subprocess_exec(
             *t_a_m, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
@@ -268,6 +282,8 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         LOGGER.info(tt)
         if is_anu:
             command = f"""rclone copy "{file_upload}" "anupama:/" --config=rclone_backup.conf -P"""
+        elif is_shubh_laabh:
+            command = f"""rclone copy "{file_upload}" "shubhlaabh:/" --config=rclone_backup.conf -P"""
         else:
             command = f"""rclone copy "{file_upload}" "{gUP}:{tt}" --config=rclone.conf -P"""
         LOGGER.info(command)
@@ -324,6 +340,17 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                 "--filter-from=filter1.txt",
                 "--dirs-only",
                 f"anupama:{destination}",
+            ]
+        if is_shubh_laabh:
+            g_a_u = [
+                "rclone",
+                "lsf",
+                "--config=rclone_backup.conf",
+                "-F",
+                "i",
+                "--filter-from=filter1.txt",
+                "--dirs-only",
+                f"shubhlaabh:{destination}",
             ]
         gau_tam = await asyncio.create_subprocess_exec(
             *g_a_u, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE

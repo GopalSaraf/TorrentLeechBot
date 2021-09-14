@@ -36,6 +36,7 @@ from tobrot import (
     LIST_COMMAND,
     LIST_COMMAND_2,
     ANU_COMMAND,
+SHUBH_LAABH_COMMAND,
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
@@ -53,7 +54,7 @@ from tobrot.plugins.incoming_message_fn import (
 )
 from tobrot.plugins.new_join_fn import new_join_f
 from tobrot.plugins.rclone_size import check_size_g, g_clearme
-from tobrot.helper_funcs.serialHelper import anu_fn
+from tobrot.helper_funcs.serialHelper import anu_fn, shubh_laabh_fn
 from tobrot.plugins.status_message_fn import (
     cancel_message_f,
     eval_message_f,
@@ -247,5 +248,12 @@ if __name__ == "__main__":
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(anu_command_handler)
+    #
+    sl_command_handler = MessageHandler(
+        shubh_laabh_fn,
+        filters=filters.command([SHUBH_LAABH_COMMAND])
+                & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(sl_command_handler)
     #
     app.run()
