@@ -1,6 +1,6 @@
 import os
 from tobrot.helper_funcs.download import download_tg
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import numpy as np
 from tobrot.helper_funcs.upload_to_tg import upload_to_gdrive
 
@@ -35,11 +35,12 @@ async def shubh_laabh_fn(client, message):
         start_date = date(2021, 9, 13)
         start_serial_no = 1
         today = date.today()
+        yesterday = today - timedelta(days=1)
         total_days = (today - start_date).days
         sundays = int(np.busday_count(start_date, today, weekmask='Sun'))
         working_days = total_days - sundays
-        today_serial_no = start_serial_no + working_days
-        serial_name = f"Shubh Laabh E{today_serial_no} {today.day} {datetime.strptime(str(today.month), '%m').strftime('%B')}.mp4"
+        today_serial_no = start_serial_no + working_days - 1
+        serial_name = f"Shubh Laabh E{today_serial_no} {yesterday.day} {datetime.strptime(str(yesterday.month), '%m').strftime('%B')}.mp4"
         if file:
             os.rename(file, serial_name)
         else:
