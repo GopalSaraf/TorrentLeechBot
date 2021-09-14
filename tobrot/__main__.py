@@ -246,4 +246,6 @@ if __name__ == "__main__":
         filters=filters.command([ANU_COMMAND])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
+    app.add_handler(anu_command_handler)
+    #
     app.run()
