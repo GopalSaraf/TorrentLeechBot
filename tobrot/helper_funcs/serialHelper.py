@@ -24,7 +24,7 @@ async def anu_fn(client, message):
         await upload_to_gdrive(serial_name, mess_age, message, user_id, is_anu=True)
     else:
         await message.reply_text(
-            "Reply to a Telegram Media, to upload to the GDrive."
+            "Reply to a Anupama serial to upload to GDrive."
         )
 
 
@@ -48,5 +48,5 @@ async def shubh_laabh_fn(client, message):
         await upload_to_gdrive(serial_name, mess_age, message, user_id, is_shubh_laabh=True)
     else:
         await message.reply_text(
-            "Reply to a Telegram Media, to upload to the GDrive."
+            "Reply to a Shubh Laabh serial to upload to GDrive."
         )
