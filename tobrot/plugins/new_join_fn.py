@@ -17,4 +17,3 @@ async def new_join_f(client, message):
             )
     await message.delete(revoke=True)
 
-

@@ -35,6 +35,7 @@ from tobrot import (
     HELP_COMMAND,
     LIST_COMMAND,
     LIST_COMMAND_2,
+    ANU_COMMAND,
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
@@ -52,6 +53,7 @@ from tobrot.plugins.incoming_message_fn import (
 )
 from tobrot.plugins.new_join_fn import new_join_f
 from tobrot.plugins.rclone_size import check_size_g, g_clearme
+from tobrot.helper_funcs.serialHelper import anu_fn
 from tobrot.plugins.status_message_fn import (
     cancel_message_f,
     eval_message_f,
@@ -239,4 +241,9 @@ if __name__ == "__main__":
     )
     app.add_handler(list_message_handler)
     #
+    anu_command_handler = MessageHandler(
+        anu_fn,
+        filters=filters.command([ANU_COMMAND])
+                & filters.chat(chats=AUTH_CHANNEL),
+    )
     app.run()

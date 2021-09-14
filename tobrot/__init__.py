@@ -105,6 +105,7 @@ TELEGRAM_LEECH_UNZIP_COMMAND = os.environ.get("TELEGRAM_LEECH_UNZIP_COMMAND", "t
 CANCEL_COMMAND_G = os.environ.get("CANCEL_COMMAND_G", "cancel")
 GET_SIZE_G = os.environ.get("GET_SIZE_G", "getsize@torrgsbot")
 STATUS_COMMAND = os.environ.get("STATUS_COMMAND", "status@torrgsbot")
+HELP_COMMAND = os.environ.get("HELP_COMMAND", "help@torrgsbot")
 SAVE_THUMBNAIL = os.environ.get("SAVE_THUMBNAIL", "savethumbnail@torrgsbot")
 CLEAR_THUMBNAIL = os.environ.get("CLEAR_THUMBNAIL", "clearthumbnail@torrgsbot")
 UPLOAD_AS_DOC = os.environ.get("UPLOAD_AS_DOC", "False")
@@ -119,12 +120,12 @@ LIST_COMMAND = os.environ.get("LIST_COMMAND", 'list')
 LIST_COMMAND_2 = os.environ.get("LIST_COMMAND-2", 'list@torrgsbot')
 TOGGLE_VID = os.environ.get("TOGGLE_VID", "uploadvid@torrgsbot")
 TOGGLE_DOC = os.environ.get("TOGGLE_DOC", "uploaddoc@torrgsbot")
+ANU_COMMAND = os.environ.get("ANU_COMMAND", 'anu')
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
 gDict = defaultdict(lambda: [])
 # user settings dict #ToDo
 user_settings = defaultdict(lambda: {})
-HELP_COMMAND = os.environ.get("HELP_COMMAND", "help@torrgsbot")
 gid_dict = defaultdict(lambda: [])
 
 # Telegraph token things
