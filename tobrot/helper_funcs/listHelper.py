@@ -92,10 +92,10 @@ class listHelper():
 
             if content_count == TELEGRAPHLIMIT:
                 self.telegraph_content.append(msg)
-                msg = ""
+                msg = "<br>"
                 content_count = 0
 
-        if msg != '':
+        if msg != f'<h4>Search Result For <b>{to_srch} :</b></h4><br>':
             self.telegraph_content.append(msg)
 
         if len(self.telegraph_content) == 0:
