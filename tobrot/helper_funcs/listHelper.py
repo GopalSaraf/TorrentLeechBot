@@ -65,37 +65,33 @@ class listHelper():
         gau, tam = await gau_tam.communicate()
         json_str = gau.decode("utf-8")
         json_list = json.loads(json_str)
-        json_srch_list = []
-        msg = f'<h4>Search Result For <b>{to_srch} :</b></h4><br>'
+        msg = f'<h4>Search Result For <b>{to_srch} :</b></h4><br><br>'
         content_count = 0
         all_contents_count = 0
         for item in json_list:
             if to_srch.lower() in item['Name'].lower():
-                json_srch_list.append(item)
-        for count, item in enumerate(json_srch_list):
-            msg += f"<code><b>{count + 1}.</b> "
-            msg += f"<b>{item['Name']}</b><br>"
-            if item['IsDir']:
-                msg += '📁 Folder<br></code>'
-                gdrive_link = f"https://drive.google.com/folderview?id={item['ID']}"
-                index = f"{INDEX_LINK}/{item['Path']}/"
-                index_link = requests.utils.requote_uri(index)
-            else:
-                size = humanbytes(item['Size'])
-                msg += f"📄 {size}<br></code>"
-                gdrive_link = f"https://drive.google.com/file/d/{item['ID']}/view?usp=drivesdk"
-                index = f"{INDEX_LINK}/{item['Path']}"
-                index_link = requests.utils.requote_uri(index)
-            msg += f"<b><a href='{gdrive_link}'>Drive Link</a> | <a href='{index_link}'>Index Link</a></b><br><br>"
-            content_count += 1
-            all_contents_count += 1
+                msg += f"<code><b>{item['Name']}</b><br>"
+                if item['IsDir']:
+                    msg += '📁 Folder<br></code>'
+                    gdrive_link = f"https://drive.google.com/folderview?id={item['ID']}"
+                    index = f"{INDEX_LINK}/{item['Path']}/"
+                    index_link = requests.utils.requote_uri(index)
+                else:
+                    size = humanbytes(item['Size'])
+                    msg += f"📄 {size}<br></code>"
+                    gdrive_link = f"https://drive.google.com/file/d/{item['ID']}/view?usp=drivesdk"
+                    index = f"{INDEX_LINK}/{item['Path']}"
+                    index_link = requests.utils.requote_uri(index)
+                msg += f"<b><a href='{gdrive_link}'>Drive Link</a> | <a href='{index_link}'>Index Link</a></b><br><br>"
+                content_count += 1
+                all_contents_count += 1
 
-            if content_count == TELEGRAPHLIMIT:
-                self.telegraph_content.append(msg)
-                msg = "<br>"
-                content_count = 0
+                if content_count == TELEGRAPHLIMIT:
+                    self.telegraph_content.append(msg)
+                    msg = "<br>"
+                    content_count = 0
 
-        if msg != f'<h4>Search Result For <b>{to_srch} :</b></h4><br>':
+        if msg != f'<h4>Search Result For <b>{to_srch} :</b></h4><br><br>':
             self.telegraph_content.append(msg)
 
         if len(self.telegraph_content) == 0:

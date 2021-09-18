@@ -86,9 +86,9 @@ async def status_message_f(client, message):
         free = humanbytes(free)
 
         ms_g = (
-            f"<b>Bot Uptime</b>: <code>{hr} : {mi} : {se}</code>\n"
-            f"<b>Total :</b> <code>{total}</code> <b>Used :</b> <code>{used}</code> <b>Free :</b> <code>{free}</code>\n"
-            f"<b>RAM:</b> <code>{ram}%</code> <b>CPU:</b> <code>{cpu}%</code>\n"
+            f"<b>Bot Uptime</b>: {hr}H {mi}M {se}S\n"
+            f"<b>Total :</b> {total} <b>Used :</b> {used} <b>Free :</b> {free}\n"
+            f"<b>RAM:</b> {ram}% <b>CPU:</b> {cpu}%\n"
         )
         if msg == "":
             msg = "🤷‍♂️ No Active, Queued or Paused TORRENTs"

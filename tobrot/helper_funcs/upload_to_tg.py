@@ -280,12 +280,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
     else:
         tt = os.path.join(destination, os.path.basename(file_upload))
         LOGGER.info(tt)
-        if is_anu:
-            command = f"""rclone copy "{file_upload}" "anupama:/" --config=rclone_backup.conf -P"""
-        elif is_shubh_laabh:
-            command = f"""rclone copy "{file_upload}" "shubhlaabh:/" --config=rclone_backup.conf -P"""
-        else:
-            command = f"""rclone copy "{file_upload}" "{gUP}:{tt}" --config=rclone.conf -P"""
+        command = f"""rclone copy "{file_upload}" "{gUP}:{tt}" --config=rclone.conf -P"""
         LOGGER.info(command)
         with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as p:
             for b in p.stdout:
@@ -319,39 +314,16 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         LOGGER.info(g_file)
         with open("filter1.txt", "w+", encoding="utf-8") as filter1:
             print(f"+ {g_file}/\n- *", file=filter1)
-        if not is_anu:
-            g_a_u = [
-                "rclone",
-                "lsf",
-                "--config=rclone.conf",
-                "-F",
-                "i",
-                "--filter-from=filter1.txt",
-                "--dirs-only",
-                f"{gUP}:{destination}",
-            ]
-        if is_anu:
-            g_a_u = [
-                "rclone",
-                "lsf",
-                "--config=rclone_backup.conf",
-                "-F",
-                "i",
-                "--filter-from=filter1.txt",
-                "--dirs-only",
-                f"anupama:{destination}",
-            ]
-        if is_shubh_laabh:
-            g_a_u = [
-                "rclone",
-                "lsf",
-                "--config=rclone_backup.conf",
-                "-F",
-                "i",
-                "--filter-from=filter1.txt",
-                "--dirs-only",
-                f"shubhlaabh:{destination}",
-            ]
+        g_a_u = [
+            "rclone",
+            "lsf",
+            "--config=rclone.conf",
+            "-F",
+            "i",
+            "--filter-from=filter1.txt",
+            "--dirs-only",
+            f"{gUP}:{destination}",
+        ]
         gau_tam = await asyncio.create_subprocess_exec(
             *g_a_u, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
