@@ -34,9 +34,8 @@ from tobrot import (
     TOGGLE_DOC,
     HELP_COMMAND,
     LIST_COMMAND,
-    LIST_COMMAND_2,
     ANU_COMMAND,
-SHUBH_LAABH_COMMAND,
+    SHUBH_LAABH_COMMAND,
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
@@ -237,7 +236,7 @@ if __name__ == "__main__":
     #
     list_message_handler = MessageHandler(
         list_fn,
-        filters=filters.command([LIST_COMMAND, LIST_COMMAND_2])
+        filters=filters.command([LIST_COMMAND, 'list', 'search'])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(list_message_handler)
