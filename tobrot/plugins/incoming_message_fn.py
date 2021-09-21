@@ -229,7 +229,7 @@ async def g_clonee(client, message):
     """ /gclone command """
     g_id = message.from_user.id
     rep_message = message.reply_to_message
-    if rep_message or len(message.command >= 1):
+    if rep_message or len(message.command) > 1:
         LOGGER.info(rep_message.text)
         gclone = CloneHelper(message)
         gclone.config()
