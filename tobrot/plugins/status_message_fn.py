@@ -16,7 +16,7 @@ from tobrot.helper_funcs.admin_check import AdminCheck
 # the logging things
 from tobrot.helper_funcs.display_progress import humanbytes
 from tobrot.helper_funcs.download_aria_p_n import aria_start
-from tobrot.helper_funcs.listHelper import listHelper
+from tobrot.helper_funcs.ListHelper import ListHelper
 from tobrot.helper_funcs.upload_to_tg import upload_to_tg
 from tobrot.UserDynaConfig import UserDynaConfig
 from pyrogram.errors import FloodWait, MessageNotModified, MessageIdInvalid
@@ -295,7 +295,7 @@ async def help_message_f(client, message):
 /gpytdl - youtube playlist to GDrive
 
 **Following are the commands as a reply to a telegram file:**
-/tleech - leech from telegram to GDrive (If want to rename file.. Give name after command)
+/tleech - leech from telegram to GDrive
 /tleechunzip - unarchive from telegram to GDrive
 /rename - to rename telegram files
 
@@ -320,7 +320,7 @@ async def list_fn(client, message):
     try:
         to_srch = message.text.split(' ', maxsplit=1)[1]
         to_del = await message.reply('Searching...')
-        listing = listHelper(message)
+        listing = ListHelper(message)
         msg, button = await listing.drive_list(to_srch)
         if button:
             await to_del.edit(msg, reply_markup=button)

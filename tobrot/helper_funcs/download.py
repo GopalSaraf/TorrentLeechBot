@@ -66,7 +66,7 @@ async def down_load_media_f(client, message):
             await upload_to_gdrive(the_real_download_location_g, mess_age, message, user_id)
         else:
             await mess_age.edit_text(
-                "Reply to a Telegram Media, to upload to the GDrive."
+                "Reply to a Telegram Media, to upload to the GDrive. If you want to rename and upload then menion name after command giving space."
             )
     else:
         usr_id = message.from_user.id

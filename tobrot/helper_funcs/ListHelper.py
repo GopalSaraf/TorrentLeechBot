@@ -4,13 +4,12 @@ import os
 import re
 import requests
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from tobrot import RCLONE_CONFIG, LOGGER, DESTINATION_FOLDER, INDEX_LINK, telegraph_token
+from tobrot import RCLONE_CONFIG, LOGGER, DESTINATION_FOLDER, INDEX_LINK, telegraph_token, TELEGRAPHLIMIT
 from tobrot.helper_funcs.display_progress import humanbytes
 from telegraph import Telegraph
 
-TELEGRAPHLIMIT = 50
 
-class listHelper():
+class ListHelper():
     def __init__(self, message):
         self.telegraph_content = []
         self.path = []

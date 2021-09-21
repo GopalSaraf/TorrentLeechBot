@@ -53,7 +53,11 @@ class CloneHelper:
 
     def get_id(self):
         mes = self.mess
-        txt = mes.reply_to_message.text
+        rep_msg = mes.reply_to_message
+        if rep_msg:
+            txt = rep_msg.text
+        else:
+            txt = ' '.join(mes.text.split(' ')[1:])
         LOGGER.info(txt)
         mess = txt.split(" ", maxsplit=1)
         if len(mess) == 2:
@@ -72,6 +76,8 @@ class CloneHelper:
             LOGGER.info(self.g_id)
             self.name = ""
         return self.g_id, self.name
+
+
 
     async def link_gen_size(self):
         if self.name is not None:
