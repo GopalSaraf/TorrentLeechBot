@@ -25,7 +25,6 @@ from tobrot import (
     RCLONE_CONFIG,
     TG_MAX_FILE_SIZE,
     UPLOAD_AS_DOC,
-    gDict,
     FINISHED_PROGRESS_STR,
     UN_FINISHED_PROGRESS_STR,
 )

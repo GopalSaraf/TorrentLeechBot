@@ -23,6 +23,7 @@ from tobrot import (
     RENAME_COMMAND,
     SAVE_THUMBNAIL,
     STATUS_COMMAND,
+    STATS_COMMAND,
     TELEGRAM_LEECH_UNZIP_COMMAND,
     TELEGRAM_LEECH_COMMAND,
     TG_BOT_TOKEN,
@@ -65,6 +66,7 @@ from tobrot.plugins.status_message_fn import (
     upload_as_video,
     help_message_f,
     list_fn,
+    stats_message_fn
 )
 
 if __name__ == "__main__":
@@ -149,6 +151,13 @@ if __name__ == "__main__":
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(status_message_handler)
+    #
+    stats_message_handler = MessageHandler(
+        stats_message_fn,
+        filters=filters.command([STATS_COMMAND, 'stats'])
+                & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(stats_message_handler)
     #
     cancel_message_handler = MessageHandler(
         cancel_message_f,

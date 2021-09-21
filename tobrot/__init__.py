@@ -3,6 +3,7 @@ import os
 import random
 import string
 import time
+import datetime
 from logging.handlers import RotatingFileHandler
 from collections import defaultdict
 from sys import exit
@@ -105,6 +106,7 @@ TELEGRAM_LEECH_UNZIP_COMMAND = os.environ.get("TELEGRAM_LEECH_UNZIP_COMMAND", "t
 CANCEL_COMMAND_G = os.environ.get("CANCEL_COMMAND_G", "cancel")
 GET_SIZE_G = os.environ.get("GET_SIZE_G", "getsize@torrgsbot")
 STATUS_COMMAND = os.environ.get("STATUS_COMMAND", "status@torrgsbot")
+STATS_COMMAND = os.environ.get("STATS_COMMAND", 'stats@torrgsbot')
 HELP_COMMAND = os.environ.get("HELP_COMMAND", "help@torrgsbot")
 SAVE_THUMBNAIL = os.environ.get("SAVE_THUMBNAIL", "savethumbnail@torrgsbot")
 CLEAR_THUMBNAIL = os.environ.get("CLEAR_THUMBNAIL", "clearthumbnail@torrgsbot")
@@ -122,6 +124,7 @@ TOGGLE_DOC = os.environ.get("TOGGLE_DOC", "uploaddoc@torrgsbot")
 ANU_COMMAND = os.environ.get("ANU_COMMAND", 'anu')
 SHUBH_LAABH_COMMAND = os.environ.get("SHUBH_LAABH_COMMAND", 'sl')
 BOT_START_TIME = time.time()
+BOT_START_DATETIME = datetime.datetime.now().strftime("%B %d, %Y %I:%M:%S %p")
 # dict to control uploading and downloading
 gDict = defaultdict(lambda: [])
 # user settings dict #ToDo
