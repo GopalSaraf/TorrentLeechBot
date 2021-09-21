@@ -77,7 +77,7 @@ async def status_message_f(client, message):
                 msg += f"\n<b>To Cancel:</b> <code>/cancel {file.gid}</code>"
                 msg += "\n"
 
-        hr, mi, se = up_time(time.time() - BOT_START_TIME)
+        hr, mi, se = map(time_format, up_time(time.time() - BOT_START_TIME))
         total, used, free = shutil.disk_usage(".")
         ram = psutil.virtual_memory().percent
         cpu = psutil.cpu_percent()
@@ -86,7 +86,7 @@ async def status_message_f(client, message):
         free = humanbytes(free)
 
         ms_g = (
-            f"<b>Bot Uptime</b>: {hr}H {mi}M {se}S\n"
+            f"<b>Bot Uptime</b>: {hr}:{mi}:{se}\n"
             f"<b>Total :</b> {total} <b>Used :</b> {used} <b>Free :</b> {free}\n"
             f"<b>RAM:</b> {ram}% <b>CPU:</b> {cpu}%\n"
         )
@@ -262,6 +262,15 @@ def up_time(time_taken):
     return round(hours), round(minutes), round(seconds)
 
 
+def time_format(val):
+    val = str(val)
+    if len(val) == 1:
+        val = f"0{val}"
+    else:
+        pass
+    return val
+
+
 async def upload_log_file(client, message):
     if message.from_user.id == OWNER_ID:
         g = await AdminCheck(client, message.chat.id, message.from_user.id)
@@ -333,7 +342,7 @@ async def list_fn(client, message):
 
 async def stats_message_fn(client, message):
     restart_time = BOT_START_DATETIME
-    hr, mi, se = up_time(time.time() - BOT_START_TIME)
+    hr, mi, se = map(time_format, up_time(time.time() - BOT_START_TIME))
     total, used, free = shutil.disk_usage(".")
     ram = psutil.virtual_memory().percent
     cpu = psutil.cpu_percent()
@@ -344,7 +353,7 @@ async def stats_message_fn(client, message):
     msg = (
         f"<b>Bot Current Status</b>\n\n"
         f"<b>Restarted on {restart_time}</b>\n"
-        f"<b>Bot Uptime</b>: {hr}H {mi}M {se}S\n\n"
+        f"<b>Bot Uptime</b>: {hr}:{mi}:{se}\n\n"
         f"<b>Total disk space:</b> {total}\n"
         f"<b>Used :</b> {used}\n"
         f"<b>Free :</b> {free}\n"
