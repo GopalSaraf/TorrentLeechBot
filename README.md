@@ -1,4 +1,4 @@
-**Telegram Leecher Bot**
+# Telegram Leecher Bot
 
 # Benefits :-
     ✓ Google Drive link cloning using gclone.(wip)
