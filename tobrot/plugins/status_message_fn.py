@@ -286,7 +286,8 @@ async def help_message_f(client, message):
 /status - to see current status and processing files
 /help - to see this message
 /cancel - to cancel process (paste GID with it)
-/list - to search in GDrive (Like <code>/list avengers</code>)
+/list - short search in GDrive (Like <code>/list avengers</code>)
+/completelist - full search in gdrive
 
 **Following are the commands as a reply to a magnetic link, a torrent link, or a direct link:**
 
@@ -338,6 +339,21 @@ async def list_fn(client, message):
 
     except IndexError:
         await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
+
+
+async def full_list_fn(client, message):
+    try:
+        to_srch = message.text.split(' ', maxsplit=1)[1]
+        to_del = await message.reply('Searching...')
+        listing = ListHelper(message)
+        msg, button = await listing.full_drive_list(to_srch)
+        if button:
+            await to_del.edit(msg, reply_markup=button)
+        else:
+            await to_del.edit(f"No result found for <code>{to_srch}</code>.")
+
+    except IndexError:
+        await message.reply('Send a search key along with command. Like <code>/completelist avengers</code>')
 
 
 async def stats_message_fn(client, message):

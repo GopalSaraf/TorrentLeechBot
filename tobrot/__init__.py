@@ -69,7 +69,8 @@ AUTH_CHANNEL.append(OWNER_ID)
 CHUNK_SIZE = int(os.environ.get("CHUNK_SIZE", "128"))
 # default thumbnail to be used in the videos
 DEF_THUMB_NAIL_VID_S = os.environ.get(
-    "DEF_THUMB_NAIL_VID_S", "https://wallpapercave.com/wp/wp5187169.jpg"
+    "DEF_THUMB_NAIL_VID_S",
+    "https://images.unsplash.com/photo-1562907550-096d3bf9b25c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80"
 )
 # maximum message length in Telegram
 MAX_MESSAGE_LENGTH = 4096
@@ -119,10 +120,10 @@ UPLOAD_COMMAND = os.environ.get("UPLOAD_COMMAND", "upload@torrgsbot")
 RENEWME_COMMAND = os.environ.get("RENEWME_COMMAND", "renewme@torrgsbot")
 RENAME_COMMAND = os.environ.get("RENAME_COMMAND", "rename@torrgsbot")
 LIST_COMMAND = os.environ.get("LIST_COMMAND", 'list@torrgsbot')
+COMPLETE_LIST_COMMAND = os.environ.get("FULL_LIST_COMMAND", "completelist@torrgsbot")
 TOGGLE_VID = os.environ.get("TOGGLE_VID", "uploadvid@torrgsbot")
 TOGGLE_DOC = os.environ.get("TOGGLE_DOC", "uploaddoc@torrgsbot")
-ANU_COMMAND = os.environ.get("ANU_COMMAND", 'anu')
-SHUBH_LAABH_COMMAND = os.environ.get("SHUBH_LAABH_COMMAND", 'sl')
+
 BOT_START_TIME = time.time()
 BOT_START_DATETIME = datetime.datetime.now().strftime("%B %d, %Y %I:%M:%S %p")
 # dict to control uploading and downloading

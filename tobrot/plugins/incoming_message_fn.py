@@ -239,8 +239,8 @@ async def g_clonee(client, message):
         await gclone.link_gen_size()
     else:
         await message.reply_text(
-            "You should reply to a message, which format should be [ID of the file or folder][one space][name of your "
-            "folder only(If the id is of file, don't put anything)] "
+            "You should reply to a message, which format should be [ID or GDrive link of file/folder][one space][name "
+            "of your folder only(If the id is of file, don't put anything)] "
         )
 
 

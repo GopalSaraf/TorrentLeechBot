@@ -37,10 +37,15 @@ async def shubh_laabh_fn(client, message):
         today = date.today()
         yesterday = today - timedelta(days=1)
         total_days = (today - start_date).days
+        saturdays = int(np.busday_count(start_date, today, weekmask='Sat'))
         sundays = int(np.busday_count(start_date, today, weekmask='Sun'))
-        working_days = total_days - sundays
-        today_serial_no = start_serial_no + working_days - 1
-        serial_name = f"Shubh Laabh E{today_serial_no} {yesterday.day} {datetime.strptime(str(yesterday.month), '%m').strftime('%B')}.mp4"
+        working_days = total_days - sundays - saturdays
+        today_serial_no = start_serial_no + working_days
+        command = message.command[0]
+        if command == 'slt':
+            serial_name = f"Shubh Laabh E{today_serial_no} {today.day} {datetime.strptime(str(today.month), '%m').strftime('%B')}.mp4"
+        else:
+            serial_name = f"Shubh Laabh E{today_serial_no - 1} {yesterday.day} {datetime.strptime(str(yesterday.month), '%m').strftime('%B')}.mp4"
         if file:
             os.rename(file, serial_name)
         else:

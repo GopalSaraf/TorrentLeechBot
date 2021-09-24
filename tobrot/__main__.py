@@ -35,8 +35,7 @@ from tobrot import (
     TOGGLE_DOC,
     HELP_COMMAND,
     LIST_COMMAND,
-    ANU_COMMAND,
-    SHUBH_LAABH_COMMAND,
+    COMPLETE_LIST_COMMAND,
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
@@ -66,6 +65,7 @@ from tobrot.plugins.status_message_fn import (
     upload_as_video,
     help_message_f,
     list_fn,
+    full_list_fn,
     stats_message_fn
 )
 
@@ -250,16 +250,23 @@ if __name__ == "__main__":
     )
     app.add_handler(list_message_handler)
     #
+    full_list_message_handler = MessageHandler(
+        full_list_fn,
+        filters=filters.command([COMPLETE_LIST_COMMAND, 'fulllist', 'fullsearch', 'completelist'])
+                & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(full_list_message_handler)
+    #
     anu_command_handler = MessageHandler(
         anu_fn,
-        filters=filters.command([ANU_COMMAND])
+        filters=filters.command(['anu'])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(anu_command_handler)
     #
     sl_command_handler = MessageHandler(
         shubh_laabh_fn,
-        filters=filters.command([SHUBH_LAABH_COMMAND])
+        filters=filters.command(['sl', 'slt'])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(sl_command_handler)
