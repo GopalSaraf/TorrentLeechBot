@@ -151,8 +151,8 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         del_it = await message.reply_text(
             "Starting upload of {}".format(os.path.basename(file_upload))
         )
-    if not os.path.exists("rclone_backup.conf"):
-        with open("rclone_backup.conf", "w+", newline="\n", encoding="utf-8") as fiile:
+    if not os.path.exists("rclone_bak.conf"):
+        with open("rclone_bak.conf", "w+", newline="\n", encoding="utf-8") as fiile:
             fiile.write(f"{RCLONE_CONFIG}")
     if not os.path.exists("rclone.conf"):
         with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
@@ -164,13 +164,18 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             LOGGER.info(gUP)
     destination = f"{DESTINATION_FOLDER}"
     LOGGER.info(file_upload)
+    if is_anu:
+        gUP = 'anupama'
+        destination = '/'
+        config = 'rclone_bak.conf'
+    elif is_shubh_laabh:
+        gUP = 'shubhlaabh'
+        destination = '/'
+        config = 'rclone_bak.conf'
+    else:
+        config = 'rclone.conf'
     if os.path.isfile(file_upload):
-        if is_anu:
-            command = f"""rclone copy "{file_upload}" "anupama:/" --config=rclone_backup.conf -P"""
-        elif is_shubh_laabh:
-            command = f"""rclone copy "{file_upload}" "shubhlaabh:/" --config=rclone_backup.conf -P"""
-        else:
-            command = f"""rclone copy "{file_upload}" "{gUP}:{destination}" --config=rclone.conf -P"""
+        command = f"""rclone copy "{file_upload}" "{gUP}:{destination}" --config={config} -P"""
         LOGGER.info(command)
         with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as p:
             for b in p.stdout:
@@ -209,34 +214,12 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             t_a_m = [
                 "rclone",
                 "lsf",
-                "--config=rclone.conf",
+                f"--config={config}",
                 "-F",
                 "i",
                 "--filter-from=filter.txt",
                 "--files-only",
                 f"{gUP}:{destination}",
-            ]
-        if is_anu:
-            t_a_m = [
-                "rclone",
-                "lsf",
-                "--config=rclone_backup.conf",
-                "-F",
-                "i",
-                "--filter-from=filter.txt",
-                "--files-only",
-                f"anupama:/",
-            ]
-        if is_shubh_laabh:
-            t_a_m = [
-                "rclone",
-                "lsf",
-                "--config=rclone_backup.conf",
-                "-F",
-                "i",
-                "--filter-from=filter.txt",
-                "--files-only",
-                f"shubhlaabh:/",
             ]
         gau_tam = await asyncio.create_subprocess_exec(
             *t_a_m, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE

@@ -1,20 +1,23 @@
 import os
 import shutil
 
-from pyrogram.types import CallbackQuery
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 from tobrot import AUTH_CHANNEL, LOGGER, gDict
 from tobrot.helper_funcs.admin_check import AdminCheck
 from tobrot.helper_funcs.download_aria_p_n import aria_start
+from tobrot.helper_funcs.help_func import HelpCommands, help_message_f
 from tobrot.helper_funcs.youtube_dl_button import youtube_dl_call_back
 from tobrot.plugins.choose_rclone_config import rclone_button_callback
 
 
 async def button(bot, update: CallbackQuery):
     cb_data = update.data
+
     try:
         g = await AdminCheck(bot, update.message.chat.id, update.from_user.id)
     except Exception as ee:
         LOGGER.info(ee)
+
     if cb_data.startswith("gUPcancel"):
         cmf = cb_data.split("/")
         chat_id, mes_id, from_usr = cmf[1], cmf[2], cmf[3]
@@ -31,18 +34,21 @@ async def button(bot, update: CallbackQuery):
                 cache_time=0,
             )
         return
+
     if "|" in cb_data:
         await bot.answer_callback_query(
             update.id, text="trying to download...", show_alert=False
         )
         await youtube_dl_call_back(bot, update)
         return
+
     if cb_data.startswith("rclone"):
         await bot.answer_callback_query(
             update.id, text="choose rclone config...", show_alert=False
         )
         await rclone_button_callback(bot, update)
         return
+
     if cb_data.startswith("cancel"):
         if (update.from_user.id == update.message.reply_to_message.from_user.id) or g:
             await bot.answer_callback_query(
@@ -81,6 +87,38 @@ async def button(bot, update: CallbackQuery):
                 cache_time=0,
             )
 
+    if cb_data.startswith('help_msg'):
+        buttons = [
+            [
+                InlineKeyboardButton('« Back', callback_data='original_help'),
+                InlineKeyboardButton('✖️Close', callback_data='close_help')
+            ]
+        ]
+        if cb_data == 'help_msg_1':
+            edit_text = HelpCommands.help_msg_1
+        if cb_data == 'help_msg_2':
+            edit_text = HelpCommands.help_msg_2
+        if cb_data == 'help_msg_3':
+            edit_text = HelpCommands.help_msg_3
+        if cb_data == 'help_msg_4':
+            edit_text = HelpCommands.help_msg_4
+        if cb_data == 'help_msg_5':
+            edit_text = HelpCommands.help_msg_5
+        if cb_data == 'help_msg_6':
+            edit_text = HelpCommands.help_msg_6
+        if cb_data == 'help_msg_7':
+            edit_text = HelpCommands.help_msg_7
+        if cb_data == 'help_msg_8':
+            edit_text = HelpCommands.help_msg_8
+        await update.message.edit_text(text=edit_text, reply_markup=InlineKeyboardMarkup(buttons))
+
+    if cb_data.startswith('close_help'):
+        await update.message.reply_to_message.delete()
+        await update.message.delete()
+
+    if cb_data.startswith('original_help'):
+        await help_message_f(bot, update.message, is_cb=True)
+
     elif cb_data == "fuckingdo":
         if (update.from_user.id in AUTH_CHANNEL) or g:
             await bot.answer_callback_query(
@@ -106,7 +144,7 @@ async def button(bot, update: CallbackQuery):
                 "start.sh",
                 "tobrot",
                 "gautam",
-                "Torrentleech-Gdrive.txt",
+                "Torrentleech.txt",
                 "vendor",
                 "LeechBot.session",
                 "LeechBot.session-journal",
@@ -128,6 +166,7 @@ async def button(bot, update: CallbackQuery):
                 await update.message.edit_text("Nothing to clear 🙄")
         else:
             await update.message.edit_text("You are not allowed to do that 🤭")
+
     elif cb_data == "fuckoff":
         await bot.answer_callback_query(
             update.id, text="trying to cancel...", show_alert=False

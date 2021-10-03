@@ -38,6 +38,7 @@ from tobrot import (
     COMPLETE_LIST_COMMAND,
 )
 from tobrot.helper_funcs.download import down_load_media_f
+from tobrot.helper_funcs.help_func import help_message_f
 from tobrot.plugins.call_back_button_handler import button
 
 # the logging things
@@ -63,7 +64,6 @@ from tobrot.plugins.status_message_fn import (
     upload_log_file,
     upload_as_doc,
     upload_as_video,
-    help_message_f,
     list_fn,
     full_list_fn,
     stats_message_fn

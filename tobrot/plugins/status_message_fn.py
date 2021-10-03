@@ -280,50 +280,50 @@ async def upload_log_file(client, message):
         await message.reply_text("You have no permission!")
 
 
-async def help_message_f(client, message):
-    msg = ("""📖 Help
-
-/status - to see current status and processing files
-/help - to see this message
-/cancel - to cancel process (paste GID with it)
-/list - short search in GDrive (Like <code>/list avengers</code>)
-/completelist - full search in gdrive
-
-**Following are the commands as a reply to a magnetic link, a torrent link, or a direct link:**
-
-/leech - leech to telegram
-/gleech - leech to GDrive
-/leechunzip - unarchive to telegram
-/leechzip - archive to telegram
-/gleechunzip - unarchive to GDrive
-/gleechzip - archive to GDrive
-
-**Following are the commands as a reply to a youtube link:**
-/ytdl - youtube to telegram
-/gytdl - youtube to GDrive
-/pytdl - youtube playlist to telegram
-/gpytdl - youtube playlist to GDrive
-
-**Following are the commands as a reply to a telegram file:**
-/tleech - leech from telegram to GDrive
-/tleechunzip - unarchive from telegram to GDrive
-/rename - to rename telegram files
-
-**Following are commands as a reply to photo for putting custom thumbnails:**
-/savethumbnail - to save a photo as thumbnail for upload
-/clearthumbnail - to clear thumbnail
-
-**Some other commands:**
-/gclone - to clone gdrive files or folder
-/uploadvid - to upload files streamable
-/uploaddoc - to upload files as a document
-
-For anything else.. DM **@GopalSaraf**
-**THANK YOU!**
-😊😊😊
-""")
-
-    await message.reply_text(msg, quote=True)
+# async def help_message_f(client, message):
+#     msg = ("""📖 Help
+#
+# /status - to see current status and processing files
+# /help - to see this message
+# /cancel - to cancel process (paste GID with it)
+# /list - short search in GDrive (Like <code>/list avengers</code>)
+# /completelist - full search in gdrive
+#
+# **Following are the commands as a reply to a magnetic link, a torrent link, or a direct link:**
+#
+# /leech - leech to telegram
+# /gleech - leech to GDrive
+# /leechunzip - unarchive to telegram
+# /leechzip - archive to telegram
+# /gleechunzip - unarchive to GDrive
+# /gleechzip - archive to GDrive
+#
+# **Following are the commands as a reply to a youtube link:**
+# /ytdl - youtube to telegram
+# /gytdl - youtube to GDrive
+# /pytdl - youtube playlist to telegram
+# /gpytdl - youtube playlist to GDrive
+#
+# **Following are the commands as a reply to a telegram file:**
+# /tleech - leech from telegram to GDrive
+# /tleechunzip - unarchive from telegram to GDrive
+# /rename - to rename telegram files
+#
+# **Following are commands as a reply to photo for putting custom thumbnails:**
+# /savethumbnail - to save a photo as thumbnail for upload
+# /clearthumbnail - to clear thumbnail
+#
+# **Some other commands:**
+# /gclone - to clone gdrive files or folder
+# /uploadvid - to upload files streamable
+# /uploaddoc - to upload files as a document
+#
+# For anything else.. DM **@GopalSaraf**
+# **THANK YOU!**
+# 😊😊😊
+# """)
+#
+#     await message.reply_text(msg, quote=True)
 
 
 async def list_fn(client, message):
