@@ -88,27 +88,34 @@ async def button(bot, update: CallbackQuery):
             )
 
     if cb_data.startswith('help_msg'):
-        buttons = [
-            [
-                InlineKeyboardButton('« Back', callback_data='original_help'),
-                InlineKeyboardButton('✖️Close', callback_data='close_help')
+        if 'only' in cb_data:
+            buttons = [
+                [
+                    InlineKeyboardButton('✖️Close', callback_data='close_help')
+                ]
             ]
-        ]
-        if cb_data == 'help_msg_1':
+        else:
+            buttons = [
+                [
+                    InlineKeyboardButton('« Back', callback_data='original_help'),
+                    InlineKeyboardButton('✖️Close', callback_data='close_help')
+                ]
+            ]
+        if 'help_msg_1' in cb_data:
             edit_text = HelpCommands.help_msg_1
-        if cb_data == 'help_msg_2':
+        if 'help_msg_2' in cb_data:
             edit_text = HelpCommands.help_msg_2
-        if cb_data == 'help_msg_3':
+        if 'help_msg_3' in cb_data:
             edit_text = HelpCommands.help_msg_3
-        if cb_data == 'help_msg_4':
+        if 'help_msg_4' in cb_data:
             edit_text = HelpCommands.help_msg_4
-        if cb_data == 'help_msg_5':
+        if 'help_msg_5' in cb_data:
             edit_text = HelpCommands.help_msg_5
-        if cb_data == 'help_msg_6':
+        if 'help_msg_6' in cb_data:
             edit_text = HelpCommands.help_msg_6
-        if cb_data == 'help_msg_7':
+        if 'help_msg_7' in cb_data:
             edit_text = HelpCommands.help_msg_7
-        if cb_data == 'help_msg_8':
+        if 'help_msg_8' in cb_data:
             edit_text = HelpCommands.help_msg_8
         await update.message.edit_text(text=edit_text, reply_markup=InlineKeyboardMarkup(buttons))
 

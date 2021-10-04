@@ -10,7 +10,7 @@ async def anu_fn(client, message):
         user_id = message.from_user.id
         file, mess_age = await download_tg(client, message)
         start_date = date(2021, 9, 1)
-        start_serial_no = 356
+        start_serial_no = 355
         today = date.today()
         total_days = (today - start_date).days
         sundays = int(np.busday_count(start_date, today, weekmask='Sun'))

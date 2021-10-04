@@ -2,6 +2,8 @@ import os
 import time
 from pathlib import Path
 import requests
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+
 from tobrot import (
     DOWNLOAD_LOCATION,
     GLEECH_COMMAND,
@@ -62,16 +64,25 @@ async def incoming_message_f(client, message):
             LOGGER.info(cf_name)
         else:
             if user_command == LEECH_COMMAND.lower():
-                await i_m_sefg.edit("No downloading source provided 🙄")
+                await i_m_sefg.edit("No downloading source provided 🙄",
+                                    reply_markup=InlineKeyboardMarkup(
+                                        [[InlineKeyboardButton('📖 Leeching Help', callback_data='help_msg_2_only')]]))
                 await credit.delete()
                 return
             is_file = True
             dl_url = rep_mess
-    elif len(message.command) == 2:
+    elif len(message.command) > 1:
         dl_url = message.command[1]
+        try:
+            if "|" in message.text:
+                cf_name = message.text.split("|")[-1]
+        except:
+            pass
         LOGGER.info(dl_url)
     else:
-        await i_m_sefg.edit("No downloading source provided 🙄")
+        await i_m_sefg.edit("No downloading source provided 🙄",
+                            reply_markup=InlineKeyboardMarkup(
+                                [[InlineKeyboardButton('📖 Leeching Help', callback_data='help_msg_2_only')]]))
         await credit.delete()
         return
     if dl_url is not None:
@@ -126,11 +137,20 @@ async def incoming_message_f(client, message):
         if not sagtus:
             # if FAILED, display the error message
             await i_m_sefg.edit_text(err_message)
+            try:
+                await credit.delete()
+            except:
+                pass
     else:
         await i_m_sefg.edit_text(
             "**FCUK**! wat have you entered. \nPlease read /help \n"
-            f"<b>API Error</b>: {cf_name}"
+            f"<b>API Error</b>: {cf_name}", reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton('Help', callback_data='help_msg_2_only')]])
         )
+        try:
+            await credit.delete()
+        except:
+            pass
     # await credit.edit_text(f"🧲 Leeched successfully <a href='tg://user?id={g_id}'>👍</a>", parse_mode="html")
 
 
@@ -142,7 +162,7 @@ async def incoming_youtube_dl_f(client, message):
     # f"<b>⚙ Leeching For :</b> {u_men}",
     # parse_mode="html",
     # )
-    i_m_sefg = await message.reply_text("<code>Processing...🔃</code>", quote=True)
+    i_m_sefg = await message.reply_text("Processing...🔃", quote=True)
     # LOGGER.info(message)
     # extract link from message
     if message.reply_to_message:
@@ -151,15 +171,27 @@ async def incoming_youtube_dl_f(client, message):
         )
         LOGGER.info(dl_url)
         LOGGER.info(cf_name)
-    elif len(message.command) == 2:
+    elif len(message.command) > 1:
         dl_url = message.command[1]
-        LOGGER.info(dl_url)
-        cf_name = None
         yt_dl_user_name = None
         yt_dl_pass_word = None
         cf_name = None
+        try:
+            if "|" in message.text:
+                url_parts = message.text.split("|")
+                if len(url_parts) == 2:
+                    cf_name = url_parts[1]
+                elif len(url_parts) == 4:
+                    cf_name = url_parts[1]
+                    yt_dl_user_name = url_parts[2]
+                    yt_dl_pass_word = url_parts[3]
+        except:
+            pass
+        LOGGER.info(dl_url)
+
     else:
-        await i_m_sefg.edit("No downloading source provided 🙄")
+        await i_m_sefg.edit("No downloading source provided 🙄", reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton('📖 YouTube Help', callback_data='help_msg_3_only')]]))
         return
     if dl_url is not None:
         await i_m_sefg.edit_text("Getting things ready..")
@@ -190,11 +222,13 @@ async def incoming_youtube_dl_f(client, message):
     else:
         await i_m_sefg.edit_text(
             "**FCUK**! wat have you entered \n"
-            f"<b>API Error</b>: {cf_name}"
+            f"<b>API Error</b>: {cf_name}", reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton('📖 YouTube Help', callback_data='help_msg_3_only')]])
         )
 
+    # playlist
 
-# playlist
+
 async def g_yt_playlist(client, message):
     """ /pytdl command """
     user_command = message.command[0]
@@ -210,7 +244,8 @@ async def g_yt_playlist(client, message):
         if user_command == GPYTDL_COMMAND.lower():
             is_cloud = True
     else:
-        await message.reply_text("😔 No downloading source provided 🙄", quote=True)
+        await message.reply_text("😔 No downloading source provided 🙄", reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton('📖 YouTube Help', callback_data='help_msg_3_only')]]))
         return
     if "youtube.com/playlist" in url:
         u_men = message.from_user.mention
@@ -225,6 +260,8 @@ async def g_yt_playlist(client, message):
 
 
 #
+
+
 async def g_clonee(client, message):
     """ /gclone command """
     g_id = message.from_user.id
@@ -239,21 +276,34 @@ async def g_clonee(client, message):
         await gclone.link_gen_size()
     else:
         await message.reply_text(
-            "You should reply to a message, which format should be [ID or GDrive link of file/folder][one space][name "
-            "of your folder only(If the id is of file, don't put anything)] "
+            "You should reply to a message, which format should be [ID or GDrive link of file/folder][one space]"
+            "[name of your folder only(If the id is of file, don't put anything)] "
         )
 
 
 async def rename_tg_file(client, message):
     usr_id = message.from_user.id
     if not message.reply_to_message:
-        await message.reply("😔 No downloading source provided 🙄", quote=True)
+        await message.reply("😔 No downloading source provided 🙄", reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton('📖 Rename Help', callback_data='help_msg_4_only')]]))
         return
     if len(message.command) > 1:
-        new_name = (
-                str(Path().resolve()) + "/" + message.text.split(" ", maxsplit=1)[1].strip()
-        )
         file, mess_age = await download_tg(client, message)
+        msg_list = message.text.strip().split(" ")
+        if msg_list[-1].upper().endswith(("MKV", "MP4", "WEBM", "MP3", "M4A", "FLAC", "WAV")):
+            new_name = (
+                    str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
+            )
+        else:
+            try:
+                file_ext = str(file).split('.')[-1]
+                new_name = (
+                        str(Path().resolve()) + "/" + ' '.join(msg_list[1:]) + '.' + file_ext
+                )
+            except:
+                new_name = (
+                        str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
+                )
         try:
             if file:
                 os.rename(file, new_name)
@@ -298,7 +348,7 @@ async def rename_tg_file(client, message):
 
     else:
         await message.reply_text(
-            "<b> Oops 😬</b>\n\nProvide Name with extension\n\n➩<b>Example</b>: <code> /rename Avengers "
-            "Endgame.mkv</code>",
+            "<b> Oops 😬</b>\n\nProvide Name to rename..\n\n➩<b>Example</b>: <code> /rename Avengers "
+            "Endgame</code>",
             quote=True
         )

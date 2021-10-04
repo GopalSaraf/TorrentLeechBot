@@ -29,7 +29,6 @@ def getIdFromUrl(link: str):
     return parse_qs(parsed.query)['id'][0]
 
 
-
 class CloneHelper:
     def __init__(self, mess):
         self.g_id = ""
@@ -76,8 +75,6 @@ class CloneHelper:
             LOGGER.info(self.g_id)
             self.name = ""
         return self.g_id, self.name
-
-
 
     async def link_gen_size(self):
         if self.name is not None:
