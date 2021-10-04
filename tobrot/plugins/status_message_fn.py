@@ -346,11 +346,17 @@ async def full_list_fn(client, message):
         to_srch = message.text.split(' ', maxsplit=1)[1]
         to_del = await message.reply('Searching...')
         listing = ListHelper(message)
-        msg, button = await listing.full_drive_list(to_srch)
+        try:
+            try:
+                msg, button = await listing.full_drive_list(to_srch)
+            except:
+                msg, button = await listing.full_drive_list(to_srch)
+        except:
+            msg, button = await listing.drive_list(to_srch)
         if button:
             await to_del.edit(msg, reply_markup=button)
         else:
-            await to_del.edit(f"No result found for <code>{to_srch}</code>.")
+            await to_del.edit(f"No result found for **{to_srch}**.")
 
     except IndexError:
         await message.reply('Send a search key along with command. Like <code>/completelist avengers</code>')

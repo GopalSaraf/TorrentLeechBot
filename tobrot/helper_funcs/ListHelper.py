@@ -106,7 +106,7 @@ class ListHelper():
         if self.num_of_path > 1:
             self.edit_telegraph()
 
-        msg = f"<b>Found <code>{all_contents_count}</code> results for <code>{to_srch}</code></b>."
+        msg = f"Found **{all_contents_count}** results for **{to_srch}**."
         button = [[InlineKeyboardButton("🔎 VIEW", url=f"https://telegra.ph/{self.path[0]}")]]
 
         return msg, InlineKeyboardMarkup(button)
@@ -158,7 +158,7 @@ class ListHelper():
                 content_count += 1
                 all_contents_count += 1
 
-                if content_count == TELEGRAPHLIMIT:
+                if content_count == 100:
                     self.telegraph_content.append(msg)
                     msg = "<br>"
                     content_count = 0
@@ -180,7 +180,7 @@ class ListHelper():
         if self.num_of_path > 1:
             self.edit_telegraph()
 
-        msg = f"<b>Found <code>{all_contents_count}</code> results for <code>{to_srch}</code></b>."
+        msg = f"Found **{all_contents_count}** results for **{to_srch}**."
         button = [[InlineKeyboardButton("🔎 VIEW", url=f"https://telegra.ph/{self.path[0]}")]]
 
         return msg, InlineKeyboardMarkup(button)
