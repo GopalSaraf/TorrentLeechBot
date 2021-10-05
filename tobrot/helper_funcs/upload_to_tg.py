@@ -138,8 +138,7 @@ async def upload_to_tg(
 
 # © gautamajay52 thanks to Rclone team for this wonderful tool.🧘
 
-async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_anu=False, is_gytdl=False,
-                           is_shubh_laabh=False):
+async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_gytdl=False,):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     start = time.time()
     file_upload = str(Path(file_upload).resolve())
@@ -151,9 +150,6 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         del_it = await message.reply_text(
             "Starting upload of {}".format(os.path.basename(file_upload))
         )
-    if not os.path.exists("rclone_bak.conf"):
-        with open("rclone_bak.conf", "w+", newline="\n", encoding="utf-8") as fiile:
-            fiile.write(f"{RCLONE_CONFIG}")
     if not os.path.exists("rclone.conf"):
         with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
             fole.write(f"{RCLONE_CONFIG}")
@@ -164,18 +160,8 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             LOGGER.info(gUP)
     destination = f"{DESTINATION_FOLDER}"
     LOGGER.info(file_upload)
-    if is_anu:
-        gUP = 'anupama'
-        destination = '/'
-        config = 'rclone_bak.conf'
-    elif is_shubh_laabh:
-        gUP = 'shubhlaabh'
-        destination = '/'
-        config = 'rclone_bak.conf'
-    else:
-        config = 'rclone.conf'
     if os.path.isfile(file_upload):
-        command = f"""rclone copy "{file_upload}" "{gUP}:{destination}" --config={config} -P"""
+        command = f"""rclone copy "{file_upload}" "{gUP}:{destination}" --config=rclone.conf -P"""
         LOGGER.info(command)
         with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as p:
             for b in p.stdout:
@@ -210,17 +196,16 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         LOGGER.info(gk_file)
         with open("filter.txt", "w+", encoding="utf-8") as filter:
             print(f"+ {gk_file}\n- *", file=filter)
-        if not is_anu:
-            t_a_m = [
-                "rclone",
-                "lsf",
-                f"--config={config}",
-                "-F",
-                "i",
-                "--filter-from=filter.txt",
-                "--files-only",
-                f"{gUP}:{destination}",
-            ]
+        t_a_m = [
+            "rclone",
+            "lsf",
+            f"--config=rclone.conf",
+            "-F",
+            "i",
+            "--filter-from=filter.txt",
+            "--files-only",
+            f"{gUP}:{destination}",
+        ]
         gau_tam = await asyncio.create_subprocess_exec(
             *t_a_m, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )

@@ -17,7 +17,7 @@ Choose section you want help in..
 8. All Commands at once
 
 This should cover everything..
-But if you want more, [ask here](https://t.me/GopalSaraf) !
+But if you want more, ask admin..!
 """
 
     help_msg_1 = """**

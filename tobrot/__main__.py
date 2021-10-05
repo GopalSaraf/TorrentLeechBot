@@ -54,7 +54,6 @@ from tobrot.plugins.incoming_message_fn import (
 )
 from tobrot.plugins.new_join_fn import new_join_f
 from tobrot.plugins.rclone_size import check_size_g, g_clearme
-from tobrot.helper_funcs.serialHelper import anu_fn, shubh_laabh_fn
 from tobrot.plugins.status_message_fn import (
     cancel_message_f,
     eval_message_f,
@@ -256,19 +255,5 @@ if __name__ == "__main__":
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(full_list_message_handler)
-    #
-    anu_command_handler = MessageHandler(
-        anu_fn,
-        filters=filters.command(['anu'])
-                & filters.chat(chats=AUTH_CHANNEL),
-    )
-    app.add_handler(anu_command_handler)
-    #
-    sl_command_handler = MessageHandler(
-        shubh_laabh_fn,
-        filters=filters.command(['sl', 'slt'])
-                & filters.chat(chats=AUTH_CHANNEL),
-    )
-    app.add_handler(sl_command_handler)
     #
     app.run()
