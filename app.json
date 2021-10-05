@@ -67,58 +67,108 @@
       "description": "should be an URL accepting the FormParams {i}, {m}, and {t}",
       "required": false
     },
-    "LEECH_COMMAND": {
-      "description": "Enter your custom leech command",
-      "required": false
-    },
-    "SAVE_THUMBNAIL": {
-      "description": "For custom thumbnail Command",
-      "required": false
-    },
-    "CLEAR_THUMBNAIL": {
-      "description": "For Delete Thumbnail Command",
-      "required": false
-    },
     "INDEX_LINK": {
       "description": "Enter your index link:",
-      "value": "",
-      "required": false
-    },
-    "GLEECH_COMMAND": {
-      "description": "Enter your custom gleech command",
-      "required": false
-    },
-    "TELEGRAM_LEECH_COMMAND_G": {
-      "description": "Enter your custom tleech command",
-      "required": false
-    },
-    "YTDL_COMMAND": {
-      "description": "Enter your custom ytdl command",
-      "required": false
-    },
-    "PYTDL_COMMAND_G": {
-      "description": "Enter your custom pytdl command",
-      "required": false
-    },
-    "CANCEL_COMMAND_G": {
-      "description": "Enter your custom cancel command",
-      "required": false
-    },
-    "GET_SIZE_G": {
-      "description": "Enter your custom getsize command",
       "required": false
     },
     "RCLONE_CONFIG": {
       "description": "Enter your copied text from rclone config. Compulsory for /gleech as well as /tleech command ",
-      "value": "",
       "required": false
     },
     "DESTINATION_FOLDER": {
-      "description": "Enter your Cloud folder NAME(not ID) in which you want to upload/store your files.",
+      "description": "Enter your Cloud folder NAME(not ID😅) in which you want to upload/store your files.",
       "required": false
     },
     "CUSTOM_FILE_NAME": {
       "description": "fill with name u want to prefix the file name like ur channel username🙊, keep empty for do nothing, but add to ur config vars even without input.",
+      "required": false
+    },
+    "LEECH_COMMAND": {
+      "description": "Enter your custom leech command. Default is /leech",
+      "required": false
+    },
+    "GLEECH_COMMAND": {
+      "description": "Enter your custom gleech command. Default is /gleech",
+      "required": false
+    },
+    "LEECH_UNZIP_COMMAND": {
+      "description": "Enter your custom leechunzip command. Default is /leechunzip",
+      "required": false
+    },
+    "LEECH_ZIP_COMMAND": {
+      "description": "Enter your custom leechzip command. Default is /leechzip",
+      "required": false
+    },
+    "GLEECH_UNZIP_COMMAND": {
+      "description": "Enter your custom gleechunzip command. Default is /gleechunzip",
+      "required": false
+    },
+    "GLEECH_ZIP_COMMAND": {
+      "description": "Enter your custom gleechzip command. Default is /gleechzip",
+      "required": false
+    },
+    "YTDL_COMMAND": {
+      "description": "Enter your custom ytdl command. Default is /ytdl",
+      "required": false
+    },
+    "GYTDL_COMMAND": {
+      "description": "Enter your custom gytdl command. Default is /gytdl",
+      "required": false
+    },
+    "PYTDL_COMMAND": {
+      "description": "Enter your custom pytdl command. Default is /pytdl",
+      "required": false
+    },
+    "GPYTDL_COMMAND": {
+      "description": "Enter your custom gpytdl command. Default is /gpytdl",
+      "required": false
+    },
+    "TELEGRAM_LEECH_COMMAND": {
+      "description": "Enter your custom tleech command. Default is /tleech",
+      "required": false
+    },
+    "TELEGRAM_LEECH_UNZIP_COMMAND": {
+      "description": "Enter your custom tleechunzip command. Default is /tleechunzip",
+      "required": false
+    },
+    "CANCEL_COMMAND_G": {
+      "description": "Enter your custom cancel command. Default is /cancel",
+      "required": false
+    },
+    "GET_SIZE_G": {
+      "description": "Enter your custom getsize command. Default is /getsize",
+      "required": false
+    },
+    "STATUS_COMMAND": {
+      "description": "Enter your custom status command. Default is /status",
+      "required": false
+    },
+    "STATS_COMMAND": {
+      "description": "Enter your custom stats command. Default is /stats",
+      "required": false
+    },
+    "HELP_COMMAND": {
+      "description": "Enter your custom help command. Default is /help",
+      "required": false
+    },
+    "SAVE_THUMBNAIL": {
+      "description": "Enter your custom savethumbnail command. Default is /savethumbnail",
+      "required": false
+    },
+    "CLEAR_THUMBNAIL": {
+      "description": "Enter your custom clearthumbnail command. Default is /clearthumbnail",
+      "required": false
+    },
+    "CLONE_COMMAND_G": {
+      "description": "Enter your custom gclone command. Default is /gclone",
+      "required": false
+    },
+    "LIST_COMMAND": {
+      "description": "Enter your custom list command. Default is /list",
+      "required": false
+    },
+    "COMPLETE_LIST_COMMAND": {
+      "description": "Enter your custom completelist command. Default is /completelist",
       "required": false
     }
   },
