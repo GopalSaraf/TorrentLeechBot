@@ -1,19 +1,19 @@
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-async def new_join_f(client, message):
-    chat_type = message.chat.type
+async def new_join_f():
+    chat_type = 
     if chat_type != "":
-        await message.reply_text(
-            f"""<b>Hello there!\nWelcome to our group!</b>\n\nFor further information, press /help""",
-            parse_mode="html",
+        await message.(
+            f"""""",
+            parse_mode="",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton('⚡ Owner', url='https://t.me/JahidJoseph')
+                        InlineKeyboardButton()
                     ]
                 ]
                )
             )
-    await message.delete(revoke=True)
+    await message.delete(revoke=False)
 
