@@ -3,7 +3,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def new_join_f(client, message):
     chat_type = message.chat.type
-    if chat_type != "private":
+    if chat_type != "":
         await message.reply_text(
             f"""<b>Hello there!\nWelcome to our group!</b>\n\nFor further information, press /help""",
             parse_mode="html",
