@@ -10,7 +10,7 @@ async def new_join_f(client, message):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton('Channel', url='https://t.me/torrentgs')
+                        InlineKeyboardButton('????‍♀️ Owner', url='https://t.me/JahidJoseph')
                     ]
                 ]
                )
