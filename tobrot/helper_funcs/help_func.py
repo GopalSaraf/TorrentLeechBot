@@ -7,14 +7,14 @@ class HelpCommands:
 
 Choose section you want help in..
 **
-1. Basic Commands
-2. Torrent & Links Leech
-3. YouTube Leech
-4. Telegram file Leech
-5. GDrive Commands
-6. Thumbnail Commands 
-7. Admin Commands
-8. All Commands at once
+1. **Basic Commands**
+2. **Torrent & Links Leech**
+3. **YouTube Leech**
+4. **Telegram file Leech**
+5. **GDrive Commands**
+6. **Thumbnail Commands**
+7. **Admin Commands**
+8. **All Commands at once**
 
 This should cover everything..
 But if you want more, ask admin..!
@@ -162,7 +162,7 @@ async def help_message_f(client, message, is_cb=False):
     ]
     buttons.append(first_row)
     buttons.append(second_row)
-    buttons.append([InlineKeyboardButton('✖️Close', callback_data='close_help')])
+    buttons.append([InlineKeyboardButton('🚫 Close', callback_data='close_help')])
 
     if is_cb:
         await message.edit_text(text=HelpCommands.help_msg, reply_markup=InlineKeyboardMarkup(buttons),
