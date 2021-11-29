@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from tobrot import (
     DESTINATION_FOLDER,
     EDIT_SLEEP_TIME_OUT,
-    INDEX_LINK, INDEX_LINK_AZERO,
+    INDEX_LINK,
     LOGGER,
     RCLONE_CONFIG, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR,
 )
@@ -53,7 +53,7 @@ class CloneHelper:
         self.link = ""
         self.is_link_public = True
 
-    def config(self, is_azero=False):
+    def config(self):
         if not os.path.exists("rclone.conf"):
             with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
                 fole.write(f"{RCLONE_CONFIG}")
@@ -261,7 +261,7 @@ class TarFolder():
         self.link = ""
         self.is_link_public = True
 
-    def config(self, is_azero=False):
+    def config(self):
         if not os.path.exists("rclone_bak.conf"):
             with open("rclone_bak.conf", "w+", newline="\n", encoding="utf-8") as fiile:
                 fiile.write(f"{RCLONE_CONFIG}")
