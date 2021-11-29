@@ -35,7 +35,7 @@ from tobrot import (
     TOGGLE_DOC,
     HELP_COMMAND,
     LIST_COMMAND,
-    COMPLETE_LIST_COMMAND,
+    COMPLETE_LIST_COMMAND, CLONE_ZIP_COMMAND, CLONE_TAR_COMMAND,
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.helper_funcs.help_func import help_message_f
@@ -46,6 +46,7 @@ from tobrot.plugins.choose_rclone_config import rclone_command_f
 from tobrot.plugins.custom_thumbnail import clear_thumb_nail, save_thumb_nail
 from tobrot.plugins.incoming_message_fn import (
     g_clonee,
+    gclone_zip,
     g_yt_playlist,
     incoming_message_f,
     incoming_purge_message_f,
@@ -112,20 +113,27 @@ if __name__ == "__main__":
     #
     incoming_clone_handler = MessageHandler(
         g_clonee,
-        filters=filters.command([f"{CLONE_COMMAND_G}"])
+        filters=filters.command([CLONE_COMMAND_G])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_clone_handler)
     #
+    incoming_clonezip_handler = MessageHandler(
+        gclone_zip,
+        filters=filters.command([CLONE_ZIP_COMMAND, CLONE_TAR_COMMAND])
+                & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(incoming_clonezip_handler)
+    #
     incoming_size_checker_handler = MessageHandler(
         check_size_g,
-        filters=filters.command([f"{GET_SIZE_G}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([GET_SIZE_G]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_size_checker_handler)
     #
     incoming_g_clear_handler = MessageHandler(
         g_clearme,
-        filters=filters.command([f"{RENEWME_COMMAND}"])
+        filters=filters.command([RENEWME_COMMAND])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_g_clear_handler)
@@ -146,7 +154,7 @@ if __name__ == "__main__":
     #
     status_message_handler = MessageHandler(
         status_message_f,
-        filters=filters.command([f"{STATUS_COMMAND}"])
+        filters=filters.command([STATUS_COMMAND])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(status_message_handler)
@@ -160,7 +168,7 @@ if __name__ == "__main__":
     #
     cancel_message_handler = MessageHandler(
         cancel_message_f,
-        filters=filters.command([f"{CANCEL_COMMAND_G}"])
+        filters=filters.command([CANCEL_COMMAND_G])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(cancel_message_handler)
@@ -179,20 +187,20 @@ if __name__ == "__main__":
     #
     rename_message_handler = MessageHandler(
         rename_tg_file,
-        filters=filters.command([f"{RENAME_COMMAND}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([RENAME_COMMAND]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(rename_message_handler)
     #
     upload_document_handler = MessageHandler(
         upload_document_f,
-        filters=filters.command([f"{UPLOAD_COMMAND}"])
+        filters=filters.command([UPLOAD_COMMAND])
                 & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(upload_document_handler)
     #
     upload_log_handler = MessageHandler(
         upload_log_file,
-        filters=filters.command([f"{LOG_COMMAND}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([LOG_COMMAND]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(upload_log_handler)
     #

@@ -16,7 +16,7 @@ from tobrot import (
     GPYTDL_COMMAND,
 )
 from tobrot.helper_funcs.admin_check import AdminCheck
-from tobrot.helper_funcs.cloneHelper import CloneHelper
+from tobrot.helper_funcs.cloneHelper import CloneHelper, TarFolder
 from tobrot.helper_funcs.download import download_tg
 from tobrot.helper_funcs.download_aria_p_n import (
     aria_start,
@@ -276,8 +276,36 @@ async def g_clonee(client, message):
         await gclone.link_gen_size()
     else:
         await message.reply_text(
-            "You should reply to a message, which format should be [ID or GDrive link of file/folder][one space]"
-            "[name of your folder only(If the id is of file, don't put anything)] "
+            "You should reply to a message, which format should be [GDrive link of file/folder][one space]"
+            "[Name of folder if you want to give] ", reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton('📖 CloneZip Help', callback_data='help_msg_5_only')]])
+        )
+
+
+async def gclone_zip(client, message):
+    user_command = message.command[0]
+    is_zip = False
+    is_tar = False
+    if user_command.endswith('zip'):
+        is_zip = True
+    if user_command.endswith('tar'):
+        is_tar = True
+    rep_message = message.reply_to_message
+    if rep_message or len(message.command) > 1:
+        gclonezip = TarFolder(message)
+        gclonezip.config()
+        a, h = gclonezip.get_id()
+        LOGGER.info(a)
+        LOGGER.info(h)
+        gclonezip.set_name()
+        await gclonezip.download()
+        await gclonezip.create_compressed(is_zip, is_tar)
+        await gclonezip.upload()
+    else:
+        await message.reply_text(
+            "You should reply to a message, which format should be [GDrive link of file/folder][one space]"
+            "[Name of folder if you want to give] ", reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton('📖 CloneZip Help', callback_data='help_msg_5_only')]])
         )
 
 

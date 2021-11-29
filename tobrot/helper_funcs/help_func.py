@@ -84,7 +84,9 @@ This commands should be as a reply to Telegram file..
     help_msg_5 = """**
 Google Drive related commands here..
 **
-/gclone - to clone gdrive files or folder
+/clone - to clone GDrive files or folder
+/clonezip - to create zip of GDrive folder
+/clonetar - to create tar of GDrive folder
 /list - short search in GDrive
 /completelist - full search in gdrive
 /getsize - get GDrive size filled
@@ -124,6 +126,9 @@ List of all commands..
 /list
 /leech
 /gleech
+/clone
+/clonezip
+/clonetar
 /leechunzip
 /leechzip
 /gleechunzip
@@ -135,7 +140,6 @@ List of all commands..
 /tleech
 /tleechunzip
 /rename
-/gclone
 /completelist
 /savethumbnail
 /clearthumbnail

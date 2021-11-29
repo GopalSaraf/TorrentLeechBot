@@ -57,7 +57,7 @@ async def status_message_f(client, message):
                 downloading_dir_name = str(file.name)
             except:
                 pass
-            if file.status == "active":
+            if file.status in ["active", "paused", "waiting"]:
                 is_file = file.seeder
                 if is_file is None:
                     msgg = f"<b>Conn:</b> {file.connections}"
@@ -65,9 +65,9 @@ async def status_message_f(client, message):
                     msgg = f"<b>Peers:</b> {file.connections} | <b>Seeders:</b> {file.num_seeders}"
                 msg += f"\n<b>{downloading_dir_name}</b>"
                 msg += "\n<b>[{}{}]</b> <b>{}</b>".format(
-                    "".join([FINISHED_PROGRESS_STR for i in range(math.floor(float(file.progress_string()[:-1]) / 2))]),
+                    "".join([FINISHED_PROGRESS_STR for i in range(math.floor(float(file.progress_string()[:-1]) / 4))]),
                     "".join([UN_FINISHED_PROGRESS_STR for i in
-                             range(50 - math.floor(float(file.progress_string()[:-1]) / 2))]),
+                             range(25 - math.floor(float(file.progress_string()[:-1]) / 4))]),
                     file.progress_string()
                 )
                 msg += f"\n<b>Status</b>: {file.completed_length_string()} <b>of</b> {file.total_length_string()}"
@@ -82,13 +82,16 @@ async def status_message_f(client, message):
         ram = psutil.virtual_memory().percent
         cpu = psutil.cpu_percent()
         total = humanbytes(total)
-        used = humanbytes(used)
+        # used = humanbytes(used)
         free = humanbytes(free)
+        sent = humanbytes(psutil.net_io_counters().bytes_sent)
+        recv = humanbytes(psutil.net_io_counters().bytes_recv)
 
         ms_g = (
             f"<b>Bot Uptime</b>: {hr}:{mi}:{se}\n"
-            f"<b>Total :</b> {total} <b>Used :</b> {used} <b>Free :</b> {free}\n"
-            f"<b>RAM:</b> {ram}% <b>CPU:</b> {cpu}%\n"
+            f"<b>Disk Size:</b> {total} | <b>Free :</b> {free}\n"
+            f"<b>RAM:</b> {ram}% | <b>CPU:</b> {cpu}%\n"
+            f"<b>DL:</b> {recv} 🔻 | <b>UL:</b> {sent} 🔺 \n"
         )
         if msg == "":
             msg = "🤷‍♂️ No Active, Queued or Paused TORRENTs"
@@ -371,6 +374,8 @@ async def stats_message_fn(client, message):
     total = humanbytes(total)
     used = humanbytes(used)
     free = humanbytes(free)
+    sent = humanbytes(psutil.net_io_counters().bytes_sent)
+    recv = humanbytes(psutil.net_io_counters().bytes_recv)
 
     msg = (
         f"<b>Bot Current Status</b>\n\n"
@@ -381,6 +386,9 @@ async def stats_message_fn(client, message):
         f"<b>Free :</b> {free}\n"
         f"<b>RAM Usage:</b> {ram}%\n"
         f"<b>CPU Usage:</b> {cpu}%\n"
+        f"<b>Downloaded Data:</b> {recv} 🔻\n"
+        f"<b>Uploaded Data:</b> {sent} 🔺"
+
     )
 
     await message.reply_text(msg, quote=True)

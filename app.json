@@ -160,7 +160,15 @@
       "required": false
     },
     "CLONE_COMMAND_G": {
-      "description": "Enter your custom gclone command. Default is /gclone",
+      "description": "Enter your custom clone command. Default is /clone",
+      "required": false
+    },
+    "CLONE_ZIP_COMMAND": {
+      "description": "Enter your custom clonezip command. Default is /clonezip",
+      "required": false
+    },
+    "CLONE_TAR_COMMAND": {
+      "description": "Enter your custom clonetar command. Default is /clonetar",
       "required": false
     },
     "LIST_COMMAND": {

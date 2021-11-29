@@ -79,12 +79,12 @@ class Progress:
                 progress1 = f"**TUploading:** {filename_bygopal}\n"
             progress2 = "**[{0}{1}]** **{2}%**\n".format(
                 "".join(
-                    [FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 2))]
+                    [FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 4))]
                 ),
                 "".join(
                     [
                         UN_FINISHED_PROGRESS_STR
-                        for i in range(50 - math.floor(percentage / 2))
+                        for i in range(25 - math.floor(percentage / 4))
                     ]
                 ),
                 round(percentage, 2),

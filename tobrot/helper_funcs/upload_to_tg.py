@@ -172,18 +172,18 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                         txt = re.findall("Transferred(.*?)\n", b)[0].strip()
                         if txt:
                             current = re.search(":(.*?)/", txt).group(1).strip()
-                            total = re.search("/(.*?)yte,", txt).group(1).strip()
+                            total = re.search("/(.*?)iB,", txt).group(1).strip()
                             percent = re.search(",(.*?)%", txt).group(1).strip()
                             if percent == '-':
                                 percent = 0
                             finished_str = "".join(
-                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 2))])
+                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 4))])
                             unfinished_str = "".join(
-                                [UN_FINISHED_PROGRESS_STR for i in range(50 - math.floor(int(percent) / 2))])
-                            speed = re.search("%,(.*?)yte/s", txt).group(1)
+                                [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent) / 4))])
+                            speed = re.search("%,(.*?)iB/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
                             await del_it.edit_text(
-                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{}B **of** {}\n**Speed:** {}"
+                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{} **of** {}iB\n**Speed:** {}iB"
                                 "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
                                                            finished_str, unfinished_str, percent, current,
                                                            total, speed, eta))
@@ -219,7 +219,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         gjay = humanbytes(os.path.getsize(file_upload))
         button = []
         button.append(
-            pyrogram.InlineKeyboardButton(text="☁️ GDrive ☁️", url=f"{gauti}")
+            pyrogram.InlineKeyboardButton(text="☁ GDrive Link", url=f"{gauti}")
         )
         if INDEX_LINK:
             indexurl = f"{INDEX_LINK}/{os.path.basename(file_upload)}"
@@ -227,7 +227,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             LOGGER.info(tam_link)
             button.append(
                 pyrogram.InlineKeyboardButton(
-                    text="ℹ️ IndexUrl ℹ️", url=f"{tam_link}"
+                    text="⚡ Index Link", url=f"{tam_link}"
                 )
             )
         button_markup = pyrogram.InlineKeyboardMarkup([button])
@@ -258,18 +258,18 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                         txt = re.findall("Transferred(.*?)\n", b)[0].strip()
                         if txt:
                             current = re.search(":(.*?)/", txt).group(1).strip()
-                            total = re.search("/(.*?)yte,", txt).group(1).strip()
+                            total = re.search("/(.*?)iB,", txt).group(1).strip()
                             percent = re.search(",(.*?)%", txt).group(1).strip()
                             if percent == '-':
                                 percent = 0
                             finished_str = "".join(
-                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 2))])
+                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 4))])
                             unfinished_str = "".join(
-                                [UN_FINISHED_PROGRESS_STR for i in range(50 - math.floor(int(percent) / 2))])
-                            speed = re.search("%,(.*?)yte/s", txt).group(1)
+                                [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent) / 4))])
+                            speed = re.search("%,(.*?)iB/s", txt).group(1)
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
                             await del_it.edit_text(
-                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{}B **of** {}\n**Speed:** {}"
+                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{} **of** {}iB\n**Speed:** {}iB"
                                 "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
                                                            finished_str, unfinished_str, percent, current,
                                                            total, speed, eta))
@@ -305,7 +305,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
         LOGGER.info(gjay)
         button = []
         button.append(
-            pyrogram.InlineKeyboardButton(text="☁️ GDrive ☁️", url=f"{gautii}")
+            pyrogram.InlineKeyboardButton(text="☁ GDrive Link", url=f"{gautii}")
         )
         if INDEX_LINK:
             indexurl = f"{INDEX_LINK}/{os.path.basename(file_upload)}/"
@@ -313,7 +313,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             LOGGER.info(tam_link)
             button.append(
                 pyrogram.InlineKeyboardButton(
-                    text="ℹ️ IndexUrl ℹ️", url=f"{tam_link}"
+                    text="⚡ Index Link", url=f"{tam_link}"
                 )
             )
         button_markup = pyrogram.InlineKeyboardMarkup([button])

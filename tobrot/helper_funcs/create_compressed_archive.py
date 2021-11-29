@@ -1,7 +1,6 @@
 import asyncio
 import os
 import shutil
-
 from tobrot import LOGGER
 
 
@@ -24,6 +23,54 @@ async def create_archive(input_directory):
         ]
         process = await asyncio.create_subprocess_exec(
             *file_genertor_command,
+            # stdout must a pipe to be accessible as process.stdout
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+        )
+        # Wait for the subprocess to finish
+        stdout, stderr = await process.communicate()
+        LOGGER.error(stderr.decode().strip())
+        if os.path.exists(compressed_file_name):
+            try:
+                shutil.rmtree(input_directory)
+            except:
+                pass
+            return_name = compressed_file_name
+    return return_name
+
+
+async def create_zip(input_directory):
+    return_name = None
+    if os.path.exists(input_directory):
+        base_dir_name = os.path.basename(input_directory)
+        compressed_file_name = f"{base_dir_name}.zip"
+        file_genertor_command = f"""cd "{input_directory}" && zip -r "/app/{compressed_file_name}" *"""
+        process = await asyncio.create_subprocess_shell(
+            file_genertor_command,
+            # stdout must a pipe to be accessible as process.stdout
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+        )
+        # Wait for the subprocess to finish
+        stdout, stderr = await process.communicate()
+        LOGGER.error(stderr.decode().strip())
+        if os.path.exists(compressed_file_name):
+            try:
+                shutil.rmtree(input_directory)
+            except:
+                pass
+            return_name = compressed_file_name
+    return return_name
+
+
+async def create_tar(input_directory):
+    return_name = None
+    if os.path.exists(input_directory):
+        base_dir_name = os.path.basename(input_directory)
+        compressed_file_name = f"{base_dir_name}.tar"
+        file_genertor_command = f"""tar -cvf /app/{compressed_file_name} -C {input_directory} ."""
+        process = await asyncio.create_subprocess_shell(
+            file_genertor_command,
             # stdout must a pipe to be accessible as process.stdout
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
