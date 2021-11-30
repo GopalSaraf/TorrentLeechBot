@@ -5,8 +5,8 @@
  <img width=400px height=400px src="https://images.unsplash.com/photo-1562907550-096d3bf9b25c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80" alt="Bot logo"></a>
 </p>
 
-Join [TorrentLeech Channel](https://t.me/torrentgs) for demo..
-<p align="center"><a href="https://t.me/torrentgs"><img src="https://img.shields.io/badge/Telegram-Join%20Telegram%20Group-blue.svg?logo=telegram"></a></p>
+<h2>Join [TorrentLeech Channel](https://t.me/torrentgs) for demo!</h2>
+<p align="left"><a href="https://t.me/torrentgs"><img src="https://img.shields.io/badge/Telegram-Join%20Telegram%20Group-blue.svg?logo=telegram"></a></p>
 
 # Benefits :-
     ✓ Google Drive link cloning using gclone.(wip)
