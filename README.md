@@ -108,7 +108,7 @@
 
 
 
-Deploy on Heroku:-
+<h3>Deploy on Heroku:-</h3>
 
 <p><a href="https://heroku.com/deploy?template=https://github.com/GopalSaraf/TorrentLeechBot/tree/master)"> <img src="https://www.herokucdn.com/deploy/button.svg" width="150""/></a></p>
 
