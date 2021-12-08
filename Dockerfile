@@ -17,6 +17,7 @@ RUN apt -qq update --fix-missing && \
     unzip \
     unrar \
     tar \
+    zip \
     python3 \
     ffmpeg \
     python3-pip \
