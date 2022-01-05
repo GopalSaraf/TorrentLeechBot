@@ -6,7 +6,7 @@
 </p>
 
 <h2>Join <a href=https://t.me/torrentleechgs>TorrentLeech Group</a> for demo!</h2>
-<p align="left"><a href="https://t.me/torrentgs"><img src="https://img.shields.io/badge/Telegram-Join%20TorrentLeech%20Group-blue.svg?logo=telegram"></a></p>
+<p align="left"><a href="https://t.me/torrentleechgs"><img src="https://img.shields.io/badge/Telegram-Join%20TorrentLeech%20Group-blue.svg?logo=telegram"></a></p>
 
 # Benefits :-
     ✓ Google Drive link cloning using gclone.(wip)
