@@ -138,7 +138,6 @@ async def button(bot, update: CallbackQuery):
                 "rclone_bak.conf",
                 ".gitignore",
                 "_config.yml",
-                "COPYING",
                 "Dockerfile",
                 "extract",
                 "Procfile",
