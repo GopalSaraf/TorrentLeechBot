@@ -8,9 +8,5 @@ youtube_dl
 python-dotenv
 beautifulsoup4>=4.8.2,<4.8.10
 bs4
-lxml
 requests
-messages
-js2py
 telegraph
-numpy
