@@ -7,7 +7,7 @@ import sys
 import time
 import traceback
 
-import psutil
+# import psutil
 
 from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, \
     EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR, BOT_START_DATETIME
@@ -79,19 +79,19 @@ async def status_message_f(client, message):
 
         hr, mi, se = map(time_format, up_time(time.time() - BOT_START_TIME))
         total, used, free = shutil.disk_usage(".")
-        ram = psutil.virtual_memory().percent
-        cpu = psutil.cpu_percent()
+        # ram = psutil.virtual_memory().percent
+        # cpu = psutil.cpu_percent()
         total = humanbytes(total)
         # used = humanbytes(used)
         free = humanbytes(free)
-        sent = humanbytes(psutil.net_io_counters().bytes_sent)
-        recv = humanbytes(psutil.net_io_counters().bytes_recv)
+        # sent = humanbytes(psutil.net_io_counters().bytes_sent)
+        # recv = humanbytes(psutil.net_io_counters().bytes_recv)
 
         ms_g = (
             f"<b>Bot Uptime</b>: {hr}:{mi}:{se}\n"
             f"<b>Disk Size:</b> {total} | <b>Free :</b> {free}\n"
-            f"<b>RAM:</b> {ram}% | <b>CPU:</b> {cpu}%\n"
-            f"<b>DL:</b> {recv} 🔻 | <b>UL:</b> {sent} 🔺 \n"
+            # f"<b>RAM:</b> {ram}% | <b>CPU:</b> {cpu}%\n"
+            # f"<b>DL:</b> {recv} 🔻 | <b>UL:</b> {sent} 🔺 \n"
         )
         if msg == "":
             msg = "🤷‍♂️ No Active, Queued or Paused TORRENTs"
@@ -369,13 +369,13 @@ async def stats_message_fn(client, message):
     restart_time = BOT_START_DATETIME
     hr, mi, se = map(time_format, up_time(time.time() - BOT_START_TIME))
     total, used, free = shutil.disk_usage(".")
-    ram = psutil.virtual_memory().percent
-    cpu = psutil.cpu_percent()
+    # ram = psutil.virtual_memory().percent
+    # cpu = psutil.cpu_percent()
     total = humanbytes(total)
     used = humanbytes(used)
     free = humanbytes(free)
-    sent = humanbytes(psutil.net_io_counters().bytes_sent)
-    recv = humanbytes(psutil.net_io_counters().bytes_recv)
+    # sent = humanbytes(psutil.net_io_counters().bytes_sent)
+    # recv = humanbytes(psutil.net_io_counters().bytes_recv)
 
     msg = (
         f"<b>Bot Current Status</b>\n\n"
@@ -384,10 +384,10 @@ async def stats_message_fn(client, message):
         f"<b>Total disk space:</b> {total}\n"
         f"<b>Used :</b> {used}\n"
         f"<b>Free :</b> {free}\n"
-        f"<b>RAM Usage:</b> {ram}%\n"
-        f"<b>CPU Usage:</b> {cpu}%\n"
-        f"<b>Downloaded Data:</b> {recv} 🔻\n"
-        f"<b>Uploaded Data:</b> {sent} 🔺"
+        # f"<b>RAM Usage:</b> {ram}%\n"
+        # f"<b>CPU Usage:</b> {cpu}%\n"
+        # f"<b>Downloaded Data:</b> {recv} 🔻\n"
+        # f"<b>Uploaded Data:</b> {sent} 🔺"
 
     )
 

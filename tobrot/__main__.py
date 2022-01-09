@@ -53,7 +53,7 @@ from tobrot.plugins.incoming_message_fn import (
     incoming_youtube_dl_f,
     rename_tg_file,
 )
-from tobrot.plugins.new_join_fn import new_join_f
+from tobrot.plugins.new_join_fn import start_fn
 from tobrot.plugins.rclone_size import check_size_g, g_clearme
 from tobrot.plugins.status_message_fn import (
     cancel_message_f,
@@ -204,10 +204,11 @@ if __name__ == "__main__":
     )
     app.add_handler(upload_log_handler)
     #
-    new_join_handler = MessageHandler(
-        new_join_f, filters=~filters.chat(chats=AUTH_CHANNEL)
+    start_cmd_handler = MessageHandler(
+        start_fn,
+        filters=filters.command(['start'])
     )
-    app.add_handler(new_join_handler)
+    app.add_handler(start_cmd_handler)
     #
     call_back_button_handler = CallbackQueryHandler(button)
     app.add_handler(call_back_button_handler)
