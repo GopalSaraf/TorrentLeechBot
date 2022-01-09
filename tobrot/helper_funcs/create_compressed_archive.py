@@ -41,7 +41,7 @@ async def create_archive(input_directory):
 
 async def create_zip(input_directory):
     return_name = None
-    if os.path.exists(input_directory):
+    if os.path.isdir(input_directory):
         base_dir_name = os.path.basename(input_directory)
         compressed_file_name = f"{base_dir_name}.zip"
         file_genertor_command = f"""cd "{input_directory}" && zip -r "/app/{compressed_file_name}" *"""
@@ -59,13 +59,15 @@ async def create_zip(input_directory):
                 shutil.rmtree(input_directory)
             except:
                 pass
-            return_name = compressed_file_name
+            return_name = f"/app/{compressed_file_name}"
+    else:
+        return_name = input_directory
     return return_name
 
 
 async def create_tar(input_directory):
     return_name = None
-    if os.path.exists(input_directory):
+    if os.path.isdir(input_directory):
         base_dir_name = os.path.basename(input_directory)
         compressed_file_name = f"{base_dir_name}.tar"
         file_genertor_command = f"""tar -cvf /app/{compressed_file_name} -C {input_directory} ."""
@@ -83,7 +85,9 @@ async def create_tar(input_directory):
                 shutil.rmtree(input_directory)
             except:
                 pass
-            return_name = compressed_file_name
+            return_name = f"/app/{compressed_file_name}"
+    else:
+        return_name = input_directory
     return return_name
 
 

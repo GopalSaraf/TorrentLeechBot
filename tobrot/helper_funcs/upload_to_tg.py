@@ -172,20 +172,20 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                         txt = re.findall("Transferred(.*?)\n", b)[0].strip()
                         if txt:
                             current = re.search(":(.*?)/", txt).group(1).strip()
-                            total = re.search("/(.*?)iB,", txt).group(1).strip()
-                            percent = re.search(",(.*?)%", txt).group(1).strip()
+                            total = re.search("/(.*?),", txt).group(1).strip()
+                            percent = re.search(",(.*?),", txt).group(1).strip()
                             if percent == '-':
-                                percent = 0
+                                percent = '0%'
                             finished_str = "".join(
-                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 4))])
+                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent[:-1]) / 4))])
                             unfinished_str = "".join(
-                                [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent) / 4))])
-                            speed = re.search("%,(.*?)iB/s", txt).group(1)
+                                [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent[:-1]) / 4))])
+                            speed = re.search(",(.*?)/s", txt).group(1).split(',')[1].strip()
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
                             await del_it.edit_text(
-                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{} **of** {}iB\n**Speed:** {}iB"
+                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{} **of** {}\n**Speed:** {}"
                                 "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
-                                                           finished_str, unfinished_str, percent, current,
+                                                           finished_str, unfinished_str, int(percent[:-1]), current,
                                                            total, speed, eta))
                     except:
                         continue
@@ -258,20 +258,20 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                         txt = re.findall("Transferred(.*?)\n", b)[0].strip()
                         if txt:
                             current = re.search(":(.*?)/", txt).group(1).strip()
-                            total = re.search("/(.*?)iB,", txt).group(1).strip()
-                            percent = re.search(",(.*?)%", txt).group(1).strip()
+                            total = re.search("/(.*?),", txt).group(1).strip()
+                            percent = re.search(",(.*?),", txt).group(1).strip()
                             if percent == '-':
-                                percent = 0
+                                percent = '0%'
                             finished_str = "".join(
-                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 4))])
+                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent[:-1]) / 4))])
                             unfinished_str = "".join(
-                                [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent) / 4))])
-                            speed = re.search("%,(.*?)iB/s", txt).group(1)
+                                [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent[:-1]) / 4))])
+                            speed = re.search(",(.*?)/s", txt).group(1).split(',')[1].strip()
                             eta = re.findall('ETA .*', txt)[0].split(' ')[1]
                             await del_it.edit_text(
-                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{} **of** {}iB\n**Speed:** {}iB"
+                                "**GUploading:** {}\n**[{}{}]** **{}%**\n{} **of** {}\n**Speed:** {}"
                                 "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
-                                                           finished_str, unfinished_str, percent, current,
+                                                           finished_str, unfinished_str, int(percent[:-1]), current,
                                                            total, speed, eta))
                     except:
                         continue
