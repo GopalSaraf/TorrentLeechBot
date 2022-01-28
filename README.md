@@ -1,5 +1,5 @@
 # Telegram Leecher Bot
-### Update: Fixed Heroku Deployment Problem 🙂
+###<h2> Update:</h2> Fixed Heroku Deployment Problem 🙂
 <br>
 
 <p align="left">
