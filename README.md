@@ -1,6 +1,6 @@
 # Telegram Leecher Bot
 ## Update :  Fixed Heroku Deployment Problem 🙂
-### Note : If want some new features.. <a href="https://t.telegram.ind.in/gopalsaraf">DM me here</a> OR <a href="https://t.telegram.ind.in/torrentleechgs>TorrentLeech Group">Join here and ask</a>.
+### Note : If want some new features.. <a href="https://t.telegram.ind.in/gopalsaraf">DM me here</a> OR <a href="https://t.telegram.ind.in/torrentleechgs">Join here and ask</a>.
 <br>
 
 <p align="left">
