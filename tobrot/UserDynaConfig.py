@@ -1,5 +1,4 @@
 class UserDynaConfig:
-
     def __init__(self, user_id, upload_as_doc=False):
         self.user_id = user_id
         self.upload_as_doc = upload_as_doc

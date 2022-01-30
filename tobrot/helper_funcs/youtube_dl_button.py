@@ -140,9 +140,11 @@ async def youtube_dl_call_back(bot, update):
     t_response = stdout.decode().strip()
     # LOGGER.info(e_response)
     # LOGGER.info(t_response)
-    ad_string_to_replace = "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest " \
-                           "version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with " \
-                           "the --verbose flag and include its complete output. "
+    ad_string_to_replace = (
+        "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest "
+        "version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with "
+        "the --verbose flag and include its complete output. "
+    )
     if e_response and ad_string_to_replace in e_response:
         error_message = e_response.replace(ad_string_to_replace, "")
         await update.message.edit_caption(caption=error_message)
@@ -172,7 +174,11 @@ async def youtube_dl_call_back(bot, update):
         if is_cloud:
             shutil.move(fi_le, "./")
             final_response = await upload_to_gdrive(
-                gaut_am, update.message, update.message.reply_to_message, user_id, is_gytdl=True
+                gaut_am,
+                update.message,
+                update.message.reply_to_message,
+                user_id,
+                is_gytdl=True,
             )
         else:
             final_response = await upload_to_tg(

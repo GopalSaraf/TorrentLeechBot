@@ -153,24 +153,31 @@ That's all..
 async def help_message_f(client, message, is_cb=False):
     buttons = []
     first_row = [
-        InlineKeyboardButton('1', callback_data='help_msg_1'),
-        InlineKeyboardButton('2', callback_data='help_msg_2'),
-        InlineKeyboardButton('3', callback_data='help_msg_3'),
-        InlineKeyboardButton('4', callback_data='help_msg_4'),
+        InlineKeyboardButton("1", callback_data="help_msg_1"),
+        InlineKeyboardButton("2", callback_data="help_msg_2"),
+        InlineKeyboardButton("3", callback_data="help_msg_3"),
+        InlineKeyboardButton("4", callback_data="help_msg_4"),
     ]
     second_row = [
-        InlineKeyboardButton('5', callback_data='help_msg_5'),
-        InlineKeyboardButton('6', callback_data='help_msg_6'),
-        InlineKeyboardButton('7', callback_data='help_msg_7'),
-        InlineKeyboardButton('8', callback_data='help_msg_8'),
+        InlineKeyboardButton("5", callback_data="help_msg_5"),
+        InlineKeyboardButton("6", callback_data="help_msg_6"),
+        InlineKeyboardButton("7", callback_data="help_msg_7"),
+        InlineKeyboardButton("8", callback_data="help_msg_8"),
     ]
     buttons.append(first_row)
     buttons.append(second_row)
-    buttons.append([InlineKeyboardButton('✖️Close', callback_data='close_help')])
+    buttons.append([InlineKeyboardButton("✖️Close", callback_data="close_help")])
 
     if is_cb:
-        await message.edit_text(text=HelpCommands.help_msg, reply_markup=InlineKeyboardMarkup(buttons),
-                                disable_web_page_preview=True)
+        await message.edit_text(
+            text=HelpCommands.help_msg,
+            reply_markup=InlineKeyboardMarkup(buttons),
+            disable_web_page_preview=True,
+        )
     else:
-        await message.reply_text(text=HelpCommands.help_msg, reply_markup=InlineKeyboardMarkup(buttons), quote=True,
-                                 disable_web_page_preview=True)
+        await message.reply_text(
+            text=HelpCommands.help_msg,
+            reply_markup=InlineKeyboardMarkup(buttons),
+            quote=True,
+            disable_web_page_preview=True,
+        )

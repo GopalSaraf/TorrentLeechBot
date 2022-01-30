@@ -46,14 +46,14 @@ def getFolderSize(p):
 
 
 async def upload_to_tg(
-        message,
-        local_file_name,
-        from_user,
-        dict_contatining_uploaded_files,
-        client,
-        edit_media=False,
-        yt_thumb=None,
-        gopal=False
+    message,
+    local_file_name,
+    from_user,
+    dict_contatining_uploaded_files,
+    client,
+    edit_media=False,
+    yt_thumb=None,
+    gopal=False,
 ):
     base_file_name = os.path.basename(local_file_name)
     caption_str = ""
@@ -138,7 +138,15 @@ async def upload_to_tg(
 
 # © gautamajay52 thanks to Rclone team for this wonderful tool.🧘
 
-async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal', is_gytdl=False,):
+
+async def upload_to_gdrive(
+    file_upload,
+    message,
+    messa_ge,
+    g_id,
+    credit="gopal",
+    is_gytdl=False,
+):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     start = time.time()
     file_upload = str(Path(file_upload).resolve())
@@ -163,7 +171,9 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
     if os.path.isfile(file_upload):
         command = f"""rclone copy "{file_upload}" "{gUP}:{destination}" --config=rclone.conf -P"""
         LOGGER.info(command)
-        with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as p:
+        with Popen(
+            command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True
+        ) as p:
             for b in p.stdout:
                 now = time.time()
                 diff = now - start
@@ -174,23 +184,50 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                             current = re.search(":(.*?)/", txt).group(1).strip()
                             total = re.search("/(.*?),", txt).group(1).strip()
                             percent = re.search(",(.*?),", txt).group(1).strip()
-                            if percent == '-':
-                                percent = '0%'
+                            if percent == "-":
+                                percent = "0%"
                             finished_str = "".join(
-                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent[:-1]) / 4))])
+                                [
+                                    FINISHED_PROGRESS_STR
+                                    for i in range(math.floor(int(percent[:-1]) / 4))
+                                ]
+                            )
                             unfinished_str = "".join(
-                                [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent[:-1]) / 4))])
-                            speed = re.search(",(.*?)/s", txt).group(1).split(',')[1].strip()
-                            eta = re.findall('ETA .*', txt)[0].split(' ')[1]
+                                [
+                                    UN_FINISHED_PROGRESS_STR
+                                    for i in range(
+                                        25 - math.floor(int(percent[:-1]) / 4)
+                                    )
+                                ]
+                            )
+                            speed = (
+                                re.search(",(.*?)/s", txt)
+                                .group(1)
+                                .split(",")[1]
+                                .strip()
+                            )
+                            eta = re.findall("ETA .*", txt)[0].split(" ")[1]
                             await del_it.edit_text(
                                 "**GUploading:** {}\n**[{}{}]** **{}%**\n{} **of** {}\n**Speed:** {}"
-                                "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
-                                                           finished_str, unfinished_str, int(percent[:-1]), current,
-                                                           total, speed, eta))
+                                "/sec\n**ETA:** {}".format(
+                                    os.path.basename(file_upload),
+                                    finished_str,
+                                    unfinished_str,
+                                    int(percent[:-1]),
+                                    current,
+                                    total,
+                                    speed,
+                                    eta,
+                                )
+                            )
                     except:
                         continue
 
-        await del_it.edit_text('Successfully uploaded {}. Generating links now..'.format(os.path.basename(file_upload)))
+        await del_it.edit_text(
+            "Successfully uploaded {}. Generating links now..".format(
+                os.path.basename(file_upload)
+            )
+        )
 
         gk_file = re.escape(os.path.basename(file_upload))
         LOGGER.info(gk_file)
@@ -226,9 +263,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             tam_link = requests.utils.requote_uri(indexurl)
             LOGGER.info(tam_link)
             button.append(
-                pyrogram.InlineKeyboardButton(
-                    text="⚡ Index Link", url=f"{tam_link}"
-                )
+                pyrogram.InlineKeyboardButton(text="⚡ Index Link", url=f"{tam_link}")
             )
         button_markup = pyrogram.InlineKeyboardMarkup([button])
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
@@ -236,10 +271,12 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             f"Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\nSize: {gjay}",
             reply_markup=button_markup,
         )
-        if credit != 'gopal':
+        if credit != "gopal":
             channel_id = str(message.chat.id)[4:]
-            await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
-                                   disable_web_page_preview=True)
+            await credit.edit_text(
+                f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
+                disable_web_page_preview=True,
+            )
         os.remove(file_upload)
         await del_it.delete()
         if not is_gytdl:
@@ -247,9 +284,13 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
     else:
         tt = os.path.join(destination, os.path.basename(file_upload))
         LOGGER.info(tt)
-        command = f"""rclone copy "{file_upload}" "{gUP}:{tt}" --config=rclone.conf -P"""
+        command = (
+            f"""rclone copy "{file_upload}" "{gUP}:{tt}" --config=rclone.conf -P"""
+        )
         LOGGER.info(command)
-        with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as p:
+        with Popen(
+            command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True
+        ) as p:
             for b in p.stdout:
                 now = time.time()
                 diff = now - start
@@ -260,23 +301,50 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
                             current = re.search(":(.*?)/", txt).group(1).strip()
                             total = re.search("/(.*?),", txt).group(1).strip()
                             percent = re.search(",(.*?),", txt).group(1).strip()
-                            if percent == '-':
-                                percent = '0%'
+                            if percent == "-":
+                                percent = "0%"
                             finished_str = "".join(
-                                [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent[:-1]) / 4))])
+                                [
+                                    FINISHED_PROGRESS_STR
+                                    for i in range(math.floor(int(percent[:-1]) / 4))
+                                ]
+                            )
                             unfinished_str = "".join(
-                                [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent[:-1]) / 4))])
-                            speed = re.search(",(.*?)/s", txt).group(1).split(',')[1].strip()
-                            eta = re.findall('ETA .*', txt)[0].split(' ')[1]
+                                [
+                                    UN_FINISHED_PROGRESS_STR
+                                    for i in range(
+                                        25 - math.floor(int(percent[:-1]) / 4)
+                                    )
+                                ]
+                            )
+                            speed = (
+                                re.search(",(.*?)/s", txt)
+                                .group(1)
+                                .split(",")[1]
+                                .strip()
+                            )
+                            eta = re.findall("ETA .*", txt)[0].split(" ")[1]
                             await del_it.edit_text(
                                 "**GUploading:** {}\n**[{}{}]** **{}%**\n{} **of** {}\n**Speed:** {}"
-                                "/sec\n**ETA:** {}".format(os.path.basename(file_upload),
-                                                           finished_str, unfinished_str, int(percent[:-1]), current,
-                                                           total, speed, eta))
+                                "/sec\n**ETA:** {}".format(
+                                    os.path.basename(file_upload),
+                                    finished_str,
+                                    unfinished_str,
+                                    int(percent[:-1]),
+                                    current,
+                                    total,
+                                    speed,
+                                    eta,
+                                )
+                            )
                     except:
                         continue
 
-        await del_it.edit_text('Successfully uploaded {}. Generating links now..'.format(os.path.basename(file_upload)))
+        await del_it.edit_text(
+            "Successfully uploaded {}. Generating links now..".format(
+                os.path.basename(file_upload)
+            )
+        )
         g_file = re.escape(os.path.basename(file_upload))
         LOGGER.info(g_file)
         with open("filter1.txt", "w+", encoding="utf-8") as filter1:
@@ -312,9 +380,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             tam_link = requests.utils.requote_uri(indexurl)
             LOGGER.info(tam_link)
             button.append(
-                pyrogram.InlineKeyboardButton(
-                    text="⚡ Index Link", url=f"{tam_link}"
-                )
+                pyrogram.InlineKeyboardButton(text="⚡ Index Link", url=f"{tam_link}")
             )
         button_markup = pyrogram.InlineKeyboardMarkup([button])
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
@@ -322,10 +388,12 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
             f"Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\n💾 Size: {gjay}",
             reply_markup=button_markup,
         )
-        if credit != 'gopal':
+        if credit != "gopal":
             channel_id = str(message.chat.id)[4:]
-            await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
-                                   disable_web_page_preview=True)
+            await credit.edit_text(
+                f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
+                disable_web_page_preview=True,
+            )
         shutil.rmtree(file_upload)
         await del_it.delete()
         if not is_gytdl:
@@ -333,7 +401,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id, credit='gopal',
 
 
 async def upload_single_file(
-        message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb
+    message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb
 ):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     local_file_name = str(Path(local_file_name).resolve())
@@ -357,7 +425,12 @@ async def upload_single_file(
             message_for_progress_display = await message.reply_text(
                 "Starting upload of {}".format(os.path.basename(local_file_name))
             )
-            prog = Progress(from_user, client, message_for_progress_display, os.path.basename(local_file_name))
+            prog = Progress(
+                from_user,
+                client,
+                message_for_progress_display,
+                os.path.basename(local_file_name),
+            )
         sent_message = await message.reply_document(
             document=local_file_name,
             thumb=thumb,
@@ -387,7 +460,12 @@ async def upload_single_file(
                 message_for_progress_display = await message.reply_text(
                     "Starting upload of {}".format(os.path.basename(local_file_name))
                 )
-                prog = Progress(from_user, client, message_for_progress_display, os.path.basename(local_file_name))
+                prog = Progress(
+                    from_user,
+                    client,
+                    message_for_progress_display,
+                    os.path.basename(local_file_name),
+                )
             if local_file_name.upper().endswith(("MKV", "MP4", "WEBM", "M4V", "3GP")):
                 duration = 0
                 try:

@@ -12,7 +12,7 @@ async def create_archive(input_directory):
         # #BlameTelegram
         suffix_extention_length = 1 + 3 + 1 + 2
         if len(base_dir_name) > (64 - suffix_extention_length):
-            compressed_file_name = base_dir_name[0: (64 - suffix_extention_length)]
+            compressed_file_name = base_dir_name[0 : (64 - suffix_extention_length)]
             compressed_file_name += ".tar.gz"
         # fix for https://t.me/c/1434259219/13344
         file_genertor_command = [
@@ -44,7 +44,9 @@ async def create_zip(input_directory):
     if os.path.isdir(input_directory):
         base_dir_name = os.path.basename(input_directory)
         compressed_file_name = f"{base_dir_name}.zip"
-        file_genertor_command = f"""cd "{input_directory}" && zip -r "/app/{compressed_file_name}" *"""
+        file_genertor_command = (
+            f"""cd "{input_directory}" && zip -r "/app/{compressed_file_name}" *"""
+        )
         process = await asyncio.create_subprocess_shell(
             file_genertor_command,
             # stdout must a pipe to be accessible as process.stdout
@@ -70,7 +72,9 @@ async def create_tar(input_directory):
     if os.path.isdir(input_directory):
         base_dir_name = os.path.basename(input_directory)
         compressed_file_name = f"{base_dir_name}.tar"
-        file_genertor_command = f"""tar -cvf /app/{compressed_file_name} -C {input_directory} ."""
+        file_genertor_command = (
+            f"""tar -cvf /app/{compressed_file_name} -C {input_directory} ."""
+        )
         process = await asyncio.create_subprocess_shell(
             file_genertor_command,
             # stdout must a pipe to be accessible as process.stdout

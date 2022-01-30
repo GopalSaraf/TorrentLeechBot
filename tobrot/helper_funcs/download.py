@@ -21,10 +21,17 @@ async def down_load_media_f(client, message):
         if message.reply_to_message is not None:
             try:
                 m = message.reply_to_message
-                media = m.document or m.video or m.audio or m.voice or m.video_note or m.animation
+                media = (
+                    m.document
+                    or m.video
+                    or m.audio
+                    or m.voice
+                    or m.video_note
+                    or m.animation
+                )
                 filename = media.file_name
             except:
-                filename = ''
+                filename = ""
             start_t = datetime.now()
             download_location = str(Path().resolve()) + "/"
             c_time = time.time()
@@ -63,7 +70,9 @@ async def down_load_media_f(client, message):
                     LOGGER.info(
                         f"Can't extract {os.path.basename(the_real_download_location)}, Uploading the same file"
                     )
-            await upload_to_gdrive(the_real_download_location_g, mess_age, message, user_id)
+            await upload_to_gdrive(
+                the_real_download_location_g, mess_age, message, user_id
+            )
         else:
             await mess_age.edit_text(
                 "Reply to a Telegram Media, to upload to the GDrive. If you want to rename and upload then menion name after command giving space."
@@ -76,20 +85,24 @@ async def down_load_media_f(client, message):
         if len(message.command) > 1:
             msg_list = message.text.strip().split(" ")
             file, mess_age = await download_tg(client, message)
-            if msg_list[-1].upper().endswith(("MKV", "MP4", "WEBM", "MP3", "M4A", "FLAC", "WAV")):
-                new_name = (
-                        str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
-                )
+            if (
+                msg_list[-1]
+                .upper()
+                .endswith(("MKV", "MP4", "WEBM", "MP3", "M4A", "FLAC", "WAV"))
+            ):
+                new_name = str(Path().resolve()) + "/" + " ".join(msg_list[1:])
             else:
                 try:
-                    file_ext = str(file).split('.')[-1]
+                    file_ext = str(file).split(".")[-1]
                     new_name = (
-                            str(Path().resolve()) + "/" + ' '.join(msg_list[1:]) + '.' + file_ext
+                        str(Path().resolve())
+                        + "/"
+                        + " ".join(msg_list[1:])
+                        + "."
+                        + file_ext
                     )
                 except:
-                    new_name = (
-                            str(Path().resolve()) + "/" + ' '.join(msg_list[1:])
-                    )
+                    new_name = str(Path().resolve()) + "/" + " ".join(msg_list[1:])
             try:
                 if file:
                     os.rename(file, new_name)
@@ -110,10 +123,17 @@ async def download_tg(client, message):
     if message.reply_to_message is not None:
         try:
             m = message.reply_to_message
-            media = m.document or m.video or m.audio or m.voice or m.video_note or m.animation
+            media = (
+                m.document
+                or m.video
+                or m.audio
+                or m.voice
+                or m.video_note
+                or m.animation
+            )
             filename = media.file_name
         except:
-            filename = ''
+            filename = ""
         start_t = datetime.now()
         download_location = str(Path("./").resolve()) + "/"
         c_time = time.time()

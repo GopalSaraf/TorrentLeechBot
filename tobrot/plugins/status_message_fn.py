@@ -9,8 +9,19 @@ import traceback
 
 # import psutil
 
-from tobrot import AUTH_CHANNEL, BOT_START_TIME, LOGGER, MAX_MESSAGE_LENGTH, user_specific_config, gid_dict, \
-    EDIT_SLEEP_TIME_OUT, OWNER_ID, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR, BOT_START_DATETIME
+from tobrot import (
+    AUTH_CHANNEL,
+    BOT_START_TIME,
+    LOGGER,
+    MAX_MESSAGE_LENGTH,
+    user_specific_config,
+    gid_dict,
+    EDIT_SLEEP_TIME_OUT,
+    OWNER_ID,
+    FINISHED_PROGRESS_STR,
+    UN_FINISHED_PROGRESS_STR,
+    BOT_START_DATETIME,
+)
 from tobrot.helper_funcs.admin_check import AdminCheck
 
 # the logging things
@@ -23,12 +34,16 @@ from pyrogram.errors import FloodWait, MessageNotModified, MessageIdInvalid
 
 
 async def upload_as_doc(client, message):
-    user_specific_config[message.from_user.id] = UserDynaConfig(message.from_user.id, True)
+    user_specific_config[message.from_user.id] = UserDynaConfig(
+        message.from_user.id, True
+    )
     await message.reply_text("**🗞 Your Files Will Be Uploaded As Document 📁**")
 
 
 async def upload_as_video(client, message):
-    user_specific_config[message.from_user.id] = UserDynaConfig(message.from_user.id, False)
+    user_specific_config[message.from_user.id] = UserDynaConfig(
+        message.from_user.id, False
+    )
     await message.reply_text("**🗞 Your Files Will Be Uploaded As Streamable 🎞**")
 
 
@@ -65,10 +80,23 @@ async def status_message_f(client, message):
                     msgg = f"<b>Peers:</b> {file.connections} | <b>Seeders:</b> {file.num_seeders}"
                 msg += f"\n<b>{downloading_dir_name}</b>"
                 msg += "\n<b>[{}{}]</b> <b>{}</b>".format(
-                    "".join([FINISHED_PROGRESS_STR for i in range(math.floor(float(file.progress_string()[:-1]) / 4))]),
-                    "".join([UN_FINISHED_PROGRESS_STR for i in
-                             range(25 - math.floor(float(file.progress_string()[:-1]) / 4))]),
-                    file.progress_string()
+                    "".join(
+                        [
+                            FINISHED_PROGRESS_STR
+                            for i in range(
+                                math.floor(float(file.progress_string()[:-1]) / 4)
+                            )
+                        ]
+                    ),
+                    "".join(
+                        [
+                            UN_FINISHED_PROGRESS_STR
+                            for i in range(
+                                25 - math.floor(float(file.progress_string()[:-1]) / 4)
+                            )
+                        ]
+                    ),
+                    file.progress_string(),
                 )
                 msg += f"\n<b>Status</b>: {file.completed_length_string()} <b>of</b> {file.total_length_string()}"
                 msg += f"\n<b>Speed</b>: {file.download_speed_string()}"
@@ -111,7 +139,7 @@ async def status_message_f(client, message):
         else:
             if msg != prev_mess:
                 try:
-                    await to_edit.edit(msg, parse_mode='html')
+                    await to_edit.edit(msg, parse_mode="html")
                 except MessageIdInvalid as df:
                     break
                 except MessageNotModified as ep:
@@ -331,8 +359,8 @@ async def upload_log_file(client, message):
 
 async def list_fn(client, message):
     try:
-        to_srch = message.text.split(' ', maxsplit=1)[1]
-        to_del = await message.reply('Searching...')
+        to_srch = message.text.split(" ", maxsplit=1)[1]
+        to_del = await message.reply("Searching...")
         listing = ListHelper(message)
         msg, button = await listing.drive_list(to_srch)
         if button:
@@ -341,13 +369,15 @@ async def list_fn(client, message):
             await to_del.edit(f"No result found for <code>{to_srch}</code>.")
 
     except IndexError:
-        await message.reply('Send a search key along with command. Like <code>/list avengers</code>')
+        await message.reply(
+            "Send a search key along with command. Like <code>/list avengers</code>"
+        )
 
 
 async def full_list_fn(client, message):
     try:
-        to_srch = message.text.split(' ', maxsplit=1)[1]
-        to_del = await message.reply('Searching...')
+        to_srch = message.text.split(" ", maxsplit=1)[1]
+        to_del = await message.reply("Searching...")
         listing = ListHelper(message)
         try:
             try:
@@ -362,7 +392,9 @@ async def full_list_fn(client, message):
             await to_del.edit(f"No result found for **{to_srch}**.")
 
     except IndexError:
-        await message.reply('Send a search key along with command. Like <code>/completelist avengers</code>')
+        await message.reply(
+            "Send a search key along with command. Like <code>/completelist avengers</code>"
+        )
 
 
 async def stats_message_fn(client, message):
@@ -388,7 +420,6 @@ async def stats_message_fn(client, message):
         # f"<b>CPU Usage:</b> {cpu}%\n"
         # f"<b>Downloaded Data:</b> {recv} 🔻\n"
         # f"<b>Uploaded Data:</b> {sent} 🔺"
-
     )
 
     await message.reply_text(msg, quote=True)

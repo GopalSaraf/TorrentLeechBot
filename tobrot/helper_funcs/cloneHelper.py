@@ -15,14 +15,20 @@ from tobrot import (
     EDIT_SLEEP_TIME_OUT,
     INDEX_LINK,
     LOGGER,
-    RCLONE_CONFIG, FINISHED_PROGRESS_STR, UN_FINISHED_PROGRESS_STR,
+    RCLONE_CONFIG,
+    FINISHED_PROGRESS_STR,
+    UN_FINISHED_PROGRESS_STR,
 )
 
 import re
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
 
-from tobrot.helper_funcs.create_compressed_archive import create_zip, create_tar, create_archive
+from tobrot.helper_funcs.create_compressed_archive import (
+    create_zip,
+    create_tar,
+    create_archive,
+)
 from tobrot.helper_funcs.upload_to_tg import upload_to_gdrive
 
 
@@ -34,11 +40,10 @@ def getIdFromUrl(link: str):
             raise IndexError("GDrive ID not found.")
         return res.group(5)
     parsed = urlparse.urlparse(link)
-    return parse_qs(parsed.query)['id'][0]
+    return parse_qs(parsed.query)["id"][0]
 
 
 class CloneHelper:
-
     def __init__(self, mess):
         self.g_id = ""
         self.mess = mess
@@ -68,12 +73,12 @@ class CloneHelper:
         if rep_msg:
             txt = rep_msg.text
         else:
-            txt = ' '.join(mes.text.split(' ')[1:])
+            txt = " ".join(mes.text.split(" ")[1:])
         LOGGER.info(txt)
         mess = txt.split(" ", maxsplit=1)
         self.link = mess[0]
         if len(mess) == 2:
-            if '//' in mess[0]:
+            if "//" in mess[0]:
                 self.g_id = getIdFromUrl(mess[0])
             else:
                 self.g_id = mess[0]
@@ -82,7 +87,7 @@ class CloneHelper:
             self.title = mess[1]
             LOGGER.info(self.name)
         else:
-            if '//' in mess[0]:
+            if "//" in mess[0]:
                 self.g_id = getIdFromUrl(mess[0])
             else:
                 self.g_id = mess[0]
@@ -96,17 +101,30 @@ class CloneHelper:
         else:
             drive_link = self.link
             try:
-                if 'export=download' in drive_link:
+                if "export=download" in drive_link:
                     drive_link = "https://drive.google.com/open?id=" + self.g_id
                 html_text = requests.get(drive_link).text
-                soup = BeautifulSoup(html_text, 'lxml')
-                title = soup.find('title').text
-                if title == 'Meet Google Drive – One place for all your files':
+                soup = BeautifulSoup(html_text, "lxml")
+                title = soup.find("title").text
+                if title == "Meet Google Drive – One place for all your files":
                     self.is_link_public = False
-                    LOGGER.info(f'Publicly Unavailable {drive_link}')
+                    LOGGER.info(f"Publicly Unavailable {drive_link}")
                 else:
                     self.title = title[:-15]
-                    if not self.title.upper().endswith(("MKV", "MP4", "WEBM", "MP3", "M4A", "FLAC", "WAV", "ZIP", "TAR", "RAR")):
+                    if not self.title.upper().endswith(
+                        (
+                            "MKV",
+                            "MP4",
+                            "WEBM",
+                            "MP3",
+                            "M4A",
+                            "FLAC",
+                            "WAV",
+                            "ZIP",
+                            "TAR",
+                            "RAR",
+                        )
+                    ):
                         self.name = self.title
             except:
                 pass
@@ -179,7 +197,9 @@ class CloneHelper:
                 ]
                 LOGGER.info(g_a_u)
                 gau_tam = await asyncio.create_subprocess_exec(
-                    *g_a_u, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+                    *g_a_u,
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE,
                 )
                 gau, tam = await gau_tam.communicate()
                 LOGGER.info(gau)
@@ -190,7 +210,9 @@ class CloneHelper:
                 if _drive == "folderba":
                     gautii = f"https://drive.google.com/folderview?id={gautam}"
                 else:
-                    gautii = f"https://drive.google.com/file/d/{gautam}/view?usp=drivesdk"
+                    gautii = (
+                        f"https://drive.google.com/file/d/{gautam}/view?usp=drivesdk"
+                    )
 
                 LOGGER.info(gautii)
                 gau_link = re.search("(?P<url>https?://[^\s]+)", gautii).group("url")
@@ -230,7 +252,9 @@ class CloneHelper:
                 ]
                 LOGGER.info(g_cmd)
                 gaut_am = await asyncio.create_subprocess_exec(
-                    *g_cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+                    *g_cmd,
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE,
                 )
                 gaut, am = await gaut_am.communicate()
                 g_autam = gaut.decode("utf-8")
@@ -247,8 +271,7 @@ class CloneHelper:
             pass
 
 
-class TarFolder():
-
+class TarFolder:
     def __init__(self, mess):
         self.g_id = ""
         self.mess = mess
@@ -280,12 +303,12 @@ class TarFolder():
         if rep_msg:
             txt = rep_msg.text
         else:
-            txt = ' '.join(mes.text.split(' ')[1:])
+            txt = " ".join(mes.text.split(" ")[1:])
         LOGGER.info(txt)
         mess = txt.split(" ", maxsplit=1)
         self.link = mess[0]
         if len(mess) == 2:
-            if '//' in mess[0]:
+            if "//" in mess[0]:
                 self.g_id = getIdFromUrl(mess[0])
             else:
                 self.g_id = mess[0]
@@ -293,7 +316,7 @@ class TarFolder():
             self.name = mess[1]
             LOGGER.info(self.name)
         else:
-            if '//' in mess[0]:
+            if "//" in mess[0]:
                 self.g_id = getIdFromUrl(mess[0])
             else:
                 self.g_id = mess[0]
@@ -308,14 +331,14 @@ class TarFolder():
             drive_link = self.link
             try:
                 html_text = requests.get(drive_link).text
-                soup = BeautifulSoup(html_text, 'lxml')
-                title = soup.find('title').text
-                if title == 'Meet Google Drive – One place for all your files':
+                soup = BeautifulSoup(html_text, "lxml")
+                title = soup.find("title").text
+                if title == "Meet Google Drive – One place for all your files":
                     self.is_link_public = False
-                    LOGGER.info(f'Publicly Unavailable {drive_link}')
+                    LOGGER.info(f"Publicly Unavailable {drive_link}")
                 else:
                     self.name = title[:-15]
-                    LOGGER.info(f'Title: {self.name}')
+                    LOGGER.info(f"Title: {self.name}")
             except:
                 pass
 
@@ -327,8 +350,10 @@ class TarFolder():
             self.download_location = download_location
             cmd = f"""rclone copy {self.dname}: --drive-root-folder-id {self.g_id} "{download_location}" --config=rclone_bak.conf --drive-acknowledge-abuse -P"""
             LOGGER.info(cmd)
-            with Popen(cmd, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as p:
-                prog = ''
+            with Popen(
+                cmd, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True
+            ) as p:
+                prog = ""
                 for b in p.stdout:
                     now = time.time()
                     diff = now - start
@@ -339,33 +364,55 @@ class TarFolder():
                                 current = re.search(":(.*?)/", txt).group(1).strip()
                                 total = re.search("/(.*?)iB,", txt).group(1).strip()
                                 percent = re.search(",(.*?)%", txt).group(1).strip()
-                                if percent == '-':
+                                if percent == "-":
                                     percent = 0
                                 finished_str = "".join(
-                                    [FINISHED_PROGRESS_STR for i in range(math.floor(int(percent) / 4))])
+                                    [
+                                        FINISHED_PROGRESS_STR
+                                        for i in range(math.floor(int(percent) / 4))
+                                    ]
+                                )
                                 unfinished_str = "".join(
-                                    [UN_FINISHED_PROGRESS_STR for i in range(25 - math.floor(int(percent) / 4))])
+                                    [
+                                        UN_FINISHED_PROGRESS_STR
+                                        for i in range(
+                                            25 - math.floor(int(percent) / 4)
+                                        )
+                                    ]
+                                )
                                 speed = re.search("%,(.*?)iB/s", txt).group(1)
-                                eta = re.findall('ETA .*', txt)[0].split(' ')[1]
+                                eta = re.findall("ETA .*", txt)[0].split(" ")[1]
                             except:
                                 pass
                             await self.lsg.edit_text(
                                 "**Downloading:** {}\n**[{}{}]** **{}%**\n{} **of** {}iB\n**Speed:** {}iB"
-                                "/sec\n**ETA:** {}".format(os.path.basename(self.name),
-                                                           finished_str, unfinished_str, int(percent), current,
-                                                           total, speed, eta))
+                                "/sec\n**ETA:** {}".format(
+                                    os.path.basename(self.name),
+                                    finished_str,
+                                    unfinished_str,
+                                    int(percent),
+                                    current,
+                                    total,
+                                    speed,
+                                    eta,
+                                )
+                            )
 
         else:
             await self.mess.reply_text("Link provided is not publicly available!")
 
     async def create_compressed(self, is_zip, is_tar):
         if self.is_link_public:
-            await self.lsg.edit_text(f"Successfully Downloaded {self.name}..\nCreating archive now..")
+            await self.lsg.edit_text(
+                f"Successfully Downloaded {self.name}..\nCreating archive now.."
+            )
             if is_zip:
                 try:
                     zipped_file = await create_zip(self.download_location)
                 except:
-                    zipped_file = shutil.make_archive(self.name, 'zip', self.download_location)
+                    zipped_file = shutil.make_archive(
+                        self.name, "zip", self.download_location
+                    )
                     shutil.rmtree(self.download_location)
             elif is_tar:
                 try:
@@ -374,7 +421,9 @@ class TarFolder():
                     zipped_file = await create_archive(self.download_location)
             LOGGER.info(zipped_file)
             self.zipped_file = zipped_file
-            await self.lsg.edit_text(f"Successfully Downloaded and archived {self.name}..\nUploading now..")
+            await self.lsg.edit_text(
+                f"Successfully Downloaded and archived {self.name}..\nUploading now.."
+            )
 
     async def upload(self):
         await upload_to_gdrive(self.zipped_file, self.lsg, self.mess, self.u_id)

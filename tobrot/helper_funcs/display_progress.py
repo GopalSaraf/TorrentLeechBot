@@ -20,7 +20,14 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
 class Progress:
-    def __init__(self, from_user, client, mess: Message, filename_bygopal='', is_downloading=False):
+    def __init__(
+        self,
+        from_user,
+        client,
+        mess: Message,
+        filename_bygopal="",
+        is_downloading=False,
+    ):
         self._from_user = from_user
         self._client = client
         self._mess = mess
@@ -90,12 +97,16 @@ class Progress:
                 round(percentage, 2),
             )
 
-            tmp = progress1 + progress2 + "{0} **of** {1}\n**Speed:** {2}/sec\n**ETA:** {3}\n".format(
-                humanbytes(current),
-                humanbytes(total),
-                humanbytes(speed),
-                # elapsed_time if elapsed_time != '' else "0 s",
-                estimated_total_time if estimated_total_time != "" else "0 s",
+            tmp = (
+                progress1
+                + progress2
+                + "{0} **of** {1}\n**Speed:** {2}/sec\n**ETA:** {3}\n".format(
+                    humanbytes(current),
+                    humanbytes(total),
+                    humanbytes(speed),
+                    # elapsed_time if elapsed_time != '' else "0 s",
+                    estimated_total_time if estimated_total_time != "" else "0 s",
+                )
             )
             try:
                 if not self._mess.photo:
@@ -118,7 +129,7 @@ def humanbytes(size):
     # 2**10 = 1024
     if not size:
         return ""
-    power = 2 ** 10
+    power = 2**10
     n = 0
     Dic_powerN = {0: " ", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
     while size > power:
@@ -133,10 +144,10 @@ def TimeFormatter(milliseconds: int) -> str:
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     tmp = (
-            ((str(days) + "d") if days else "")
-            + ((str(hours) + "h") if hours else "")
-            + ((str(minutes) + "m") if minutes else "")
-            + ((str(seconds) + "s") if seconds else "")
-            + ((str(milliseconds) + "ms") if milliseconds else "")
+        ((str(days) + "d") if days else "")
+        + ((str(hours) + "h") if hours else "")
+        + ((str(minutes) + "m") if minutes else "")
+        + ((str(seconds) + "s") if seconds else "")
+        + ((str(milliseconds) + "ms") if milliseconds else "")
     )
     return tmp

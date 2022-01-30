@@ -25,7 +25,7 @@ from tobrot.helper_funcs.upload_to_tg import upload_to_gdrive, upload_to_tg
 from tobrot.helper_funcs.direct_link_generator import direct_link_generator
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
-sys.setrecursionlimit(10 ** 4)
+sys.setrecursionlimit(10**4)
 
 
 def KopyasizListe(string):
@@ -38,15 +38,15 @@ def Virgullustring(string):
     string = string.replace("\n\n", ",")
     string = string.replace("\n", ",")
     string = string.replace(",,", ",")
-    string = string.rstrip(',')
-    string = string.lstrip(',')
+    string = string.rstrip(",")
+    string = string.lstrip(",")
     return string
 
 
 tracker_urlsss = [
     "https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/all.txt",
     "https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt",
-    "https://raw.githubusercontent.com/DeSireFire/animeTrackerList/master/AT_all.txt"
+    "https://raw.githubusercontent.com/DeSireFire/animeTrackerList/master/AT_all.txt",
 ]
 tumtorrenttrackerstringi = ""
 sonstringtrckr = ""
@@ -56,7 +56,7 @@ for i in range(len(tracker_urlsss)):
     tumtorrenttrackerstringi += "\n"
     tumtorrenttrackerstringi += response.text
 trackerlistemiz = KopyasizListe(Virgullustring(tumtorrenttrackerstringi))
-sonstringtrckr = ','.join(trackerlistemiz)
+sonstringtrckr = ",".join(trackerlistemiz)
 
 
 # LOGGER.info(sonstringtrckr)
@@ -137,9 +137,7 @@ def add_torrent(aria_instance, torrent_file_path):
         except Exception as e:
             return (
                 False,
-                "**FAILED** \n"
-                + str(e)
-                + " \n<b> Your Link is Dead </b>",
+                "**FAILED** \n" + str(e) + " \n<b> Your Link is Dead </b>",
             )
         else:
             return True, "" + download.gid + ""
@@ -157,16 +155,18 @@ def add_url(aria_instance, text_url, c_file_name):
     # or "cloud.mail.ru" in text_url \  doesnt work.
     # or "github.com" in text_url \   doesnt work.
     #
-    if "zippyshare.com" in text_url \
-            or "osdn.net" in text_url \
-            or "mediafire.com" in text_url \
-            or "yadi.sk" in text_url \
-            or "racaty.net" in text_url:
+    if (
+        "zippyshare.com" in text_url
+        or "osdn.net" in text_url
+        or "mediafire.com" in text_url
+        or "yadi.sk" in text_url
+        or "racaty.net" in text_url
+    ):
         try:
             urisitring = direct_link_generator(text_url)
             uris = [urisitring]
         except DirectDownloadLinkException as e:
-            LOGGER.info(f'{text_url}: {e}')
+            LOGGER.info(f"{text_url}: {e}")
     else:
         uris = [text_url]
     # Add URL Into Queue
@@ -182,28 +182,26 @@ def add_url(aria_instance, text_url, c_file_name):
 
 
 async def call_apropriate_function(
-        aria_instance,
-        incoming_link,
-        c_file_name,
-        sent_message_to_update_tg_p,
-        is_zip,
-        cstom_file_name,
-        is_cloud,
-        is_unzip,
-        is_file,
-        user_message,
-        client,
-        credit
+    aria_instance,
+    incoming_link,
+    c_file_name,
+    sent_message_to_update_tg_p,
+    is_zip,
+    cstom_file_name,
+    is_cloud,
+    is_unzip,
+    is_file,
+    user_message,
+    client,
+    credit,
 ):
     if not is_file:
         if incoming_link.lower().startswith("magnet:"):
-            sagtus, err_message = add_magnet(
-                aria_instance, incoming_link, c_file_name)
+            sagtus, err_message = add_magnet(aria_instance, incoming_link, c_file_name)
         elif incoming_link.lower().endswith(".torrent"):
             sagtus, err_message = add_torrent(aria_instance, incoming_link)
         else:
-            sagtus, err_message = add_url(
-                aria_instance, incoming_link, c_file_name)
+            sagtus, err_message = add_url(aria_instance, incoming_link, c_file_name)
         if not sagtus:
             return sagtus, err_message
         LOGGER.info(err_message)
@@ -232,7 +230,9 @@ async def call_apropriate_function(
         com_g = file.is_complete
     else:
         await sent_message_to_update_tg_p.delete()
-        to_upload_file, sent_message_to_update_tg_p = await download_tg(client=client, message=user_message)
+        to_upload_file, sent_message_to_update_tg_p = await download_tg(
+            client=client, message=user_message
+        )
         if not to_upload_file:
             return True, None
         com_g = True
@@ -256,8 +256,7 @@ async def call_apropriate_function(
     if to_upload_file:
         if CUSTOM_FILE_NAME:
             if os.path.isfile(to_upload_file):
-                os.rename(to_upload_file,
-                          f"{CUSTOM_FILE_NAME}{to_upload_file}")
+                os.rename(to_upload_file, f"{CUSTOM_FILE_NAME}{to_upload_file}")
                 to_upload_file = f"{CUSTOM_FILE_NAME}{to_upload_file}"
             else:
                 for root, _, files in os.walk(to_upload_file):
@@ -277,11 +276,22 @@ async def call_apropriate_function(
     if com_g:
         if is_cloud:
             await upload_to_gdrive(
-                to_upload_file, sent_message_to_update_tg_p, user_message, user_id, credit
+                to_upload_file,
+                sent_message_to_update_tg_p,
+                user_message,
+                user_id,
+                credit,
             )
         else:
             final_response = await upload_to_tg(
-                sent_message_to_update_tg_p, to_upload_file, user_id, response, client, False, None, True
+                sent_message_to_update_tg_p,
+                to_upload_file,
+                user_id,
+                response,
+                client,
+                False,
+                None,
+                True,
             )
             if not final_response:
                 return True, None
@@ -309,8 +319,10 @@ async def call_apropriate_function(
                 msg = await user_message.reply_text(
                     text=message_to_send, quote=True, disable_web_page_preview=True
                 )
-                await credit.edit_text(f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
-                                       disable_web_page_preview=True)
+                await credit.edit_text(
+                    f"😊 Successfully Leeched [here](https://t.me/c/{channel_id}/{msg.message_id}).",
+                    disable_web_page_preview=True,
+                )
             except Exception as go:
                 LOGGER.error(go)
     return True, None
@@ -329,7 +341,8 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                             f"Cancelling downloading of {file.name} may be due to slow torrent"
                         )
                         await event.reply(
-                            f"Download cancelled :\n<code>{file.name}</code>\n\n #MetaDataError", quote=True
+                            f"Download cancelled :\n<code>{file.name}</code>\n\n #MetaDataError",
+                            quote=True,
                         )
                         file.remove(force=True, files=True)
                         return
@@ -353,7 +366,8 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 return
         except aria2p.client.ClientException:
             await event.reply(
-                f"Download cancelled :\n<code>{file.name} ({file.total_length_string()})</code>", quote=True
+                f"Download cancelled :\n<code>{file.name} ({file.total_length_string()})</code>",
+                quote=True,
             )
             return
         except MessageNotModified as ep:

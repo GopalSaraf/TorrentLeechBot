@@ -11,7 +11,7 @@ def extract_url_from_entity(entities: MessageEntity, text: str):
         elif entity.type == "url":
             o = entity.offset
             l = entity.length
-            url = text[o: o + l]
+            url = text[o : o + l]
     return url
 
 

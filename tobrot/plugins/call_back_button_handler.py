@@ -87,43 +87,41 @@ async def button(bot, update: CallbackQuery):
                 cache_time=0,
             )
 
-    if cb_data.startswith('help_msg'):
-        if 'only' in cb_data:
-            buttons = [
-                [
-                    InlineKeyboardButton('✖️Close', callback_data='close_help')
-                ]
-            ]
+    if cb_data.startswith("help_msg"):
+        if "only" in cb_data:
+            buttons = [[InlineKeyboardButton("✖️Close", callback_data="close_help")]]
         else:
             buttons = [
                 [
-                    InlineKeyboardButton('« Back', callback_data='original_help'),
-                    InlineKeyboardButton('✖️Close', callback_data='close_help')
+                    InlineKeyboardButton("« Back", callback_data="original_help"),
+                    InlineKeyboardButton("✖️Close", callback_data="close_help"),
                 ]
             ]
-        if 'help_msg_1' in cb_data:
+        if "help_msg_1" in cb_data:
             edit_text = HelpCommands.help_msg_1
-        if 'help_msg_2' in cb_data:
+        if "help_msg_2" in cb_data:
             edit_text = HelpCommands.help_msg_2
-        if 'help_msg_3' in cb_data:
+        if "help_msg_3" in cb_data:
             edit_text = HelpCommands.help_msg_3
-        if 'help_msg_4' in cb_data:
+        if "help_msg_4" in cb_data:
             edit_text = HelpCommands.help_msg_4
-        if 'help_msg_5' in cb_data:
+        if "help_msg_5" in cb_data:
             edit_text = HelpCommands.help_msg_5
-        if 'help_msg_6' in cb_data:
+        if "help_msg_6" in cb_data:
             edit_text = HelpCommands.help_msg_6
-        if 'help_msg_7' in cb_data:
+        if "help_msg_7" in cb_data:
             edit_text = HelpCommands.help_msg_7
-        if 'help_msg_8' in cb_data:
+        if "help_msg_8" in cb_data:
             edit_text = HelpCommands.help_msg_8
-        await update.message.edit_text(text=edit_text, reply_markup=InlineKeyboardMarkup(buttons))
+        await update.message.edit_text(
+            text=edit_text, reply_markup=InlineKeyboardMarkup(buttons)
+        )
 
-    if cb_data.startswith('close_help'):
+    if cb_data.startswith("close_help"):
         await update.message.reply_to_message.delete()
         await update.message.delete()
 
-    if cb_data.startswith('original_help'):
+    if cb_data.startswith("original_help"):
         await help_message_f(bot, update.message, is_cb=True)
 
     elif cb_data == "fuckingdo":
