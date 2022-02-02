@@ -113,9 +113,9 @@
 
 <p><a href="https://heroku.com/deploy?template=https://github.com/GopalSaraf/TorrentLeechBot/tree/master)"> <img src="https://www.herokucdn.com/deploy/button.svg" width="150"/></a></p>
     
-<h3>"Item could not be created" error on Heroku and how to overcome it</h3>
+## <strong>"Item could not be created"</strong> error on Heroku and how to overcome it
 
-## Solution :
+### Solution :
     Star and fork the repo
     Now go to your forked repo
     Click on README.md edit button
