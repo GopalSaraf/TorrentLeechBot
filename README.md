@@ -117,10 +117,10 @@
 ## <strong>"Item could not be created"</strong> error on Heroku and how to overcome it
 
 ### Solution :
-    Star and fork the repo
+    Star and fork this repo
     Now go to your forked repo
     Click on README.md edit button
-    Go to Deploy to Heroku section
+    Go to Deploy on Heroku section
     Replace GopalSaraf with your github username in link
     Commit the changes
     Deploy the bot
