@@ -117,12 +117,12 @@
 <details>
     <summary><b>Click Here For Solution of Error</b></summary>
 ```
-Star and fork the repo
-Now go to your forked repo
-Click on README.md edit button
-In Deploy to Heroku section, Replace GopalSaraf with your github username
-Commit the changes
-Deploy the bot
+star and fork the repo
+now go to your forked repo
+click on README.md edit button
+in Deploy to Heroku section, Replace GopalSaraf with your github username
+commit the changes
+deploy the bot
 ```
 
 </details>
