@@ -124,4 +124,5 @@ In Deploy to Heroku section, Replace GopalSaraf with your github username
 Commit the changes
 Deploy the bot
 ```
+
 </details>
