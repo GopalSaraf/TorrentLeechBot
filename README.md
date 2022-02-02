@@ -1,5 +1,5 @@
 # Telegram Leecher Bot
-## Update :  Fixed Heroku Deployment Problem 🙂 (OR [solution here](https://github.com/GopalSaraf/TorrentLeechBot#item-could-not-be-created-error-on-heroku-and-how-to-overcome-it))
+## Update :  Fixed Heroku Deployment Problem 🙂 (OR [solution here](#item-could-not-be-created-error-on-heroku-and-how-to-overcome-it))
 ### Note : If want some new features.. <a href="https://t.telegram.ind.in/gopalsaraf">DM me here</a> OR <a href="https://t.telegram.ind.in/torrentleechgs">Join here and ask</a>.
 <br>
 
@@ -120,7 +120,8 @@
     Star and fork the repo
     Now go to your forked repo
     Click on README.md edit button
-    In [Deploy to Heroku](https://github.com/GopalSaraf/TorrentLeechBot#deploy-on-heroku--) section, Replace GopalSaraf with your github username
+    Go to Deploy to Heroku section
+    Replace GopalSaraf with your github username
     Commit the changes
     Deploy the bot
 
