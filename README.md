@@ -121,7 +121,7 @@
     Now go to your forked repo
     Click on README.md edit button
     Go to Deploy to Heroku section
-    Replace GopalSaraf with your github username
+    Replace GopalSaraf with your github username in link
     Commit the changes
     Deploy the bot
 
