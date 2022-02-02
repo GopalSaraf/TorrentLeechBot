@@ -3,6 +3,8 @@
 ### Note : If want some new features.. <a href="https://t.telegram.ind.in/gopalsaraf">DM me here</a> OR <a href="https://t.telegram.ind.in/torrentleechgs">Join here and ask</a>.
 <br>
 
+.. contents::
+
 <img width=400px height=400px src="https://images.unsplash.com/photo-1562907550-096d3bf9b25c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80" alt="Bot logo"></a>
 
 <h2>Join <a href=https://t.telegram.ind.in/torrentleechgs>TorrentLeech Group</a> for demo!</h2>
@@ -110,9 +112,10 @@
 
 <h3>Deploy on Heroku :-</h3>
 
-<p><a href="https://heroku.com/deploy?template=https://github.com/GopalSaraf/TorrentLeech-Bot/tree/master)"> <img src="https://www.herokucdn.com/deploy/button.svg" width="150"/></a></p>
+<p><a href="https://heroku.com/deploy?template=https://github.com/GopalSaraf/TorrentLeechBot/tree/master)"> <img src="https://www.herokucdn.com/deploy/button.svg" width="150"/></a></p>
     
-<h3>"Item could not be created" error on Heroku </h3><h4>and how to overcome it</h4>
-
-
-
+<h3>"Item could not be created" error on Heroku and how to overcome it</h3>
+    Star and fork the repo
+    Now go to your forked repo
+    Click on README.md edit button
+    In 
