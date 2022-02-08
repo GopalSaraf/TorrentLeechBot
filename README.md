@@ -1,6 +1,6 @@
 # Telegram Leecher Bot
 ## Update :  Fixed Heroku Deployment Problem 🙂 (OR [solution here](#item-could-not-be-created-error-on-heroku-and-how-to-overcome-it))
-### Note : If want some new features.. <a href="https://t.telegram.ind.in/gopalsaraf">DM me here</a> OR <a href="https://t.telegram.ind.in/torrentleechgs">Join here and ask</a>.
+### Note : If want some new features.. [DM me here](https://t.telegram.ind.in/gopalsaraf) OR [Join here and ask](https://t.telegram.ind.in/torrentleechgs).
 <br>
 
 
@@ -114,7 +114,7 @@
 <p><a href="https://heroku.com/deploy?template=https://github.com/GopalSaraf/TorrentLeechBot/tree/master)"> <img src="https://www.herokucdn.com/deploy/button.svg" width="150"/></a></p>
 <br>
 
-## <strong>"Item could not be created"</strong> error on Heroku and how to overcome it
+## "Item could not be created" error on Heroku and how to overcome it
 
 ### Solution :
     Star and fork this repo
