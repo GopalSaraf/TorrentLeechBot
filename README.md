@@ -1,7 +1,8 @@
 # Telegram Leecher Bot
-## Update :  Fixed Heroku Deployment Problem 🙂
-### Note : If want some new features.. <a href="https://t.telegram.ind.in/gopalsaraf">DM me here</a> OR <a href="https://t.telegram.ind.in/torrentleechgs">Join here and ask</a>.
+## Update :  Fixed Heroku Deployment Problem 🙂 (OR [solution here](#item-could-not-be-created-error-on-heroku-and-how-to-overcome-it))
+### Note : If want some new features.. [DM me here](https://t.telegram.ind.in/gopalsaraf) OR [Join here and ask](https://t.telegram.ind.in/torrentleechgs).
 <br>
+
 
 <img width=400px height=400px src="https://images.unsplash.com/photo-1562907550-096d3bf9b25c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80" alt="Bot logo"></a>
 
@@ -108,8 +109,20 @@
 
 
 
-<h3>Deploy on Heroku :-</h3>
+## Deploy on Heroku :-
 
-<p><a href="https://heroku.com/deploy?template=https://github.com/GopalSaraf/TorrentLeech-Bot/tree/master)"> <img src="https://www.herokucdn.com/deploy/button.svg" width="150""/></a></p>
+<p><a href="https://heroku.com/deploy?template=https://github.com/GopalSaraf/TorrentLeechBot/tree/master)"> <img src="https://www.herokucdn.com/deploy/button.svg" width="150"/></a></p>
+<br>
+
+## "Item could not be created" error on Heroku and how to overcome it
+
+### Solution :
+    Star and fork this repo
+    Now go to your forked repo
+    Click on README.md edit button
+    Go to Deploy on Heroku section
+    Replace GopalSaraf with your github username in link
+    Commit the changes
+    Deploy the bot
 
 
