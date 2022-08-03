@@ -50,7 +50,7 @@ async def upload_as_video(client, message):
 async def status_message_f(client, messagesss):
     aria_i_p = await aria_start()
     # Show All Downloads
-    await message.reply_text("🗞 start 🎞")
+    #await message.reply_text("🗞 start 🎞")
     to_edit = await message.reply(".......")
     await message.delete()
     chat_id = int(message.chat.id)
